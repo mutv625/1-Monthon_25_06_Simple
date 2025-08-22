@@ -27,8 +27,8 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private readonly float GRAVITY_SCALE = 13f;
 
     // 目標速度、終端速度みたいなイメージ
-    [SerializeField, ReadOnly(true)] private float movementX;
-    [SerializeField, ReadOnly(true)] private float movementY;
+    [SerializeField] private float movementX;
+    [SerializeField] private float movementY;
 
     public void MoveX(float inputX)
     {

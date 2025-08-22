@@ -19,11 +19,11 @@ public class SkillExecutor : MonoBehaviour
         playerCore = GetComponent<PlayerCore>();
         
         playerCore.onSkillA
-            .Subscribe(_ => skillA.Execute(playerCore))
+            .Subscribe(_ => skillA.ExecuteSkill(playerCore))
             .AddTo(this);
 
         playerCore.onSkillB
-            .Subscribe(_ => skillB.Execute(playerCore))
+            .Subscribe(_ => skillB.ExecuteSkill(playerCore))
             .AddTo(this);
     }
 }

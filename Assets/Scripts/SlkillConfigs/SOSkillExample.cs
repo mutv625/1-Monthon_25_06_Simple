@@ -9,7 +9,7 @@ public class SOSkillExample : SOSkill
 
     [SerializeField] GameObject hitboxPrefab;
 
-    public override async void Execute(PlayerCore executor)
+    public override async void ExecuteSkill(PlayerCore executor)
     {
         GameObject hitboxInstance = Instantiate(hitboxPrefab, executor.transform);
         await Task.Delay(1000); // Simulate skill execution delay

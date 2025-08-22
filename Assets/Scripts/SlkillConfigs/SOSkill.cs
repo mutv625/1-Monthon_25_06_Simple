@@ -22,5 +22,5 @@ public abstract class SOSkill : ScriptableObject
     /// <param name="executor">
     /// スキルを実行するプレイヤー
     /// </param>
-    public abstract void Execute(PlayerCore executor);
+    public abstract void ExecuteSkill(PlayerCore executor);
 }   

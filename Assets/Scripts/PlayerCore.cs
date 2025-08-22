@@ -1,10 +1,18 @@
 using System.ComponentModel;
 using UnityEngine;
 using UniRx;
+using System;
+
+enum AttakingState {
+    None,
+    SkillA,
+    SkillB
+}
 
 public class PlayerCore : MonoBehaviour
 {
-    [SerializeField, ReadOnly(true)] private int playerId;
+    [Header("プレイヤー識別用")]
+    [SerializeField] private int playerId;
     public int PlayerId => playerId;
 
     public PlayerCore SetPlayerId(int id)
@@ -13,18 +21,29 @@ public class PlayerCore : MonoBehaviour
         return this;
     }
 
+
     // * フラグ管理
+    [Header("フラグ管理")]
+    [SerializeField] BoolReactiveProperty isAlive = new BoolReactiveProperty(true);
+    [SerializeField] BoolReactiveProperty isInvincible = new BoolReactiveProperty(false);
 
-    ReactiveProperty<bool> isAlive = new ReactiveProperty<bool>(true);
-    ReactiveProperty<bool> isCombo = new ReactiveProperty<bool>(false);
+    [SerializeField] BoolReactiveProperty isCombo = new BoolReactiveProperty(false);
+    [SerializeField] BoolReactiveProperty isHurting = new BoolReactiveProperty(false);
+    [SerializeField] ReactiveProperty<AttakingState> attackingState = new ReactiveProperty<AttakingState>(AttakingState.None);
+    [SerializeField] IntReactiveProperty jumpCount = new IntReactiveProperty(0);
+    [SerializeField] BoolReactiveProperty isAppearing = new BoolReactiveProperty(false);
+    [SerializeField] BoolReactiveProperty isDashing = new BoolReactiveProperty(false);
 
-    // TODO
+    [SerializeField] ReactiveProperty<Vector2> facingDirection = new ReactiveProperty<Vector2>(Vector2.right);
+
 
     // * 移動系ステータス
+    [Header("移動系ステータス")]
     [SerializeField] private float moveSpeedMult = 1.0f;
     [SerializeField] private float jumpForceMult = 1.0f;
     [SerializeField] private float fallSpeedTerm = 1.0f;
     [SerializeField] private float gravityMult = 1.0f;
+
 
     // * 移動系
     public Subject<float> onMove = new Subject<float>();

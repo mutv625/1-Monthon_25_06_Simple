@@ -13,7 +13,7 @@ public class FightingEntryPoint : MonoBehaviour
     public Subject<Unit> updateInFighting = new Subject<Unit>();
 
 
-    [SerializeField,ReadOnly(true)] private List<PlayerCore> players = new List<PlayerCore>();
+    [SerializeField] private List<PlayerCore> players = new List<PlayerCore>();
     [SerializeField] private List<SOKeyConfig> keyConfigs = new List<SOKeyConfig>();
 
     Initializer initializer;
