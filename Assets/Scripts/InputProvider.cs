@@ -3,7 +3,7 @@ using UniRx;
 
 public class InputProvider : MonoBehaviour
 {
-    private SOKeyConfig keyConfig;
+    [SerializeField] private SOKeyConfig keyConfig;
 
     private PlayerCore playerCore;
 

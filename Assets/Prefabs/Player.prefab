@@ -54,6 +54,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4787536096970456052}
   - component: {fileID: 7554605460664670587}
+  - component: {fileID: 6203081677519027741}
+  - component: {fileID: 1429017117695252107}
   - component: {fileID: 8841191457978838612}
   - component: {fileID: 3505680503156565954}
   - component: {fileID: 4173275202412738685}
@@ -122,6 +124,33 @@ MonoBehaviour:
   jumpForceMult: 1
   fallSpeedTerm: 1
   gravityMult: 1
+--- !u!114 &6203081677519027741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8743191278292100237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371f382b7a4b6104095c01aa19c518f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyConfig: {fileID: 0}
+--- !u!114 &1429017117695252107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8743191278292100237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f6e1991c70f48478884a71f6f53a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementX: 0
+  movementY: 0
 --- !u!114 &8841191457978838612
 MonoBehaviour:
   m_ObjectHideFlags: 0
