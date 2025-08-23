@@ -3,7 +3,7 @@ using UnityEngine;
 using UniRx;
 using System;
 
-enum AttakingState {
+public enum AttackingState {
     None,
     SkillA,
     SkillB
@@ -29,7 +29,7 @@ public class PlayerCore : MonoBehaviour
 
     [SerializeField] BoolReactiveProperty isCombo = new BoolReactiveProperty(false);
     [SerializeField] BoolReactiveProperty isHurting = new BoolReactiveProperty(false);
-    [SerializeField] ReactiveProperty<AttakingState> attackingState = new ReactiveProperty<AttakingState>(AttakingState.None);
+    [SerializeField] ReactiveProperty<AttackingState> attackingState = new ReactiveProperty<AttackingState>(AttackingState.None);
     [SerializeField] IntReactiveProperty jumpCount = new IntReactiveProperty(0);
     [SerializeField] BoolReactiveProperty isAppearing = new BoolReactiveProperty(false);
     [SerializeField] BoolReactiveProperty isDashing = new BoolReactiveProperty(false);
@@ -77,4 +77,7 @@ public class PlayerCore : MonoBehaviour
     {
         onSkillB.OnNext(Unit.Default);
     }
+
+    // * アニメーション用
+    
 }
