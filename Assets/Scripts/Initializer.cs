@@ -25,17 +25,10 @@ public class Initializer : MonoBehaviour
         playerMover.Activate(fightingEntryPoint);
     }
 
-    public void InitializeSkillExecutor(PlayerCore player, SOSkill[] skills)
+    public void InitializePlayerAnimator(PlayerCore player, FightingEntryPoint fightingEntryPoint, RuntimeAnimatorController animatorOverrideController)
     {
-        SkillExecutor skillExecutor = player.gameObject.AddComponent<SkillExecutor>();
-        skillExecutor.SetupSkills(skills);
-        skillExecutor.Activate();
+        PlayerAnimator playerAnimator = player.gameObject.AddComponent<PlayerAnimator>();
+        playerAnimator.SetAnimatorController(animatorOverrideController);
+        playerAnimator.Activate(fightingEntryPoint);
     }
-
-    public void InitializeSkillExecutorDebug(PlayerCore player)
-    {
-        SkillExecutor skillExecutor = player.gameObject.AddComponent<SkillExecutor>();
-        skillExecutor.Activate();
-    }
-
 }

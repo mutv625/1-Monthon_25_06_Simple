@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &594780678962442498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4815828913010273156}
+  - component: {fileID: 2521796144355278673}
+  m_Layer: 0
+  m_Name: GroundCheckers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4815828913010273156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594780678962442498}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4787536096970456052}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2521796144355278673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594780678962442498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc2ffb32ad5ebf4d826eec69a6c4005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8743191278292100237
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,11 +53,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4787536096970456052}
+  - component: {fileID: 7554605460664670587}
+  - component: {fileID: 8841191457978838612}
   - component: {fileID: 3505680503156565954}
   - component: {fileID: 4173275202412738685}
   - component: {fileID: -7637574024575074902}
-  - component: {fileID: 7554605460664670587}
-  - component: {fileID: 5348215283237798723}
+  - component: {fileID: 1687039605515661724}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -33,9 +78,64 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4815828913010273156}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7554605460664670587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8743191278292100237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9360e8f7aa91c74c9097371bdd06955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0
+  maxHealth:
+    value: 100
+  currentHealth:
+    value: 100
+  defense:
+    value: 0
+  isInvincible:
+    value: 0
+  isCombo:
+    value: 0
+  isHurting:
+    value: 0
+  attackingState:
+    value: 0
+  jumpCount:
+    value: 0
+  isAppearing:
+    value: 0
+  isDashing:
+    value: 0
+  facingDirection:
+    value: {x: 1, y: 0}
+  groundChecker: {fileID: 0}
+  moveSpeedMult: 1
+  jumpForceMult: 1
+  fallSpeedTerm: 1
+  gravityMult: 1
+--- !u!114 &8841191457978838612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8743191278292100237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce18083271dabb4f9ac2fa93e535069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  playerCore: {fileID: 0}
 --- !u!212 &3505680503156565954
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -164,34 +264,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7554605460664670587
-MonoBehaviour:
+--- !u!95 &1687039605515661724
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8743191278292100237}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9360e8f7aa91c74c9097371bdd06955, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId: 0
-  moveSpeedMult: 1
-  jumpForceMult: 1
-  fallSpeedTerm: 1
-  gravityMult: 1
---- !u!114 &5348215283237798723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8743191278292100237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feb131e6499bf7f4281cde8ead416726, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillA: {fileID: 11400000, guid: 9177ec329e9285e4b941ff0bede03d37, type: 2}
-  skillB: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9cd33bb578489a34ebe70593a15b1420, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

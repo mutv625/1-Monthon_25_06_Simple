@@ -21,10 +21,14 @@ public class PlayerCore : MonoBehaviour
         return this;
     }
 
+    // * 基本ステータス
+    [Header("基本ステータス")]
+    [SerializeField] IntReactiveProperty maxHealth = new IntReactiveProperty(100);
+    [SerializeField] IntReactiveProperty currentHealth = new IntReactiveProperty(100);
+    [SerializeField] IntReactiveProperty defense = new IntReactiveProperty(0);
 
     // * フラグ管理
     [Header("フラグ管理")]
-    [SerializeField] BoolReactiveProperty isAlive = new BoolReactiveProperty(true);
     [SerializeField] BoolReactiveProperty isInvincible = new BoolReactiveProperty(false);
 
     [SerializeField] BoolReactiveProperty isCombo = new BoolReactiveProperty(false);
@@ -33,9 +37,12 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] IntReactiveProperty jumpCount = new IntReactiveProperty(0);
     [SerializeField] BoolReactiveProperty isAppearing = new BoolReactiveProperty(false);
     [SerializeField] BoolReactiveProperty isDashing = new BoolReactiveProperty(false);
+    public IReadOnlyReactiveProperty<bool> IsDashing => isDashing;
 
     [SerializeField] ReactiveProperty<Vector2> facingDirection = new ReactiveProperty<Vector2>(Vector2.right);
 
+
+    [SerializeField] GroundChecker groundChecker;
 
     // * 移動系ステータス
     [Header("移動系ステータス")]
@@ -64,20 +71,16 @@ public class PlayerCore : MonoBehaviour
         onFall.OnNext(inputY);
     }
 
-    // * スキル発動系
-    public Subject<Unit> onSkillA = new Subject<Unit>();
     public void SkillA()
     {
-        Debug.Log($"Skill A activated by Player ID: {playerId}");
-        onSkillA.OnNext(Unit.Default);
+
     }
 
-    public Subject<Unit> onSkillB = new Subject<Unit>();
     public void SkillB()
     {
-        onSkillB.OnNext(Unit.Default);
+
     }
 
     // * アニメーション用
-    
+
 }

@@ -451,6 +451,8 @@ MonoBehaviour:
   players: []
   keyConfigs:
   - {fileID: 11400000, guid: 3f8d044e590bc2e43ad59cbe616b6260, type: 2}
+  fighterPayloads:
+  - {fileID: 11400000, guid: a3eda85802d258c448c3fea1286229c8, type: 2}
   playerPrefab: {fileID: 7554605460664670587, guid: fb4a49f76963f92489058f6c48552ecc, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
