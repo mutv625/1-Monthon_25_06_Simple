@@ -31,14 +31,14 @@ public abstract class SOSkill : ScriptableObject
     /// <param name="attackingState">
     /// なんのスキルとして発動されたか
     /// </param>
-    public virtual async void Perform(PlayerCore skillPlayer)
+    public virtual async Task Perform(PlayerCore skillPlayer)
     {
         await Task.Delay(ActivationTime);
     }
 
-    public virtual void Execute(PlayerCore skillPlayer)
+    public virtual async Task Execute(PlayerCore skillPlayer)
     {
-        Perform(skillPlayer);
+        await Perform(skillPlayer);
 
         // TODO: 攻撃状態の更新 (AttackingState.None に戻す)
         // ? 攻撃の終了はどうPlayerCoreに通知する？
