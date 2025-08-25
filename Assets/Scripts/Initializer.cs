@@ -5,10 +5,11 @@ using UnityEngine;
 /// </summary>
 public class Initializer : MonoBehaviour
 {
-    public PlayerCore InstantiatePlayer(PlayerCore playerPrefab, int playerId)
+    public PlayerCore InstantiatePlayer(PlayerCore playerPrefab,FightingEntryPoint fightingEntryPoint, int playerId)
     {
         PlayerCore player = Instantiate(playerPrefab);
         player.SetPlayerId(playerId);
+        player.Activate(fightingEntryPoint);
         return player;
     }
 

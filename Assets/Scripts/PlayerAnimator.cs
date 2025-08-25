@@ -1,6 +1,9 @@
 using UnityEngine;
 using UniRx;
 
+/// <summary>
+/// ! 条件設定は主にこっち (AnimatorController はあくまで保険)
+/// </summary>
 public class PlayerAnimator : MonoBehaviour
 {
     /// <summary>
@@ -20,12 +23,41 @@ public class PlayerAnimator : MonoBehaviour
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
         playerCore = GetComponent<PlayerCore>();
-        playerCore.IsDashing
-            .Subscribe(isDashing => AnimateDash(isDashing));
+
+
+        playerCore.isDashing
+            .DistinctUntilChanged()
+            .Where(isDashing => isDashing)
+            .Subscribe(_ => AnimateStartDashing());
+
+        playerCore.isDashing
+            .Subscribe(isDashing => AnimateDashing(isDashing));
+
+        playerCore.jumpCount
+            .DistinctUntilChanged()
+            .Subscribe(jumpCount => AnimateJump(jumpCount));
     }
 
-    private void AnimateDash(bool isDashing)
+    private void AnimateStartDashing()
+    {
+        animator.SetTrigger("trigDashing");
+    }
+    private void AnimateDashing(bool isDashing)
     {
         animator.SetBool("isDashing", isDashing);
+    }
+
+    private void AnimateJump(int jumpCount)
+    {
+        if (jumpCount <= 2)
+        {
+            animator.SetTrigger($"trigJump{jumpCount}");
+        }
+        else
+        {
+            animator.SetTrigger("trigJump2");
+        }
+
+        animator.SetInteger("jumpCount", jumpCount);
     }
 }

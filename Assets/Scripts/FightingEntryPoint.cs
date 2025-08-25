@@ -26,7 +26,7 @@ public class FightingEntryPoint : MonoBehaviour
 
     void Start()
     {
-        players.Add(initializer.InstantiatePlayer(playerPrefab, 0));
+        players.Add(initializer.InstantiatePlayer(playerPrefab,this, 0));
         initializer.InitializeInputProvider(players[0], this, keyConfigs[0]);
         initializer.InitializePlayerMover(players[0], this);
         initializer.InitializePlayerAnimator(players[0], this, fighterPayloads[0].AnimatorController);

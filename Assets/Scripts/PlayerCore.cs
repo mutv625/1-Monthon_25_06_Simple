@@ -15,10 +15,20 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] private int playerId;
     public int PlayerId => playerId;
 
+    [SerializeField] private FightingEntryPoint fightingEP;
+
     public PlayerCore SetPlayerId(int id)
     {
         playerId = id;
         return this;
+    }
+
+    public void Activate(FightingEntryPoint fightingEntryPoint)
+    {
+        this.fightingEP = fightingEntryPoint;
+
+
+        // フラグを時間経過で戻すイベントたち 
     }
 
     // * 基本ステータス
@@ -34,13 +44,11 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] BoolReactiveProperty isCombo = new BoolReactiveProperty(false);
     [SerializeField] BoolReactiveProperty isHurting = new BoolReactiveProperty(false);
     [SerializeField] ReactiveProperty<AttackingState> attackingState = new ReactiveProperty<AttackingState>(AttackingState.None);
-    [SerializeField] IntReactiveProperty jumpCount = new IntReactiveProperty(0);
+    [SerializeField] public IntReactiveProperty jumpCount = new IntReactiveProperty(0);
     [SerializeField] BoolReactiveProperty isAppearing = new BoolReactiveProperty(false);
-    [SerializeField] BoolReactiveProperty isDashing = new BoolReactiveProperty(false);
-    public IReadOnlyReactiveProperty<bool> IsDashing => isDashing;
+    [SerializeField] public BoolReactiveProperty isDashing = new BoolReactiveProperty(false);
 
     [SerializeField] ReactiveProperty<Vector2> facingDirection = new ReactiveProperty<Vector2>(Vector2.right);
-
 
     [SerializeField] GroundChecker groundChecker;
 
@@ -56,6 +64,22 @@ public class PlayerCore : MonoBehaviour
     public Subject<float> onMove = new Subject<float>();
     public void Move(float inputX)
     {
+        if (inputX != 0)
+        {
+            if (Mathf.Sign(inputX) != Mathf.Sign(facingDirection.Value.x))
+            {
+                facingDirection.Value = new Vector2(Mathf.Sign(inputX), 0);
+            }
+            if (!isDashing.Value)
+            {
+                isDashing.Value = true;
+            }
+        }
+        else
+        {
+            isDashing.Value = false;
+        }
+
         onMove.OnNext(inputX * moveSpeedMult);
     }
 
@@ -63,6 +87,12 @@ public class PlayerCore : MonoBehaviour
     public void Jump()
     {
         onJump.OnNext(jumpForceMult);
+        jumpCount.Value += 1;
+    }
+
+    public void ResetJumpCount()
+    {
+        if (jumpCount.Value != 0) jumpCount.Value = 0;
     }
 
     public Subject<float> onFall = new Subject<float>();
@@ -71,16 +101,24 @@ public class PlayerCore : MonoBehaviour
         onFall.OnNext(inputY);
     }
 
+    public Subject<Unit> onSkillA = new Subject<Unit>();
     public void SkillA()
     {
-
+        onSkillA.OnNext(Unit.Default);
     }
 
+    public Subject<Unit> onSkillB = new Subject<Unit>();
     public void SkillB()
     {
+        onSkillB.OnNext(Unit.Default);
+    }
 
+    public Subject<Unit> onHurt = new Subject<Unit>();
+    public void Hurt()
+    {
+        onHurt.OnNext(Unit.Default);
     }
 
     // * アニメーション用
-
 }
+
