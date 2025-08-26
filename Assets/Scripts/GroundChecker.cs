@@ -11,7 +11,6 @@ public class GroundChecker : MonoBehaviour
 
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
-        
         fightingEP = fightingEntryPoint;
     }
 

@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public abstract class SOFighterPayload : ScriptableObject
@@ -10,5 +12,13 @@ public abstract class SOFighterPayload : ScriptableObject
     public abstract float JumpForceMult { get; }
     public abstract float GravityMult { get; }
 
+    /// <summary>
+    /// アニメーターのコントローラー<br/>
+    /// スキルやエフェクトはAnimatorOverrideControllerで設定する
+    /// </summary>
     public abstract RuntimeAnimatorController AnimatorController { get; }
+
+    public abstract HitboxPrefab[] HitboxPrefabs { get; }
+    public abstract EffectPrefab[] EffectPrefabs { get; }
+    public abstract Action<int>[] TriggerDelegates { get; }
 }

@@ -48,6 +48,9 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] BoolReactiveProperty isAppearing = new BoolReactiveProperty(false);
     [SerializeField] public BoolReactiveProperty isDashing = new BoolReactiveProperty(false);
 
+
+    // TODO: 常にこれを基準にプレイヤーの反転や向き、アニメーションの向きを決定する
+    // ! スキル中は変化しない
     [SerializeField] ReactiveProperty<Vector2> facingDirection = new ReactiveProperty<Vector2>(Vector2.right);
 
     [SerializeField] GroundChecker groundChecker;
@@ -119,6 +122,11 @@ public class PlayerCore : MonoBehaviour
         onHurt.OnNext(Unit.Default);
     }
 
-    // * アニメーション用
+    // ノックバックも加えたダメージ処理
+    public void HurtWithKB(Vector2 knockbackDirection)
+    {
+        onHurt.OnNext(Unit.Default);
+        // TODO: ノックバック処理 PlayerMover.ImpulseVector() 行きか?
+    }
 }
 

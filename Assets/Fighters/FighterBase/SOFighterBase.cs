@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "New Fighter", menuName = "Fighter SO/Base")]
 public class SOFighterBase : SOFighterPayload
@@ -23,4 +24,14 @@ public class SOFighterBase : SOFighterPayload
     [Header("アニメーション")]
     [SerializeField] private RuntimeAnimatorController animatorOverrideController;
     public override RuntimeAnimatorController AnimatorController => animatorOverrideController;
+
+    [Header("スキルで生成するもの")]
+    [SerializeField] private HitboxPrefab[] hitboxPrefabs;
+    public override HitboxPrefab[] HitboxPrefabs => hitboxPrefabs;
+
+    [SerializeField] private EffectPrefab[] effectPrefabs;
+    public override EffectPrefab[] EffectPrefabs => effectPrefabs;
+
+    [SerializeField] private Action<int>[] triggerDelegates;
+    public override Action<int>[] TriggerDelegates => triggerDelegates;
 }
