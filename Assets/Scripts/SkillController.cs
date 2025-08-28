@@ -43,4 +43,9 @@ public class SkillController : MonoBehaviour
     {
         triggerDelegates[index].Invoke(index);
     }
+
+    public void ResetLockingStatusAtCore()
+    {
+        playerCore.ResetLockingStatusAtCore();
+    }
 }

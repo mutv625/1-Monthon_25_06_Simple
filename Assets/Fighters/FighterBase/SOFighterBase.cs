@@ -8,18 +8,15 @@ public class SOFighterBase : SOFighterPayload
     [SerializeField] private int maxHealth = 100;
     public override int MaxHealth => maxHealth;
 
-    [SerializeField] private int defense = 0;
-    public override int Defense => defense;
-
     [Header("移動関連")]
-    [SerializeField] private float moveSpeedMult = 1f;
-    public override float MoveSpeedMult => moveSpeedMult;
+    [SerializeField] private float moveSpeed = 1f;
+    public override float MoveSpeed => moveSpeed;
 
-    [SerializeField] private float jumpForceMult = 1f;
-    public override float JumpForceMult => jumpForceMult;
+    [SerializeField] private float jumpForce = 1f;
+    public override float JumpForce => jumpForce;
 
-    [SerializeField] private float gravityMult = 1f;
-    public override float GravityMult => gravityMult;
+    [SerializeField] private float gravity = 1f;
+    public override float Gravity => gravity;
 
     [Header("アニメーション")]
     [SerializeField] private RuntimeAnimatorController animatorOverrideController;

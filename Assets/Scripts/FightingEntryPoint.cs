@@ -20,16 +20,20 @@ public class FightingEntryPoint : MonoBehaviour
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
+
         initializer = GetComponent<Initializer>();
+        initializer.fightingEntryPoint = this;
     }
 
 
     void Start()
     {
-        players.Add(initializer.InstantiatePlayer(playerPrefab,this, 0));
-        initializer.InitializeInputProvider(players[0], this, keyConfigs[0]);
-        initializer.InitializePlayerMover(players[0], this);
-        initializer.InitializePlayerAnimator(players[0], this, fighterPayloads[0].AnimatorController);
+        players.Add(initializer.InstantiatePlayer(playerPrefab, 0));
+        initializer.InitializeInputProvider(players[0], keyConfigs[0]);
+        initializer.InitializePlayerMover(players[0]);
+        initializer.InitializeGroundChecker(players[0]);
+        initializer.InitializePlayerAnimator(players[0], fighterPayloads[0].AnimatorController);
+        initializer.InitializeSkillController(players[0], fighterPayloads[0]);
     }
 
 

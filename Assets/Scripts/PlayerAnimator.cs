@@ -24,7 +24,8 @@ public class PlayerAnimator : MonoBehaviour
     {
         playerCore = GetComponent<PlayerCore>();
 
-
+        // ! 条件付きでアニメーションを切り替える
+        // * 移動系
         playerCore.isDashing
             .DistinctUntilChanged()
             .Where(isDashing => isDashing)
@@ -36,8 +37,22 @@ public class PlayerAnimator : MonoBehaviour
         playerCore.jumpCount
             .DistinctUntilChanged()
             .Subscribe(jumpCount => AnimateJump(jumpCount));
+
+
+        // * スキル系
+        // TODO: AttackingStatesを参照するようにする
+
+        playerCore.onSkill
+            .Where(state => state == AttackingStates.SkillA)
+            .Subscribe(_ => AnimateSkillA());
+
+        playerCore.onSkill
+            .Where(state => state == AttackingStates.SkillB)
+            .Subscribe(_ => AnimateSkillB());
     }
 
+    // ! アニメーション制御
+    // * 移動系
     private void AnimateStartDashing()
     {
         animator.SetTrigger("trigDashing");
@@ -59,5 +74,16 @@ public class PlayerAnimator : MonoBehaviour
         }
 
         animator.SetInteger("jumpCount", jumpCount);
+    }
+
+    // * スキル系
+    private void AnimateSkillA()
+    {
+        animator.SetTrigger("trigSkillA");
+    }
+
+    private void AnimateSkillB()
+    {
+        animator.SetTrigger("trigSkillB");
     }
 }

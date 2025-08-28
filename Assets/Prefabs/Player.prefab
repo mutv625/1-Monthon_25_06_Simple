@@ -47,7 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCore: {fileID: 0}
-  groundCheckPoints: []
+  groundCheckPoints:
+  - {fileID: 216674826737696927}
+  - {fileID: 1539006938921948631}
 --- !u!1 &1553225928205072597
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 452f4de69e44b9648a8f223c8ab67b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitboxPrefabs: []
+  effectPrefabs: []
 --- !u!212 &3505680503156565954
 SpriteRenderer:
   m_ObjectHideFlags: 0
