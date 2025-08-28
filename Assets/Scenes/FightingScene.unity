@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 482506997}
   - component: {fileID: 482506996}
   - component: {fileID: 482506998}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde7c0f63d97d7440bccce2dec9fe88a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fightingEntryPoint: {fileID: 0}
 --- !u!114 &1487087786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +452,9 @@ MonoBehaviour:
   players: []
   keyConfigs:
   - {fileID: 11400000, guid: 3f8d044e590bc2e43ad59cbe616b6260, type: 2}
+  - {fileID: 11400000, guid: 275e426a52efc2c42bf42b0d33c9e4f8, type: 2}
+  fighterPayloads:
+  - {fileID: 11400000, guid: a3eda85802d258c448c3fea1286229c8, type: 2}
   playerPrefab: {fileID: 7554605460664670587, guid: fb4a49f76963f92489058f6c48552ecc, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

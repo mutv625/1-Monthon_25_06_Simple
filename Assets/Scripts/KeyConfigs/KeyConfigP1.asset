@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37de91b70d93bf049a76b7ecba3e03e1, type: 3}
-  m_Name: NewSOSkillExample
+  m_Script: {fileID: 11500000, guid: 766e0794312ee244f8ada37109592bb5, type: 3}
+  m_Name: KeyConfigP1
   m_EditorClassIdentifier: 
-  skillName: Example Skill
-  hitboxPrefab: {fileID: 3984275765743096072, guid: 43f310dab19d208459f0b56125b61acd, type: 3}
+  moveLeftKey: 106
+  moveRightKey: 108
+  moveUpKey: 105
+  moveDownKey: 107
+  skillAKey: 117
+  skillBKey: 111

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "KeyConfig", menuName = "Config SO/KeyConfig")]
+[CreateAssetMenu(fileName = "KeyConfig", menuName = "KeyConfig SO")]
 public class SOKeyConfig : ScriptableObject
 {
     [SerializeField] public KeyCode moveLeftKey;
