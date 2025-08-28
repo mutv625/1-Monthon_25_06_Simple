@@ -29,7 +29,6 @@ public class GroundChecker : MonoBehaviour
 
     private void UpdateGroundCheck()
     {
-        Debug.Log("Ground check updated for " + playerCore.PlayerId);
         foreach (Collider2D point in groundCheckPoints)
         {
             // 地面判定を行う

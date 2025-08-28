@@ -34,6 +34,9 @@ public class FightingEntryPoint : MonoBehaviour
         initializer.InitializeGroundChecker(players[0]);
         initializer.InitializePlayerAnimator(players[0], fighterPayloads[0].AnimatorController);
         initializer.InitializeSkillController(players[0], fighterPayloads[0]);
+        
+
+        players.Add(initializer.InitializePlayer(playerPrefab, 1, keyConfigs[1], fighterPayloads[0]));
     }
 
 

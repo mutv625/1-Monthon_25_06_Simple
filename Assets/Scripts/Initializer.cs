@@ -7,6 +7,17 @@ public class Initializer : MonoBehaviour
 {
     [SerializeField] public FightingEntryPoint fightingEntryPoint;
 
+    public PlayerCore InitializePlayer(PlayerCore playerPrefab, int playerId, SOKeyConfig keyConfig, SOFighterPayload fighterPayload)
+    {
+        PlayerCore player = InstantiatePlayer(playerPrefab, playerId);
+        InitializeInputProvider(player, keyConfig);
+        InitializePlayerMover(player);
+        InitializeGroundChecker(player);
+        InitializePlayerAnimator(player, fighterPayload.AnimatorController);
+        InitializeSkillController(player, fighterPayload);
+        return player;
+    }
+
     public PlayerCore InstantiatePlayer(PlayerCore playerPrefab, int playerId)
     {
         PlayerCore player = Instantiate(playerPrefab);

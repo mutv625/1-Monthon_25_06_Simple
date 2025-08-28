@@ -158,6 +158,7 @@ public class PlayerCore : MonoBehaviour
     public Subject<Unit> onHurt = new Subject<Unit>();
     public void Hurt(int damage)
     {
+        Debug.Log($"Player {playerId} hurts! Damage = {damage}");
         onHurt.OnNext(Unit.Default);
     }
 

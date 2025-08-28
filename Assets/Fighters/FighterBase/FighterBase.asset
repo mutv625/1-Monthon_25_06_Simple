@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: FighterBase
   m_EditorClassIdentifier: 
   maxHealth: 100
-  defense: 0
-  moveSpeedMult: 1
-  jumpForceMult: 1
-  gravityMult: 1
+  moveSpeed: 1
+  jumpForce: 1
+  gravity: 1
   animatorOverrideController: {fileID: 9100000, guid: 9cd33bb578489a34ebe70593a15b1420, type: 2}
+  hitboxPrefabs:
+  - {fileID: 7800459155586680431, guid: b98f3b0ec0c55d548934751c94ae0e3a, type: 3}
+  effectPrefabs: []

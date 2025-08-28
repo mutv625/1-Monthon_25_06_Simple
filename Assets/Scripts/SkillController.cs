@@ -30,6 +30,7 @@ public class SkillController : MonoBehaviour
         // ! 生成は必ずプレイヤーの *子オブジェクトとして* 、原点に、回転はゼロで生成する
 
         HitboxPrefab hitbox = Instantiate(hitboxPrefabs[index], playerCore.transform);
+        hitbox.owner = playerCore;
     }
 
     public void GenerateEffect(int index)
@@ -44,7 +45,7 @@ public class SkillController : MonoBehaviour
         triggerDelegates[index].Invoke(index);
     }
 
-    public void ResetLockingStatusAtCore()
+    public void ResetLockingStatus()
     {
         playerCore.ResetLockingStatusAtCore();
     }
