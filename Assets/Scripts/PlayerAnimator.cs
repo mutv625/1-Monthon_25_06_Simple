@@ -55,11 +55,14 @@ public class PlayerAnimator : MonoBehaviour
 
 
         // * スキル系
-        // TODO: AttackingStatesを参照するようにする
-
         playerCore.onSkill
-            .Where(state => state != AttackingStates.None)
-            .Subscribe(state => AnimateSkill(state));
+            .Where(state => state.Item1 != AttackingStates.None)
+            .Subscribe(state => AnimateSkill(state.Item1));
+
+        playerCore.isHurting
+            .DistinctUntilChanged()
+            .Where(isHurting => isHurting)
+            .Subscribe(_ => animator.SetTrigger("trigHurt1"));
     }
 
     // ! アニメーション制御

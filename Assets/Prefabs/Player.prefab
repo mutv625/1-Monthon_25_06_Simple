@@ -50,6 +50,8 @@ MonoBehaviour:
   groundCheckPoints:
   - {fileID: 216674826737696927}
   - {fileID: 1539006938921948631}
+  isGrounded:
+    value: 0
 --- !u!1 &1553225928205072597
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +336,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4815828913010273156}
   m_Father: {fileID: 0}
@@ -354,14 +356,12 @@ MonoBehaviour:
   playerId: 0
   fightingEP: {fileID: 0}
   maxHealth:
-    value: 100
+    value: 9999
   currentHealth:
-    value: 100
-  defense:
-    value: 0
+    value: 9999
   isInvincible:
     value: 0
-  isCombo:
+  comboState:
     value: 0
   isHurting:
     value: 0
@@ -375,11 +375,11 @@ MonoBehaviour:
     value: 0
   facingDirection:
     value: {x: 1, y: 0}
-  groundChecker: {fileID: 0}
   moveSpeedMult: 1
   jumpForceMult: 1
   fallSpeedTerm: 1
   gravityMult: 1
+  recentJudgeResult: 0
 --- !u!114 &6203081677519027741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,6 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitboxPrefabs: []
   effectPrefabs: []
+  currentJudgeResult: 0
 --- !u!212 &3505680503156565954
 SpriteRenderer:
   m_ObjectHideFlags: 0

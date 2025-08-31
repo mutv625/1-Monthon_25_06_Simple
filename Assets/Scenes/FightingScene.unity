@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae94c7297fbe884f86f7d31bdb40f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFighting: 1
+  isTimeFlowing: 1
   players: []
   keyConfigs:
   - {fileID: 11400000, guid: 3f8d044e590bc2e43ad59cbe616b6260, type: 2}

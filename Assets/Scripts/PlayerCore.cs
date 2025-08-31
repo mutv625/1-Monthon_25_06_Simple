@@ -27,9 +27,18 @@ public class PlayerCore : MonoBehaviour
 
     [SerializeField] private FightingEntryPoint fightingEP;
 
+    // TODO: FighterSO から読み込んでステータスの初期化
+
     public PlayerCore SetPlayerId(int id)
     {
         playerId = id;
+
+        // TODO: IDが奇数なら向きを左にする
+        if (playerId % 2 == 1)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
         return this;
     }
 
@@ -43,15 +52,15 @@ public class PlayerCore : MonoBehaviour
 
     // * 基本ステータス
     [Header("基本ステータス")]
-    [SerializeField] IntReactiveProperty maxHealth = new IntReactiveProperty(100);
-    [SerializeField] IntReactiveProperty currentHealth = new IntReactiveProperty(100);
+    [SerializeField] IntReactiveProperty maxHealth = new IntReactiveProperty(1000);
+    [SerializeField] IntReactiveProperty currentHealth = new IntReactiveProperty(1000);
 
     // * フラグ管理
     [Header("フラグ管理")]
-    [SerializeField] BoolReactiveProperty isInvincible = new BoolReactiveProperty(false);
+    [SerializeField] public BoolReactiveProperty isInvincible = new BoolReactiveProperty(false);
 
-    [SerializeField] ReactiveProperty<ComboStates> isCombo = new ReactiveProperty<ComboStates>(ComboStates.None);
-    [SerializeField] BoolReactiveProperty isHurting = new BoolReactiveProperty(false);
+    [SerializeField] public ReactiveProperty<ComboStates> comboState = new ReactiveProperty<ComboStates>(ComboStates.None);
+    [SerializeField] public BoolReactiveProperty isHurting = new BoolReactiveProperty(false);
     [SerializeField] public ReactiveProperty<AttackingStates> attackingState = new ReactiveProperty<AttackingStates>(AttackingStates.None);
     [SerializeField] public IntReactiveProperty jumpCount = new IntReactiveProperty(0);
     [SerializeField] BoolReactiveProperty isAppearing = new BoolReactiveProperty(false);
@@ -130,8 +139,12 @@ public class PlayerCore : MonoBehaviour
     }
 
 
+    [Header("判定テスト用")]
+    [SerializeField] private JudgeResult recentJudgeResult;
+
+
     // * スキル発動系
-    public Subject<AttackingStates> onSkill = new Subject<AttackingStates>();
+    public Subject<(AttackingStates, JudgeResult)> onSkill = new Subject<(AttackingStates, JudgeResult)>();
     // スキルキーが押されたときに呼び出される
     public void SkillA()
     {
@@ -141,8 +154,19 @@ public class PlayerCore : MonoBehaviour
             return;
         }
 
-        attackingState.Value = AttackingStates.SkillA;
-        onSkill.OnNext(attackingState.Value);
+        // TODO: 判定を取得
+        JudgeResult jr = recentJudgeResult;
+
+        if (jr == JudgeResult.Critical || jr == JudgeResult.Perfect)
+        {
+            attackingState.Value = AttackingStates.SkillAx;
+            onSkill.OnNext((attackingState.Value, jr));
+        }
+        else
+        {
+            attackingState.Value = AttackingStates.SkillA;
+            onSkill.OnNext((attackingState.Value, jr));
+        }
     }
 
     public void SkillB()
@@ -152,29 +176,67 @@ public class PlayerCore : MonoBehaviour
         {
             return;
         }
+        // TODO: 判定を取得
+        JudgeResult jr = recentJudgeResult;
 
-        attackingState.Value = AttackingStates.SkillB;
-        onSkill.OnNext(attackingState.Value);
+        if (jr == JudgeResult.Critical || jr == JudgeResult.Perfect)
+        {
+            attackingState.Value = AttackingStates.SkillBx;
+            onSkill.OnNext((attackingState.Value, jr));
+        }
+        else
+        {
+            attackingState.Value = AttackingStates.SkillB;
+            onSkill.OnNext((attackingState.Value, jr));
+        }
     }
 
-    public Subject<Unit> onHurt = new Subject<Unit>();
-    public void Hurt(int damage)
+    // * 被ダメージ時の処理
+    public Subject<Vector2> onHurtAndKB = new Subject<Vector2>();
+    public void Hurt(PlayerCore attacker, int damage, Vector2 kbVec, bool doStartCombo)
     {
+        
+        isHurting.Value = true;
+
+        // TODO 1. ダメージの適用
         Debug.Log($"Player {playerId} hurts! Damage = {damage}");
-        onHurt.OnNext(Unit.Default);
+
+        if (currentHealth.Value - damage <= 0)
+        {
+            currentHealth.Value = 0;
+            return;
+        }
+        else
+        {
+            currentHealth.Value -= damage;
+        }
+
+        // TODO 2. コンボ系の処理
+        // ComboState を参照し、物理演算をここで有効無効を切り替える
+        if (doStartCombo)
+        {
+            comboState.Value = ComboStates.Trapped;
+        }
+
+
+        // TODO 3. Knockbackの適用
+        // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
+        // その結果、KBは蓄積され、物理演算再開で超ふっとぶ
+        onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
     }
 
-    // ノックバックも加えたダメージ処理
-    public void HurtWithKB(Vector2 knockbackDirection)
-    {
-        onHurt.OnNext(Unit.Default);
-        // TODO: ノックバック処理 PlayerMover.ImpulseVector() 行きか?
-    }
-
+    // ! 技、被ダメージ終了時に呼び出され、ステータスのロックを解除する
     public void ResetLockingStatusAtCore()
     {
         attackingState.Value = AttackingStates.None;
         isHurting.Value = false;
+    }
+
+    // HP<=0 で呼び出す ~死亡~
+    public void DIE()
+    {
+        Debug.Log($"Player {playerId} died.");
+        // TODO: 死亡処理
     }
 }
 

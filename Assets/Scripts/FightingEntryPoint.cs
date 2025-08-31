@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 public class FightingEntryPoint : MonoBehaviour
 {
-    [SerializeField] private bool isFighting = true;
+    [SerializeField] private bool isTimeFlowing = true;
 
     [SerializeField] private List<PlayerCore> players = new List<PlayerCore>();
     [SerializeField] private List<SOKeyConfig> keyConfigs = new List<SOKeyConfig>();
@@ -43,6 +43,6 @@ public class FightingEntryPoint : MonoBehaviour
     void Update()
     {
         updateAlways.OnNext(Unit.Default);
-        if (isFighting) updateInFighting.OnNext(Unit.Default);
+        if (isTimeFlowing) updateInFighting.OnNext(Unit.Default);
     }
 }

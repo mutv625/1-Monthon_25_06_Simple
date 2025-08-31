@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UniRx;
 
 public class SkillController : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class SkillController : MonoBehaviour
     [SerializeField] private EffectPrefab[] effectPrefabs;
     [SerializeField] private Action<int>[] triggerDelegates;
 
+    [Header("閲覧専用 (ダメージ計算に使用)")]
+    [SerializeField] private JudgeResult currentJudgeResult;
+
     // * SOFighterPayloadの積み込み
-    // TODO: Initializer で呼んでね
     public void SetPrefabsLists(SOFighterPayload fighterPayload)
     {
         hitboxPrefabs = fighterPayload.HitboxPrefabs;
@@ -21,6 +24,10 @@ public class SkillController : MonoBehaviour
     public void Activate()
     {
         playerCore = gameObject.GetComponent<PlayerCore>();
+
+        // * ダメージ計算用の判定を持っておけるように
+        playerCore.onSkill
+            .Subscribe(state => currentJudgeResult = state.Item2);
     }
 
     // * 以下の関数は AnimationClip の Animation Event から呼び出す
@@ -30,7 +37,7 @@ public class SkillController : MonoBehaviour
         // ! 生成は必ずプレイヤーの *子オブジェクトとして* 、原点に、回転はゼロで生成する
 
         HitboxPrefab hitbox = Instantiate(hitboxPrefabs[index], playerCore.transform);
-        hitbox.owner = playerCore;
+        hitbox.SetStatus(playerCore, currentJudgeResult);
     }
 
     public void GenerateEffect(int index)
