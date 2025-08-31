@@ -198,26 +198,26 @@ public class PlayerCore : MonoBehaviour
         
         isHurting.Value = true;
 
-        // TODO 1. ダメージの適用
-        Debug.Log($"Player {playerId} hurts! Damage = {damage}");
-
+        // TODO 0. 死亡判定
         if (currentHealth.Value - damage <= 0)
         {
+            Debug.Log($"Player {playerId} will die.");
             currentHealth.Value = 0;
             return;
         }
-        else
-        {
-            currentHealth.Value -= damage;
-        }
 
-        // TODO 2. コンボ系の処理
+        // * 以下非死亡時の処理
+        // TODO 1. コンボ系の処理
         // ComboState を参照し、物理演算をここで有効無効を切り替える
         if (doStartCombo)
         {
             comboState.Value = ComboStates.Trapped;
         }
 
+        // TODO 2. ダメージの適用
+        Debug.Log($"Player {playerId} hurts! Damage = {damage}");
+
+        currentHealth.Value -= damage;
 
         // TODO 3. Knockbackの適用
         // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
