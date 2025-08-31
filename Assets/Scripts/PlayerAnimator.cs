@@ -14,6 +14,9 @@ public class PlayerAnimator : MonoBehaviour
 
     [SerializeField] private PlayerCore playerCore;
 
+    private AnimatorStateInfo animatorStateInfo;
+    private BoolReactiveProperty isIdling = new BoolReactiveProperty(true);
+
     public void SetAnimatorController(RuntimeAnimatorController animatorController)
     {
         animator = GetComponent<Animator>();
@@ -23,6 +26,18 @@ public class PlayerAnimator : MonoBehaviour
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
         playerCore = GetComponent<PlayerCore>();
+
+        fightingEntryPoint.updateInFighting
+            .Subscribe(_ =>
+            {
+                animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                isIdling.Value = animatorStateInfo.IsName("Idling");
+            });
+
+        isIdling
+            .DistinctUntilChanged()
+            .Where(isIdling => isIdling)
+            .Subscribe(_ => playerCore.ResetLockingStatusAtCore());
 
         // ! 条件付きでアニメーションを切り替える
         // * 移動系
@@ -43,12 +58,8 @@ public class PlayerAnimator : MonoBehaviour
         // TODO: AttackingStatesを参照するようにする
 
         playerCore.onSkill
-            .Where(state => state == AttackingStates.SkillA)
-            .Subscribe(_ => AnimateSkillA());
-
-        playerCore.onSkill
-            .Where(state => state == AttackingStates.SkillB)
-            .Subscribe(_ => AnimateSkillB());
+            .Where(state => state != AttackingStates.None)
+            .Subscribe(state => AnimateSkill(state));
     }
 
     // ! アニメーション制御
@@ -64,7 +75,11 @@ public class PlayerAnimator : MonoBehaviour
 
     private void AnimateJump(int jumpCount)
     {
-        if (jumpCount <= 2)
+        if (jumpCount <= 0)
+        {
+            // 何もしない?
+        }
+        else if (jumpCount <= 2)
         {
             animator.SetTrigger($"trigJump{jumpCount}");
         }
@@ -77,13 +92,26 @@ public class PlayerAnimator : MonoBehaviour
     }
 
     // * スキル系
-    private void AnimateSkillA()
+    private void AnimateSkill(AttackingStates state)
     {
-        animator.SetTrigger("trigSkillA");
-    }
-
-    private void AnimateSkillB()
-    {
-        animator.SetTrigger("trigSkillB");
+        switch (state)
+        {
+            case AttackingStates.None:
+                break;
+            case AttackingStates.SkillAx:
+                animator.SetTrigger("trigSkillAx");
+                break;
+            case AttackingStates.SkillBx:
+                animator.SetTrigger("trigSkillBx");
+                break;
+            case AttackingStates.SkillA:
+                animator.SetTrigger("trigSkillA");
+                break;
+            case AttackingStates.SkillB:
+                animator.SetTrigger("trigSkillB");
+                break;
+            default:
+                break;
+        }
     }
 }

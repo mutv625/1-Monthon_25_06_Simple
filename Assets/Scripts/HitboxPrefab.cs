@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class HitboxPrefab : MonoBehaviour
 {
-    [SerializeField] private int damage;
+    [SerializeField] private int baseDamage;
     [SerializeField] private float lifetime;
 
     [Header("閲覧専用")]
@@ -36,7 +36,7 @@ public class HitboxPrefab : MonoBehaviour
             if (enemy == owner || alreadyHitEnemies.Contains(enemy)) return;
 
             // 3. Hurtを呼び出す // ? KBも設定できるようにするか
-            enemy.Hurt(damage);
+            enemy.Hurt(baseDamage);
             alreadyHitEnemies.Add(enemy);
         }
     }

@@ -7,7 +7,9 @@ public enum AttackingStates
 {
     None,
     SkillA,
-    SkillB
+    SkillB,
+    SkillAx,
+    SkillBx
 }
 
 public enum ComboStates
