@@ -21,19 +21,6 @@ public class PlayerMover : MonoBehaviour
         playerCore.onHurtAndKB
             .Subscribe(kbVec =>
             {
-                // if (playerCore.comboState.Value == ComboStates.Combo)
-                // {
-                //     // コンボ中は物理演算を停止し、ノックバックを1/3にする
-                //     rb.simulated = false;
-                //     AddImpulseVec(kbVec / 3);
-                // }
-                // else
-                // {
-                //     rb.simulated = true;
-                //     AddImpulseVec(kbVec);
-                // }
-
-                rb.simulated = true;
                 AddImpulseVec(kbVec);
             });
     }

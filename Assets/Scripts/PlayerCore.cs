@@ -158,9 +158,17 @@ public class PlayerCore : MonoBehaviour
     public void SkillA()
     {
         // ! スキル、ダメージ中、被コンボ中はロック
+        // ! ただし、コンボ中はスキルを発動できる
         if (attackingState.Value != AttackingStates.None || isHurting.Value)
         {
-            return;
+            if (comboState.Value == ComboStates.Combo)
+            {
+                // ! コンボ中はスキルを発動できる
+            }
+            else
+            {
+                return;
+            }
         }
 
         // TODO: 判定を取得
@@ -188,15 +196,16 @@ public class PlayerCore : MonoBehaviour
         // TODO: 判定を取得
         JudgeResult jr = recentJudgeResult;
 
-        if (jr == JudgeResult.Critical || jr == JudgeResult.Perfect)
+        if (attackingState.Value != AttackingStates.None || isHurting.Value)
         {
-            attackingState.Value = AttackingStates.SkillBx;
-            onSkill.OnNext((attackingState.Value, jr));
-        }
-        else
-        {
-            attackingState.Value = AttackingStates.SkillB;
-            onSkill.OnNext((attackingState.Value, jr));
+            if (comboState.Value == ComboStates.Combo)
+            {
+                // ! コンボ中はスキルを発動できる
+            }
+            else
+            {
+                return;
+            }
         }
     }
 
@@ -278,7 +287,7 @@ public class PlayerCore : MonoBehaviour
     }
 
     // # コンボ中のゲージ変化
-
+    // (呼び出されているのは今のところ onSkill)
     private void ChangeComboGaugeByJudge(JudgeResult jr)
     {
         float delta = jr switch
