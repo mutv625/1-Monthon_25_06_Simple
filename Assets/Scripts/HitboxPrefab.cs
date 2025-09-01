@@ -54,7 +54,7 @@ public class HitboxPrefab : MonoBehaviour
 
             // 3. Hurtを呼び出す
             // 4. 自身に与えられたJudgeResultに応じてダメージを変化させる
-
+            // ! TODO: Crit を相手に当てると コンボが終了した途端コンボが始まり、終わらないらしいんですが
             if (judgeResult == JudgeResult.Critical)
             {
                 enemy.Hurt(owner, baseDamage * 2, CalcKnockback(kbDegree, kbForce), true);

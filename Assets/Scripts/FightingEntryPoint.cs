@@ -50,7 +50,10 @@ public class FightingEntryPoint : MonoBehaviour
     {
         foreach (var player in players)
         {
-            player.FinishCombo();
+            if (player.comboState.Value == ComboStates.None)
+            {
+                player.comboState.Value = ComboStates.None;
+            }
         }
     }
 }

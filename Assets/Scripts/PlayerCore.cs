@@ -46,6 +46,18 @@ public class PlayerCore : MonoBehaviour
         fightingEP.updateInFighting
             .Where(_ => comboState.Value == ComboStates.Combo)
             .Subscribe(_ => ChangeComboGaugeByTime());
+
+        comboState.DistinctUntilChanged()
+            .Where(state => state == ComboStates.None)
+            .Subscribe(_ => FinishCombo());
+
+        comboGaugeValue
+            .Where(value => value <= 0f && comboState.Value == ComboStates.Combo)
+            .Subscribe(_ =>
+            {
+                fightingEP.FinishComboForEveryone();
+                Debug.Log($"Player {playerId} combo gauge depleted, all combos finished.");
+            });
     }
 
     // * 基本ステータス
@@ -227,6 +239,7 @@ public class PlayerCore : MonoBehaviour
     {
         attackingState.Value = AttackingStates.None;
         isHurting.Value = false;
+        
     }
 
     // HP<=0 で呼び出す ~死亡~
@@ -237,14 +250,15 @@ public class PlayerCore : MonoBehaviour
     }
 
     // # 与コンボ開始時の処理
-    [SerializeField] float comboGaugeValue = 0f;
+    [SerializeField] FloatReactiveProperty comboGaugeValue = new FloatReactiveProperty(0f);
     private float ComboGaugeValue
     {
-        get => comboGaugeValue;
-        set => comboGaugeValue = Mathf.Clamp(value, 0f, 100f);
+        get => comboGaugeValue.Value;
+        set => comboGaugeValue.Value = Mathf.Clamp(value, 0f, 100f);
     }
 
     [SerializeField] float comboElapsedTime = 0f;
+    [SerializeField] IntReactiveProperty comboCount = new IntReactiveProperty(0);
 
 
     // ComboStatus 値が Combo になった瞬間に呼び出される
@@ -252,6 +266,7 @@ public class PlayerCore : MonoBehaviour
     {
         ComboGaugeValue = 100f;
         comboElapsedTime = 0f;
+        comboCount.Value = 0;
     }
 
     // # コンボ中のゲージ変化
@@ -283,12 +298,8 @@ public class PlayerCore : MonoBehaviour
     public void FinishCombo()
     {
         // TODO グローバルから呼ばれたときのコンボのリセット処理
-        if (comboState.Value != ComboStates.None)
-        {
-            comboState.Value = ComboStates.None;
-            ComboGaugeValue = 0f;
-            comboElapsedTime = 0f;
-        }
+        comboElapsedTime = 0f;
+        comboCount.Value = 0;
     }
 }
 
