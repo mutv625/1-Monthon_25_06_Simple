@@ -5,5 +5,5 @@ public enum ComboStates
     Trapped = -1,
     None = 0,
     Combo = 1,
-    WaitingForEnd = 2
+    Ending = 2
 }

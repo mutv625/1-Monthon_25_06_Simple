@@ -220,8 +220,12 @@ public class PlayerCore : MonoBehaviour
         // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
         if (doStartCombo)
         {
-            attacker.comboState.Value = ComboStates.Combo;
-            comboState.Value = ComboStates.Trapped;
+            if (attacker.comboState.Value == ComboStates.None)
+            {
+                attacker.comboState.Value = ComboStates.Combo;
+                comboState.Value = ComboStates.Trapped;
+            }
+            
         }
 
         // 2. ダメージの適用
@@ -234,12 +238,16 @@ public class PlayerCore : MonoBehaviour
         onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
     }
 
-    // ! 技、被ダメージ終了時に呼び出され、ステータスのロックを解除する
+    // ! 技アニメ、被ダメージアニメ終了時に呼び出すこと
+    // ステータスのロックを解除する
     public void ResetLockingStatusAtCore()
     {
         attackingState.Value = AttackingStates.None;
         isHurting.Value = false;
-        
+        if (comboState.Value == ComboStates.Ending)
+        {
+            comboState.Value = ComboStates.None;
+        }
     }
 
     // HP<=0 で呼び出す ~死亡~
