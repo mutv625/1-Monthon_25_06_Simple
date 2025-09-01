@@ -24,15 +24,12 @@ public class HitboxPrefab : MonoBehaviour
 
     [SerializeField] private JudgeResult judgeResult;
 
-    // TODO: Hitboxの役割
-    // 1. 生成されてから一定時間で消える
-    // 2. ヒット判定を持ち、敵にダメージを与える(敵のPlayerCoreのHurtを呼び出す)
-
     void Start()
     {
         Collider2D collider = GetComponent<Collider2D>();
         collider.isTrigger = true;
 
+        // A. 生成されてから一定時間で消える
         Destroy(gameObject, lifetime);
     }
 
@@ -42,6 +39,7 @@ public class HitboxPrefab : MonoBehaviour
         this.judgeResult = judgeResult;
     }
 
+    // B. ヒット判定を持ち、敵にダメージを与える(敵のPlayerCoreのHurtを呼び出す)
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 1. 敵のPlayerCoreを取得
@@ -54,7 +52,6 @@ public class HitboxPrefab : MonoBehaviour
 
             // 3. Hurtを呼び出す
             // 4. 自身に与えられたJudgeResultに応じてダメージを変化させる
-            // ! TODO: Crit を相手に当てると コンボが終了した途端コンボが始まり、終わらないらしいんですが
             if (judgeResult == JudgeResult.Critical)
             {
                 enemy.Hurt(owner, baseDamage * 2, CalcKnockback(kbDegree, kbForce), true);
@@ -84,7 +81,6 @@ public class HitboxPrefab : MonoBehaviour
 
     private Vector2 CalcKnockback(float degree, float magnitude)
     {
-        // TODO: Knockbackの計算
         Vector2 knockbackDirection = Quaternion.Euler(0, 0, degree) * Vector2.right;
         return knockbackDirection * magnitude;
     }

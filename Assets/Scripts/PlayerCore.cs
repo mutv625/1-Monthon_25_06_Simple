@@ -305,9 +305,7 @@ public class PlayerCore : MonoBehaviour
     // # コンボ終了処理
     public void FinishCombo()
     {
-        // TODO グローバルから呼ばれたときのコンボのリセット処理
         comboElapsedTime = 0f;
         comboCount.Value = 0;
     }
 }
-
