@@ -30,7 +30,7 @@ public class FightingEntryPoint : MonoBehaviour
     {
         // * 0P 初期化
         players.Add(initializer.InitializePlayer(playerPrefab, 0, keyConfigs[0], fighterPayloads[0]));
-        
+
         // * 1P 初期化
         players.Add(initializer.InitializePlayer(playerPrefab, 1, keyConfigs[1], fighterPayloads[0]));
     }
@@ -44,5 +44,13 @@ public class FightingEntryPoint : MonoBehaviour
     {
         updateAlways.OnNext(Unit.Default);
         if (isTimeFlowing) updateInFighting.OnNext(Unit.Default);
+    }
+
+    public void FinishComboForEveryone()
+    {
+        foreach (var player in players)
+        {
+            player.FinishCombo();
+        }
     }
 }

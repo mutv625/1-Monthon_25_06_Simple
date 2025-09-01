@@ -62,7 +62,6 @@ public class PlayerMover : MonoBehaviour
     // * 力を加える系
     public void AddImpulseVec(Vector2 impulse)
     {
-        Debug.Log($"AddImpulseVec: {impulse}");
         rb.linearVelocity = rb.linearVelocity / 2 + impulse;
     }
 

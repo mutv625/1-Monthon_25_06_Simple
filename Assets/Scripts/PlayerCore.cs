@@ -39,7 +39,9 @@ public class PlayerCore : MonoBehaviour
                 Debug.Log($"Player {playerId} started Combo!");
             });
 
-        onSkill.Subscribe(status => ChangeComboGaugeByJudge(status.Item2));
+        onSkill
+            .Where(_ => comboState.Value == ComboStates.Combo)
+            .Subscribe(status => ChangeComboGaugeByJudge(status.Item2));
 
         fightingEP.updateInFighting
             .Where(_ => comboState.Value == ComboStates.Combo)
@@ -75,7 +77,7 @@ public class PlayerCore : MonoBehaviour
 
     // ! 以下の関数ではプレイヤー自身のフラグを変更する
 
-    // * 移動系
+    // # 移動系
     public Subject<float> onMove = new Subject<float>();
     public void Move(float inputX)
     {
@@ -138,7 +140,7 @@ public class PlayerCore : MonoBehaviour
     [Header("判定テスト用")]
     [SerializeField] private JudgeResult recentJudgeResult = JudgeResult.None;
 
-    // * スキル発動系
+    // # スキル発動系
     public Subject<(AttackingStates, JudgeResult)> onSkill = new Subject<(AttackingStates, JudgeResult)>();
     // スキルキーが押されたときに呼び出される
     public void SkillA()
@@ -186,7 +188,7 @@ public class PlayerCore : MonoBehaviour
         }
     }
 
-    // * 被ダメージ時の処理
+    // # 被ダメージ時の処理 + コンボ突入
     public Subject<Vector2> onHurtAndKB = new Subject<Vector2>();
     public void Hurt(PlayerCore attacker, int damage, Vector2 kbVec, bool doStartCombo)
     {
@@ -211,8 +213,7 @@ public class PlayerCore : MonoBehaviour
         }
 
         // 2. ダメージの適用
-        Debug.Log($"Player {playerId} hurts! Damage = {damage}");
-
+        Debug.Log($"P{attacker.playerId} >> P{playerId} ( {damage}dmg ).");
         currentHealth.Value -= damage;
 
         // 3. Knockbackの適用
@@ -236,17 +237,24 @@ public class PlayerCore : MonoBehaviour
     }
 
     // # 与コンボ開始時の処理
-    // TODO: コンボゲージの増減
-    [SerializeField] float comboGauge = 100f;
+    [SerializeField] float comboGaugeValue = 0f;
+    private float ComboGaugeValue
+    {
+        get => comboGaugeValue;
+        set => comboGaugeValue = Mathf.Clamp(value, 0f, 100f);
+    }
+
     [SerializeField] float comboElapsedTime = 0f;
 
 
     // ComboStatus 値が Combo になった瞬間に呼び出される
     private void OnStartCombo()
     {
-        comboGauge = 100f;
+        ComboGaugeValue = 100f;
         comboElapsedTime = 0f;
     }
+
+    // # コンボ中のゲージ変化
 
     private void ChangeComboGaugeByJudge(JudgeResult jr)
     {
@@ -260,21 +268,27 @@ public class PlayerCore : MonoBehaviour
             _ => 0f
         };
 
-        if (comboGauge + delta > 100f) comboGauge = 100f;
-        else if (comboGauge + delta < 0f) comboGauge = 0f;
-        else comboGauge += delta;
+        ComboGaugeValue += delta;
     }
 
     private void ChangeComboGaugeByTime()
     {
         comboElapsedTime += Time.deltaTime;
+        float delta = -Time.deltaTime * (5f + 5f * (float)Math.Sqrt(comboElapsedTime) / 2f);
 
-        float delta = - Time.deltaTime * (5f + 5f * (float)Math.Sqrt(comboElapsedTime) / 2f);
-        Debug.Log($"Combo Gauge Change: {delta}");
+        ComboGaugeValue += delta;
+    }
 
-        if (comboGauge + delta > 100f) comboGauge = 100f;
-        // else if (comboGauge + delta < 0f) comboGauge = 0f;
-        else comboGauge += delta;
+    // # コンボ終了処理
+    public void FinishCombo()
+    {
+        // TODO グローバルから呼ばれたときのコンボのリセット処理
+        if (comboState.Value != ComboStates.None)
+        {
+            comboState.Value = ComboStates.None;
+            ComboGaugeValue = 0f;
+            comboElapsedTime = 0f;
+        }
     }
 }
 
