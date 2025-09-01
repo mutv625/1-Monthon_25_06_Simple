@@ -3,22 +3,6 @@ using UnityEngine;
 using UniRx;
 using System;
 
-public enum AttackingStates
-{
-    None,
-    SkillA,
-    SkillB,
-    SkillAx,
-    SkillBx
-}
-
-public enum ComboStates
-{
-    Trapped = -1,
-    None = 0,
-    Combo = 1
-}
-
 public class PlayerCore : MonoBehaviour
 {
     [Header("プレイヤー識別用")]
@@ -44,10 +28,22 @@ public class PlayerCore : MonoBehaviour
 
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
-        this.fightingEP = fightingEntryPoint;
+        fightingEP = fightingEntryPoint;
 
+        // * コンボ状態が変化したときの処理
+        comboState.DistinctUntilChanged()
+            .Where(state => state == ComboStates.Combo)
+            .Subscribe(_ =>
+            {
+                OnStartCombo();
+                Debug.Log($"Player {playerId} started Combo!");
+            });
 
-        // フラグを時間経過で戻すイベントたち 
+        onSkill.Subscribe(status => ChangeComboGaugeByJudge(status.Item2));
+
+        fightingEP.updateInFighting
+            .Where(_ => comboState.Value == ComboStates.Combo)
+            .Subscribe(_ => ChangeComboGaugeByTime());
     }
 
     // * 基本ステータス
@@ -67,7 +63,7 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] public BoolReactiveProperty isDashing = new BoolReactiveProperty(false);
 
 
-    // TODO: 常にこれを基準にプレイヤーの反転や向き、アニメーションの向きを決定する
+    // TODO: 常にこれを基準にプレイヤーの反転(ScaleX)や向き、アニメーションの向きを決定する
     // ! スキル中は変化しない
     [SerializeField] ReactiveProperty<Vector2> facingDirection = new ReactiveProperty<Vector2>(Vector2.right);
     // * 移動系ステータス
@@ -140,8 +136,7 @@ public class PlayerCore : MonoBehaviour
 
 
     [Header("判定テスト用")]
-    [SerializeField] private JudgeResult recentJudgeResult;
-
+    [SerializeField] private JudgeResult recentJudgeResult = JudgeResult.None;
 
     // * スキル発動系
     public Subject<(AttackingStates, JudgeResult)> onSkill = new Subject<(AttackingStates, JudgeResult)>();
@@ -195,10 +190,10 @@ public class PlayerCore : MonoBehaviour
     public Subject<Vector2> onHurtAndKB = new Subject<Vector2>();
     public void Hurt(PlayerCore attacker, int damage, Vector2 kbVec, bool doStartCombo)
     {
-        
+
         isHurting.Value = true;
 
-        // TODO 0. 死亡判定
+        // 0. 死亡判定
         if (currentHealth.Value - damage <= 0)
         {
             Debug.Log($"Player {playerId} will die.");
@@ -206,20 +201,21 @@ public class PlayerCore : MonoBehaviour
             return;
         }
 
-        // * 以下非死亡時の処理
-        // TODO 1. コンボ系の処理
-        // ComboState を参照し、物理演算をここで有効無効を切り替える
+        // * 以下 not死亡時の処理
+        // 1. コンボ系の処理
+        // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
         if (doStartCombo)
         {
+            attacker.comboState.Value = ComboStates.Combo;
             comboState.Value = ComboStates.Trapped;
         }
 
-        // TODO 2. ダメージの適用
+        // 2. ダメージの適用
         Debug.Log($"Player {playerId} hurts! Damage = {damage}");
 
         currentHealth.Value -= damage;
 
-        // TODO 3. Knockbackの適用
+        // 3. Knockbackの適用
         // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
         // その結果、KBは蓄積され、物理演算再開で超ふっとぶ
         onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
@@ -237,6 +233,48 @@ public class PlayerCore : MonoBehaviour
     {
         Debug.Log($"Player {playerId} died.");
         // TODO: 死亡処理
+    }
+
+    // # 与コンボ開始時の処理
+    // TODO: コンボゲージの増減
+    [SerializeField] float comboGauge = 100f;
+    [SerializeField] float comboElapsedTime = 0f;
+
+
+    // ComboStatus 値が Combo になった瞬間に呼び出される
+    private void OnStartCombo()
+    {
+        comboGauge = 100f;
+        comboElapsedTime = 0f;
+    }
+
+    private void ChangeComboGaugeByJudge(JudgeResult jr)
+    {
+        float delta = jr switch
+        {
+            JudgeResult.Critical => -100f,
+            JudgeResult.Perfect => 10f,
+            JudgeResult.Good => 5f,
+            JudgeResult.None => -5f,
+            JudgeResult.Miss => -10f,
+            _ => 0f
+        };
+
+        if (comboGauge + delta > 100f) comboGauge = 100f;
+        else if (comboGauge + delta < 0f) comboGauge = 0f;
+        else comboGauge += delta;
+    }
+
+    private void ChangeComboGaugeByTime()
+    {
+        comboElapsedTime += Time.deltaTime;
+
+        float delta = - Time.deltaTime * (5f + 5f * (float)Math.Sqrt(comboElapsedTime) / 2f);
+        Debug.Log($"Combo Gauge Change: {delta}");
+
+        if (comboGauge + delta > 100f) comboGauge = 100f;
+        // else if (comboGauge + delta < 0f) comboGauge = 0f;
+        else comboGauge += delta;
     }
 }
 

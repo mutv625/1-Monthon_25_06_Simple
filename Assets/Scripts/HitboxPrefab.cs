@@ -44,7 +44,6 @@ public class HitboxPrefab : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // TODO: ヒット判定処理
         // 1. 敵のPlayerCoreを取得
         if (collision.TryGetComponent(out PlayerCore enemy))
         {
@@ -55,20 +54,27 @@ public class HitboxPrefab : MonoBehaviour
 
             // 3. Hurtを呼び出す
             // 4. 自身に与えられたJudgeResultに応じてダメージを変化させる
-            switch (judgeResult)
+
+            if (judgeResult == JudgeResult.Critical)
             {
-                case JudgeResult.Critical:
-                    enemy.Hurt(owner, baseDamage * 2, CalcKnockback(kbDegree, kbForce), true);
-                    break;
-                case JudgeResult.Perfect:
-                    enemy.Hurt(owner, (int)Math.Ceiling(baseDamage * 1.5f), CalcKnockback(kbDegree, kbForce), true);
-                    break;
-                case JudgeResult.Good:
-                    enemy.Hurt(owner, (int)Math.Ceiling(baseDamage * 1.2f), CalcKnockback(kbDegree, kbForce), false);
-                    break;
-                default:
-                    enemy.Hurt(owner, baseDamage, CalcKnockback(kbDegree, kbForce), false);
-                    break;
+                enemy.Hurt(owner, baseDamage * 2, CalcKnockback(kbDegree, kbForce), true);
+            }
+            else if (judgeResult == JudgeResult.Perfect)
+            {
+                enemy.Hurt(owner, (int)Math.Ceiling(baseDamage * 1.5f), CalcKnockback(kbDegree, kbForce), true);
+            }
+            else if (judgeResult == JudgeResult.Good)
+            {
+                enemy.Hurt(owner, (int)Math.Ceiling(baseDamage * 1.2f), CalcKnockback(kbDegree, kbForce), false);
+            }
+            else if (judgeResult == JudgeResult.None && owner.comboState.Value == ComboStates.Combo)
+            {
+                // コンボ中のNone判定
+                enemy.Hurt(owner, (int)Math.Ceiling(baseDamage * 0.2f), Vector2.zero, false);
+            }
+            else
+            {
+                enemy.Hurt(owner, baseDamage, CalcKnockback(kbDegree, kbForce), false);
             }
 
 
