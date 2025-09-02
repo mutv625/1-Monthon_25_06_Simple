@@ -49,9 +49,11 @@ public class PlayerAnimator : MonoBehaviour
         playerCore.isDashing
             .Subscribe(isDashing => AnimateDashing(isDashing));
 
+        playerCore.onJump
+            .Subscribe(jumpStatus => AnimateJump(jumpStatus.Item2));
+
         playerCore.jumpCount
-            .DistinctUntilChanged()
-            .Subscribe(jumpCount => AnimateJump(jumpCount));
+            .Subscribe(jumpCount => animator.SetInteger("jumpCount", jumpCount));
 
 
         // * スキル系

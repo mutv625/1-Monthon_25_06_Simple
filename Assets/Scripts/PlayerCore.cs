@@ -120,7 +120,7 @@ public class PlayerCore : MonoBehaviour
         onMove.OnNext(inputX * moveSpeedMult);
     }
 
-    public Subject<float> onJump = new Subject<float>();
+    public Subject<(float,int)> onJump = new Subject<(float,int)>();
     public void Jump()
     {
         // ! スキル、ダメージ中、被コンボ中はロック
@@ -132,8 +132,8 @@ public class PlayerCore : MonoBehaviour
 
         if (jumpCount.Value < 2 && attackingState.Value == AttackingStates.None)
         {
-            onJump.OnNext(jumpForceMult);
             jumpCount.Value += 1;
+            onJump.OnNext((jumpForceMult, jumpCount.Value));
         }
     }
 

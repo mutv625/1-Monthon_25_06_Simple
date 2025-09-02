@@ -54,7 +54,7 @@ public class HitboxPrefab : MonoBehaviour
             // 4. 自身に与えられたJudgeResultに応じてダメージを変化させる
             if (judgeResult == JudgeResult.Critical)
             {
-                enemy.Hurt(owner, baseDamage * 2, CalcKnockback(kbDegree, kbForce), true);
+                enemy.Hurt(owner, (int)Math.Ceiling(baseDamage * 2.0f), CalcKnockback(kbDegree, kbForce), true);
             }
             else if (judgeResult == JudgeResult.Perfect)
             {
@@ -67,7 +67,7 @@ public class HitboxPrefab : MonoBehaviour
             else if (judgeResult == JudgeResult.None && owner.comboState.Value == ComboStates.Combo)
             {
                 // コンボ中のNone判定
-                enemy.Hurt(owner, (int)Math.Ceiling(baseDamage * 0.2f), Vector2.zero, false);
+                enemy.Hurt(owner, (int)Math.Ceiling(baseDamage * 0.2f), CalcKnockback(kbDegree, kbForce), false);
             }
             else
             {

@@ -22,7 +22,7 @@ public class PlayerMover : MonoBehaviour
             .Subscribe(_ => UpdateMovement());
 
         playerCore.onMove.Subscribe(inputX => MoveX(inputX));
-        playerCore.onJump.Subscribe(jumpMult => AddImpulseY(jumpMult));
+        playerCore.onJump.Subscribe(jumpStatus => AddImpulseY(jumpStatus.Item1));
         playerCore.onFall.Subscribe(inputY => MoveY(inputY));
         playerCore.onHurtAndKB
             .Subscribe(kbVec =>
@@ -54,8 +54,18 @@ public class PlayerMover : MonoBehaviour
         playerCore.comboState
             .Subscribe(state =>
             {
-                if (state == ComboStates.Trapped) rb.simulated = false;
-                else rb.simulated = true;
+                if (state == ComboStates.Trapped)
+                {
+                    // 拘束中は物理演算オフ
+                    rb.bodyType = RigidbodyType2D.Static;
+                    // TODO: その間のMove入力は無視、Inpulseは蓄積する
+                }
+                else
+                {
+                    // それ以外は物理演算オン
+                    rb.bodyType = RigidbodyType2D.Dynamic;
+                    // TODO: 蓄積したInpulseを加える
+                }
             });
     }
 
@@ -66,6 +76,9 @@ public class PlayerMover : MonoBehaviour
     // 目標速度、終端速度みたいなイメージ
     [SerializeField] private float movementX;
     [SerializeField] private float movementY;
+
+    [SerializeField] private float storedImpulseX;
+    [SerializeField] private float storedImpulseY;
 
     // * 移動系
     public void MoveX(float inputX)
@@ -78,10 +91,25 @@ public class PlayerMover : MonoBehaviour
         movementY = inputY * glbMoveSpeed;
     }
 
+
     // * 力を加える系
     public void AddImpulseVec(Vector2 impulse)
     {
-        rb.linearVelocity = rb.linearVelocity / 2 + impulse;
+        if (rb.bodyType == RigidbodyType2D.Static)
+        {
+            storedImpulseX += impulse.x;
+            storedImpulseY += impulse.y;
+            return;
+        }
+        else
+        {
+            rb.linearVelocity = rb.linearVelocity / 2 + impulse;
+        } 
+    }
+
+    public void AddImpulseX(float impulseX)
+    {
+        rb.linearVelocityX = rb.linearVelocityX / 2 + impulseX * glbMoveSpeed;
     }
 
     public void AddImpulseY(float impulseY)
