@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 public class FightingEntryPoint : MonoBehaviour
 {
-    [SerializeField] private bool isFighting = true;
+    [SerializeField] private bool isTimeFlowing = true;
 
     [SerializeField] private List<PlayerCore> players = new List<PlayerCore>();
     [SerializeField] private List<SOKeyConfig> keyConfigs = new List<SOKeyConfig>();
@@ -28,14 +28,10 @@ public class FightingEntryPoint : MonoBehaviour
 
     void Start()
     {
-        players.Add(initializer.InstantiatePlayer(playerPrefab, 0));
-        initializer.InitializeInputProvider(players[0], keyConfigs[0]);
-        initializer.InitializePlayerMover(players[0]);
-        initializer.InitializeGroundChecker(players[0]);
-        initializer.InitializePlayerAnimator(players[0], fighterPayloads[0].AnimatorController);
-        initializer.InitializeSkillController(players[0], fighterPayloads[0]);
-        
+        // * 0P 初期化
+        players.Add(initializer.InitializePlayer(playerPrefab, 0, keyConfigs[0], fighterPayloads[0]));
 
+        // * 1P 初期化
         players.Add(initializer.InitializePlayer(playerPrefab, 1, keyConfigs[1], fighterPayloads[0]));
     }
 
@@ -47,6 +43,26 @@ public class FightingEntryPoint : MonoBehaviour
     void Update()
     {
         updateAlways.OnNext(Unit.Default);
-        if (isFighting) updateInFighting.OnNext(Unit.Default);
+        if (isTimeFlowing) updateInFighting.OnNext(Unit.Default);
+    }
+
+    public void FinishComboForEveryone()
+    {
+        foreach (var player in players)
+        {
+            switch (player.comboState.Value)
+            {
+                case ComboStates.Trapped:
+                    player.comboState.Value = ComboStates.Ending;
+                    break;
+                case ComboStates.None:
+                    break;
+                case ComboStates.Combo:
+                    player.comboState.Value = ComboStates.Ending;
+                    break;
+                case ComboStates.Ending:
+                    break;
+            }
+        }
     }
 }

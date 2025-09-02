@@ -4,6 +4,12 @@ using System.ComponentModel;
 
 public class PlayerMover : MonoBehaviour
 {
+    // * 移動用定数
+    // ゲーム内共通の値、キャラクターごとのものではない
+    const float GLB_MOVE_SPEED = 10f;
+    const float GLB_JUMP_FORCE = 8f;
+    const float GLB_GRAVITY_SCALE = 13f;
+
     Rigidbody2D rb;
     PlayerCore playerCore;
 
@@ -16,38 +22,106 @@ public class PlayerMover : MonoBehaviour
             .Subscribe(_ => UpdateMovement());
 
         playerCore.onMove.Subscribe(inputX => MoveX(inputX));
-        playerCore.onJump.Subscribe(jumpMult => AddImpulseY(jumpMult));
+        playerCore.onJump.Subscribe(jumpStatus => AddImpulseY(jumpStatus.Item1));
         playerCore.onFall.Subscribe(inputY => MoveY(inputY));
+        playerCore.onHurtAndKB
+            .Subscribe(kbVec =>
+            {
+                AddImpulseVec(kbVec);
+            });
+
+        // * コンボ中パラメータ影響
+        playerCore.comboState
+            .Where(state => state == ComboStates.Combo)
+            .Subscribe(_ =>
+            {
+                // コンボ中は移動系 1/3 倍
+                glbMoveSpeed = GLB_MOVE_SPEED / 3f;
+                glbJumpForce = GLB_JUMP_FORCE / 3f;
+                glbGravityScale = GLB_GRAVITY_SCALE / 3f;
+            });
+
+        playerCore.comboState
+            .Where(state => state == ComboStates.None)
+            .Subscribe(_ =>
+            {
+                // 通常時に戻す
+                glbMoveSpeed = GLB_MOVE_SPEED;
+                glbJumpForce = GLB_JUMP_FORCE;
+                glbGravityScale = GLB_GRAVITY_SCALE;
+            });
+        
+        playerCore.comboState
+            .Subscribe(state =>
+            {
+                if (state == ComboStates.Trapped)
+                {
+                    // 拘束中は物理演算オフ
+                    rb.bodyType = RigidbodyType2D.Static;
+                    // TODO: その間のMove入力は無視、Inpulseは蓄積する
+                }
+                else
+                {
+                    // それ以外は物理演算オン
+                    rb.bodyType = RigidbodyType2D.Dynamic;
+                    // TODO: 蓄積したInpulseを加える
+                }
+            });
     }
 
-    // * 移動用定数
-    // ゲーム内共通の値、キャラクターごとのものではない
-    [SerializeField] private readonly float MOVE_SPEED = 10f;
-    [SerializeField] private readonly float JUMP_FORCE = 8f;
-    [SerializeField] private readonly float GRAVITY_SCALE = 13f;
+    [SerializeField] private float glbMoveSpeed = GLB_MOVE_SPEED;
+    [SerializeField] private float glbJumpForce = GLB_JUMP_FORCE;
+    [SerializeField] private float glbGravityScale = GLB_GRAVITY_SCALE;
 
     // 目標速度、終端速度みたいなイメージ
     [SerializeField] private float movementX;
     [SerializeField] private float movementY;
 
+    [SerializeField] private float storedImpulseX;
+    [SerializeField] private float storedImpulseY;
+
+    // * 移動系
     public void MoveX(float inputX)
     {
-        movementX = inputX * MOVE_SPEED;
+        movementX = inputX * glbMoveSpeed;
     }
 
     public void MoveY(float inputY)
     {
-        movementY = inputY * MOVE_SPEED;
+        movementY = inputY * glbMoveSpeed;
+    }
+
+
+    // * 力を加える系
+    public void AddImpulseVec(Vector2 impulse)
+    {
+        if (rb.bodyType == RigidbodyType2D.Static)
+        {
+            storedImpulseX += impulse.x;
+            storedImpulseY += impulse.y;
+            return;
+        }
+        else
+        {
+            rb.linearVelocity = rb.linearVelocity / 2 + impulse;
+        } 
+    }
+
+    public void AddImpulseX(float impulseX)
+    {
+        rb.linearVelocityX = rb.linearVelocityX / 2 + impulseX * glbMoveSpeed;
     }
 
     public void AddImpulseY(float impulseY)
     {
-        rb.linearVelocityY = rb.linearVelocityY / 2 + impulseY * JUMP_FORCE;
+        rb.linearVelocityY = rb.linearVelocityY / 2 + impulseY * glbJumpForce;
     }
 
+
+    // * 移動の更新
     private void UpdateMovement()
     {
-        rb.linearVelocityX = rb.linearVelocityX + (movementX - rb.linearVelocityX) * 0.4f * Time.deltaTime * 60;
-        rb.linearVelocityY = rb.linearVelocityY - GRAVITY_SCALE * Time.deltaTime;
+        rb.linearVelocityX = rb.linearVelocityX + (movementX - rb.linearVelocityX) * 0.2f * Time.deltaTime * 60;
+        rb.linearVelocityY = rb.linearVelocityY - glbGravityScale * Time.deltaTime;
     }
 }

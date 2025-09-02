@@ -25,6 +25,18 @@ public class GroundChecker : MonoBehaviour
             .Where(isGrounded => isGrounded)
             .Subscribe(_ => playerCore.ResetJumpCount())
             .AddTo(this);
+
+        // * 2. 地面にいるかどうかを PlayerCore に伝える
+        isGrounded
+            .Where(isGrounded => !isGrounded)
+            .ThrottleFirst(TimeSpan.FromSeconds(0.1))
+            .Subscribe(_ =>
+            {
+                if (playerCore.jumpCount.Value == 0)
+                {
+                    playerCore.jumpCount.Value = 1;
+                }
+            }).AddTo(this);
     }
 
     private void UpdateGroundCheck()
