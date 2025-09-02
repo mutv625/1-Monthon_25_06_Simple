@@ -31,8 +31,8 @@ public class PlayerCore : MonoBehaviour
         fightingEP = fightingEntryPoint;
 
         // * コンボ状態が変化したときの処理
-        comboState.DistinctUntilChanged()
-            .Where(state => state == ComboStates.Combo)
+        comboState.Pairwise()
+            .Where(pair => pair.Previous == ComboStates.None && pair.Current == ComboStates.Combo)
             .Subscribe(_ =>
             {
                 OnStartCombo();
@@ -229,7 +229,7 @@ public class PlayerCore : MonoBehaviour
         // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
         if (doStartCombo)
         {
-            if (attacker.comboState.Value == ComboStates.None)
+            if (attacker.comboState.Value == ComboStates.None && comboState.Value == ComboStates.None)
             {
                 attacker.comboState.Value = ComboStates.Combo;
                 comboState.Value = ComboStates.Trapped;
@@ -253,6 +253,7 @@ public class PlayerCore : MonoBehaviour
     {
         attackingState.Value = AttackingStates.None;
         isHurting.Value = false;
+        // TODO: Ending 状態の扱いを真面目に考える
         if (comboState.Value == ComboStates.Ending)
         {
             comboState.Value = ComboStates.None;

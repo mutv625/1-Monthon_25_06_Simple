@@ -63,6 +63,7 @@ public class PlayerAnimator : MonoBehaviour
             .DistinctUntilChanged()
             .Where(isHurting => isHurting)
             .Subscribe(_ => animator.SetTrigger("trigHurt1"));
+            // TODO: コンボ中は0.1秒後にアニメーションを止める
     }
 
     // ! アニメーション制御

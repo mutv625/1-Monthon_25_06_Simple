@@ -53,7 +53,7 @@ public class FightingEntryPoint : MonoBehaviour
             switch (player.comboState.Value)
             {
                 case ComboStates.Trapped:
-                    player.comboState.Value = ComboStates.None;
+                    player.comboState.Value = ComboStates.Ending;
                     break;
                 case ComboStates.None:
                     break;
