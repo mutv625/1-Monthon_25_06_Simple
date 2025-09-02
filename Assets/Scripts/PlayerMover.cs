@@ -19,16 +19,20 @@ public class PlayerMover : MonoBehaviour
         playerCore = GetComponent<PlayerCore>();
 
         fightingEntryPoint.updateInFighting
-            .Subscribe(_ => UpdateMovement());
+            .Subscribe(_ => UpdateMovement())
+            .AddTo(this);
 
-        playerCore.onMove.Subscribe(inputX => MoveX(inputX));
-        playerCore.onJump.Subscribe(jumpStatus => AddImpulseY(jumpStatus.Item1));
-        playerCore.onFall.Subscribe(inputY => MoveY(inputY));
+        playerCore.onMove.Subscribe(inputX => MoveX(inputX))
+            .AddTo(this);
+        playerCore.onJump.Subscribe(jumpStatus => AddImpulseY(jumpStatus.Item1))
+            .AddTo(this);
+        playerCore.onFall.Subscribe(inputY => MoveY(inputY))
+            .AddTo(this);
         playerCore.onHurtAndKB
             .Subscribe(kbVec =>
             {
                 AddImpulseVec(kbVec);
-            });
+            }).AddTo(this);
 
         // * コンボ中パラメータ影響
         playerCore.comboState
@@ -39,7 +43,7 @@ public class PlayerMover : MonoBehaviour
                 glbMoveSpeed = GLB_MOVE_SPEED / 3f;
                 glbJumpForce = GLB_JUMP_FORCE / 3f;
                 glbGravityScale = GLB_GRAVITY_SCALE / 3f;
-            });
+            }).AddTo(this);
 
         playerCore.comboState
             .Where(state => state == ComboStates.None)
@@ -49,7 +53,7 @@ public class PlayerMover : MonoBehaviour
                 glbMoveSpeed = GLB_MOVE_SPEED;
                 glbJumpForce = GLB_JUMP_FORCE;
                 glbGravityScale = GLB_GRAVITY_SCALE;
-            });
+            }).AddTo(this);
         
         playerCore.comboState
             .Subscribe(state =>
@@ -66,7 +70,7 @@ public class PlayerMover : MonoBehaviour
                     rb.bodyType = RigidbodyType2D.Dynamic;
                     // TODO: 蓄積したInpulseを加える
                 }
-            });
+            }).AddTo(this);
     }
 
     [SerializeField] private float glbMoveSpeed = GLB_MOVE_SPEED;

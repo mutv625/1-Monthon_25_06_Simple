@@ -37,19 +37,22 @@ public class PlayerCore : MonoBehaviour
             {
                 OnStartCombo();
                 Debug.Log($"Player {playerId} started Combo!");
-            });
+            }).AddTo(this);
 
         onSkill
             .Where(_ => comboState.Value == ComboStates.Combo)
-            .Subscribe(status => ChangeComboGaugeByJudge(status.Item2));
+            .Subscribe(status => ChangeComboGaugeByJudge(status.Item2))
+            .AddTo(this);
 
         fightingEP.updateInFighting
             .Where(_ => comboState.Value == ComboStates.Combo)
-            .Subscribe(_ => ChangeComboGaugeByTime());
+            .Subscribe(_ => ChangeComboGaugeByTime())
+            .AddTo(this);
 
         comboState.DistinctUntilChanged()
             .Where(state => state == ComboStates.None)
-            .Subscribe(_ => FinishCombo());
+            .Subscribe(_ => FinishCombo())
+            .AddTo(this);
 
         comboGaugeValue
             .Where(value => value <= 0f && comboState.Value == ComboStates.Combo)
@@ -57,7 +60,7 @@ public class PlayerCore : MonoBehaviour
             {
                 fightingEP.FinishComboForEveryone();
                 Debug.Log($"Player {playerId} combo gauge depleted, all combos finished.");
-            });
+            }).AddTo(this);
     }
 
     // * 基本ステータス

@@ -18,7 +18,8 @@ public class InputProvider : MonoBehaviour
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
         fightingEntryPoint.updateInFighting
-            .Subscribe(_ => UpdateKeyInput());
+            .Subscribe(_ => UpdateKeyInput())
+            .AddTo(this);
     }
 
     public void UpdateKeyInput()
