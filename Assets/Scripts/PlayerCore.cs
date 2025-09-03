@@ -21,6 +21,12 @@ public class PlayerCore : MonoBehaviour
         if (playerId % 2 == 1)
         {
             transform.localScale = new Vector3(-1, 1, 1);
+            facingDirection.Value = Vector2.left;
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            facingDirection.Value = Vector2.right;
         }
 
         return this;
@@ -38,6 +44,14 @@ public class PlayerCore : MonoBehaviour
                 OnStartCombo();
                 Debug.Log($"Player {playerId} started Combo!");
             }).AddTo(this);
+        
+        comboState.Pairwise()
+            .Where(pair => pair.Previous == ComboStates.None && pair.Current == ComboStates.Trapped)
+            .Subscribe(_ =>
+            {
+                OnStartTrapped();
+                Debug.Log($"Player {playerId} got Trapped!");
+            }).AddTo(this);
 
         onSkill
             .Where(_ => comboState.Value == ComboStates.Combo)
@@ -51,7 +65,7 @@ public class PlayerCore : MonoBehaviour
 
         comboState.DistinctUntilChanged()
             .Where(state => state == ComboStates.None)
-            .Subscribe(_ => FinishCombo())
+            .Subscribe(_ => ResetComboStatus())
             .AddTo(this);
 
         comboGaugeValue
@@ -219,8 +233,15 @@ public class PlayerCore : MonoBehaviour
 
         isHurting.Value = true;
 
+        if (comboState.Value == ComboStates.Trapped)
+        {
+            comboTrappedCount.Value += 1;
+        }
+
+        int finalDamage = damage;
+
         // 0. 死亡判定
-        if (currentHealth.Value - damage <= 0)
+        if (currentHealth.Value - finalDamage <= 0)
         {
             Debug.Log($"Player {playerId} will die.");
             currentHealth.Value = 0;
@@ -241,8 +262,8 @@ public class PlayerCore : MonoBehaviour
         }
 
         // 2. ダメージの適用
-        Debug.Log($"P{attacker.playerId} >> P{playerId} ( {damage}dmg ).");
-        currentHealth.Value -= damage;
+        Debug.Log($"P{attacker.playerId} >> P{playerId} ( {finalDamage}dmg ).");
+        currentHealth.Value -= finalDamage;
 
         // 3. Knockbackの適用
         // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
@@ -279,7 +300,7 @@ public class PlayerCore : MonoBehaviour
     }
 
     [SerializeField] float comboElapsedTime = 0f;
-    [SerializeField] IntReactiveProperty comboCount = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty comboTrappedCount = new IntReactiveProperty(0);
 
 
     // ComboStatus 値が Combo になった瞬間に呼び出される
@@ -287,7 +308,11 @@ public class PlayerCore : MonoBehaviour
     {
         ComboGaugeValue = 100f;
         comboElapsedTime = 0f;
-        comboCount.Value = 0;
+    }
+
+    private void OnStartTrapped()
+    {
+        comboTrappedCount.Value = 1;
     }
 
     // # コンボ中のゲージ変化
@@ -316,9 +341,9 @@ public class PlayerCore : MonoBehaviour
     }
 
     // # コンボ終了処理
-    public void FinishCombo()
+    public void ResetComboStatus()
     {
         comboElapsedTime = 0f;
-        comboCount.Value = 0;
+        comboTrappedCount.Value = 0;
     }
 }

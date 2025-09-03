@@ -67,12 +67,39 @@ public class PlayerAnimator : MonoBehaviour
             .Subscribe(state => AnimateSkill(state.Item1))
             .AddTo(this);
 
+
+        // TODO: コンボ中は0.1秒後にアニメーションを止める
         playerCore.isHurting
             .DistinctUntilChanged()
             .Where(isHurting => isHurting)
             .Subscribe(_ => animator.SetTrigger("trigHurt1"))
             .AddTo(this);
-            // TODO: コンボ中は0.1秒後にアニメーションを止める
+
+        playerCore.comboState
+            .Subscribe(state => {
+                if (state == ComboStates.Trapped)
+                {
+                    animator.SetBool("isTrapped", true);
+                }
+                else
+                {
+                    animator.SetBool("isTrapped", false);
+                }
+            })
+            .AddTo(this);
+
+        playerCore.comboState
+            .Subscribe(state =>
+            {
+                if (state == ComboStates.Trapped)
+                {
+                    animator.speed = 0f;
+                }
+                else
+                {
+                    animator.speed = 1f;
+                }
+            }).AddTo(this);
     }
 
     // ! アニメーション制御
