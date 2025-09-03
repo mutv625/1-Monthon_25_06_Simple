@@ -31,7 +31,7 @@ public class PlayerMover : MonoBehaviour
         playerCore.onHurtAndKB
             .Subscribe(kbVec =>
             {
-                AddImpulseVec(kbVec);
+                AddImpulseVecRaw(kbVec);
             }).AddTo(this);
 
         // * コンボ中パラメータ影響
@@ -68,7 +68,14 @@ public class PlayerMover : MonoBehaviour
                 {
                     // それ以外は物理演算オン
                     rb.bodyType = RigidbodyType2D.Dynamic;
-                    // TODO: 蓄積したInpulseを加える
+
+                    // 蓄積したInpulseを加える
+                    if (storedImpulseX != 0 || storedImpulseY != 0)
+                    {
+                        rb.linearVelocity = rb.linearVelocity / 2.5f + new Vector2(storedImpulseX, storedImpulseY);
+                        storedImpulseX = 0;
+                        storedImpulseY = 0;
+                    }
                 }
             }).AddTo(this);
     }
@@ -97,7 +104,7 @@ public class PlayerMover : MonoBehaviour
 
 
     // * 力を加える系
-    public void AddImpulseVec(Vector2 impulse)
+    public void AddImpulseVecRaw(Vector2 impulse)
     {
         if (rb.bodyType == RigidbodyType2D.Static)
         {
@@ -107,24 +114,44 @@ public class PlayerMover : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = rb.linearVelocity / 2 + impulse;
+            rb.linearVelocity = rb.linearVelocity / 2.5f + impulse;
         } 
     }
 
     public void AddImpulseX(float impulseX)
     {
-        rb.linearVelocityX = rb.linearVelocityX / 2 + impulseX * glbMoveSpeed;
+        if (rb.bodyType == RigidbodyType2D.Static)
+        {
+            storedImpulseX += impulseX * glbMoveSpeed;
+            return;
+        }
+        else
+        {
+            rb.linearVelocityX = rb.linearVelocityX / 2.5f + impulseX * glbMoveSpeed;
+        }
+
     }
 
     public void AddImpulseY(float impulseY)
     {
-        rb.linearVelocityY = rb.linearVelocityY / 2 + impulseY * glbJumpForce;
+        if (rb.bodyType == RigidbodyType2D.Static)
+        {
+            storedImpulseY += impulseY * glbJumpForce;
+            return;
+        }
+        else
+        {
+            rb.linearVelocityY = rb.linearVelocityY / 2.5f + impulseY * glbJumpForce;
+
+        }
     }
 
 
     // * 移動の更新
     private void UpdateMovement()
     {
+        if(rb.bodyType == RigidbodyType2D.Static) return;
+
         rb.linearVelocityX = rb.linearVelocityX + (movementX - rb.linearVelocityX) * 0.2f * Time.deltaTime * 60;
         rb.linearVelocityY = rb.linearVelocityY - glbGravityScale * Time.deltaTime;
     }

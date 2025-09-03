@@ -227,10 +227,18 @@ public class PlayerCore : MonoBehaviour
     }
 
     // # 被ダメージ時の処理 + コンボ突入
+
+    // * コンボダメージ計算用
+    // TODO: 選択難易度によって変更
+    float NUMER = 1.5f;
+    float DENOM = 0.9f;
+    float EBASE = 1.17f;
+    int ADDITIONAL = 20;
+
     public Subject<Vector2> onHurtAndKB = new Subject<Vector2>();
     public void Hurt(PlayerCore attacker, int damage, Vector2 kbVec, bool doStartCombo)
     {
-
+        // -2. ダメージ受け始めの処理 (ダメージモーション開始など)
         isHurting.Value = true;
 
         if (comboState.Value == ComboStates.Trapped)
@@ -238,38 +246,48 @@ public class PlayerCore : MonoBehaviour
             comboTrappedCount.Value += 1;
         }
 
+        // * -1. ダメージ計算
         int finalDamage = damage;
 
+        if (comboState.Value == ComboStates.Trapped)
+        {
+            finalDamage = (int)(damage * NUMER / (DENOM + MathF.Pow(EBASE, comboTrappedCount.Value))) + ADDITIONAL;
+        }
+        else
+        {
+            finalDamage = damage;
+        }
+
         // 0. 死亡判定
-        if (currentHealth.Value - finalDamage <= 0)
-        {
-            Debug.Log($"Player {playerId} will die.");
-            currentHealth.Value = 0;
-            return;
-        }
-
-        // * 以下 not死亡時の処理
-        // 1. コンボ系の処理
-        // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
-        if (doStartCombo)
-        {
-            if (attacker.comboState.Value == ComboStates.None && comboState.Value == ComboStates.None)
+            if (currentHealth.Value - finalDamage <= 0)
             {
-                attacker.comboState.Value = ComboStates.Combo;
-                comboState.Value = ComboStates.Trapped;
+                Debug.Log($"Player {playerId} will die.");
+                currentHealth.Value = 0;
+                return;
             }
-            
+
+            // * 以下 not死亡時の処理
+            // 1. コンボ系の処理
+            // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
+            if (doStartCombo)
+            {
+                if (attacker.comboState.Value == ComboStates.None && comboState.Value == ComboStates.None)
+                {
+                    attacker.comboState.Value = ComboStates.Combo;
+                    comboState.Value = ComboStates.Trapped;
+                }
+
+            }
+
+            // 2. ダメージの適用
+            Debug.Log($"P{attacker.playerId} >> P{playerId} ( {finalDamage}dmg ).");
+            currentHealth.Value -= finalDamage;
+
+            // 3. Knockbackの適用
+            // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
+            // その結果、KBは蓄積され、物理演算再開で超ふっとぶ
+            onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
         }
-
-        // 2. ダメージの適用
-        Debug.Log($"P{attacker.playerId} >> P{playerId} ( {finalDamage}dmg ).");
-        currentHealth.Value -= finalDamage;
-
-        // 3. Knockbackの適用
-        // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
-        // その結果、KBは蓄積され、物理演算再開で超ふっとぶ
-        onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
-    }
 
     // ! 技アニメ、被ダメージアニメ終了時に呼び出すこと
     // ステータスのロックを解除する
