@@ -21,6 +21,12 @@ public class PlayerCore : MonoBehaviour
         if (playerId % 2 == 1)
         {
             transform.localScale = new Vector3(-1, 1, 1);
+            facingDirection.Value = Vector2.left;
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            facingDirection.Value = Vector2.right;
         }
 
         return this;
@@ -37,19 +43,30 @@ public class PlayerCore : MonoBehaviour
             {
                 OnStartCombo();
                 Debug.Log($"Player {playerId} started Combo!");
-            });
+            }).AddTo(this);
+        
+        comboState.Pairwise()
+            .Where(pair => pair.Previous == ComboStates.None && pair.Current == ComboStates.Trapped)
+            .Subscribe(_ =>
+            {
+                OnStartTrapped();
+                Debug.Log($"Player {playerId} got Trapped!");
+            }).AddTo(this);
 
         onSkill
             .Where(_ => comboState.Value == ComboStates.Combo)
-            .Subscribe(status => ChangeComboGaugeByJudge(status.Item2));
+            .Subscribe(status => ChangeComboGaugeByJudge(status.Item2))
+            .AddTo(this);
 
         fightingEP.updateInFighting
             .Where(_ => comboState.Value == ComboStates.Combo)
-            .Subscribe(_ => ChangeComboGaugeByTime());
+            .Subscribe(_ => ChangeComboGaugeByTime())
+            .AddTo(this);
 
         comboState.DistinctUntilChanged()
             .Where(state => state == ComboStates.None)
-            .Subscribe(_ => FinishCombo());
+            .Subscribe(_ => ResetComboStatus())
+            .AddTo(this);
 
         comboGaugeValue
             .Where(value => value <= 0f && comboState.Value == ComboStates.Combo)
@@ -57,7 +74,7 @@ public class PlayerCore : MonoBehaviour
             {
                 fightingEP.FinishComboForEveryone();
                 Debug.Log($"Player {playerId} combo gauge depleted, all combos finished.");
-            });
+            }).AddTo(this);
     }
 
     // * 基本ステータス
@@ -210,42 +227,67 @@ public class PlayerCore : MonoBehaviour
     }
 
     // # 被ダメージ時の処理 + コンボ突入
+
+    // * コンボダメージ計算用
+    // TODO: 選択難易度によって変更
+    float NUMER = 1.5f;
+    float DENOM = 0.9f;
+    float EBASE = 1.17f;
+    int ADDITIONAL = 20;
+
     public Subject<Vector2> onHurtAndKB = new Subject<Vector2>();
     public void Hurt(PlayerCore attacker, int damage, Vector2 kbVec, bool doStartCombo)
     {
-
+        // -2. ダメージ受け始めの処理 (ダメージモーション開始など)
         isHurting.Value = true;
 
+        if (comboState.Value == ComboStates.Trapped)
+        {
+            comboTrappedCount.Value += 1;
+        }
+
+        // # ダメージ計算
+        int finalDamage = damage;
+
+        if (comboState.Value == ComboStates.Trapped)
+        {
+            finalDamage = (int)(damage * NUMER / (DENOM + MathF.Pow(EBASE, comboTrappedCount.Value))) + ADDITIONAL;
+        }
+        else
+        {
+            finalDamage = damage;
+        }
+
         // 0. 死亡判定
-        if (currentHealth.Value - damage <= 0)
-        {
-            Debug.Log($"Player {playerId} will die.");
-            currentHealth.Value = 0;
-            return;
-        }
-
-        // * 以下 not死亡時の処理
-        // 1. コンボ系の処理
-        // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
-        if (doStartCombo)
-        {
-            if (attacker.comboState.Value == ComboStates.None && comboState.Value == ComboStates.None)
+            if (currentHealth.Value - finalDamage <= 0)
             {
-                attacker.comboState.Value = ComboStates.Combo;
-                comboState.Value = ComboStates.Trapped;
+                Debug.Log($"Player {playerId} will die.");
+                currentHealth.Value = 0;
+                return;
             }
-            
+
+            // * 以下 not死亡時の処理
+            // 1. コンボ系の処理
+            // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
+            if (doStartCombo)
+            {
+                if (attacker.comboState.Value == ComboStates.None && comboState.Value == ComboStates.None)
+                {
+                    attacker.comboState.Value = ComboStates.Combo;
+                    comboState.Value = ComboStates.Trapped;
+                }
+
+            }
+
+            // 2. ダメージの適用
+            Debug.Log($"P{attacker.playerId} >> P{playerId} ( {finalDamage}dmg ).");
+            currentHealth.Value -= finalDamage;
+
+            // 3. Knockbackの適用
+            // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
+            // その結果、KBは蓄積され、物理演算再開で超ふっとぶ
+            onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
         }
-
-        // 2. ダメージの適用
-        Debug.Log($"P{attacker.playerId} >> P{playerId} ( {damage}dmg ).");
-        currentHealth.Value -= damage;
-
-        // 3. Knockbackの適用
-        // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
-        // その結果、KBは蓄積され、物理演算再開で超ふっとぶ
-        onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
-    }
 
     // ! 技アニメ、被ダメージアニメ終了時に呼び出すこと
     // ステータスのロックを解除する
@@ -276,7 +318,7 @@ public class PlayerCore : MonoBehaviour
     }
 
     [SerializeField] float comboElapsedTime = 0f;
-    [SerializeField] IntReactiveProperty comboCount = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty comboTrappedCount = new IntReactiveProperty(0);
 
 
     // ComboStatus 値が Combo になった瞬間に呼び出される
@@ -284,7 +326,11 @@ public class PlayerCore : MonoBehaviour
     {
         ComboGaugeValue = 100f;
         comboElapsedTime = 0f;
-        comboCount.Value = 0;
+    }
+
+    private void OnStartTrapped()
+    {
+        comboTrappedCount.Value = 1;
     }
 
     // # コンボ中のゲージ変化
@@ -307,15 +353,15 @@ public class PlayerCore : MonoBehaviour
     private void ChangeComboGaugeByTime()
     {
         comboElapsedTime += Time.deltaTime;
-        float delta = -Time.deltaTime * (5f + 5f * (float)Math.Sqrt(comboElapsedTime) / 2f);
+        float delta = -Time.deltaTime * (5f + 5f * (float)Math.Pow(comboElapsedTime,0.75) / 2f);
 
         ComboGaugeValue += delta;
     }
 
     // # コンボ終了処理
-    public void FinishCombo()
+    public void ResetComboStatus()
     {
         comboElapsedTime = 0f;
-        comboCount.Value = 0;
+        comboTrappedCount.Value = 0;
     }
 }

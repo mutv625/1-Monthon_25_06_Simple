@@ -27,7 +27,8 @@ public class SkillController : MonoBehaviour
 
         // * ダメージ計算用の判定を持っておけるように
         playerCore.onSkill
-            .Subscribe(state => currentJudgeResult = state.Item2);
+            .Subscribe(state => currentJudgeResult = state.Item2)
+            .AddTo(this);
     }
 
     // * 以下の関数は AnimationClip の Animation Event から呼び出す

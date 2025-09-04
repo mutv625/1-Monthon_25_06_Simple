@@ -32,40 +32,74 @@ public class PlayerAnimator : MonoBehaviour
             {
                 animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
                 isIdling.Value = animatorStateInfo.IsName("Idling");
-            });
+            }).AddTo(this);
 
         isIdling
             .DistinctUntilChanged()
             .Where(isIdling => isIdling)
-            .Subscribe(_ => playerCore.ResetLockingStatusAtCore());
+            .Subscribe(_ => playerCore.ResetLockingStatusAtCore())
+            .AddTo(this);
 
         // ! 条件付きでアニメーションを切り替える
         // * 移動系
         playerCore.isDashing
             .DistinctUntilChanged()
             .Where(isDashing => isDashing)
-            .Subscribe(_ => AnimateStartDashing());
+            .Subscribe(_ => AnimateStartDashing())
+            .AddTo(this);
 
         playerCore.isDashing
-            .Subscribe(isDashing => AnimateDashing(isDashing));
+            .Subscribe(isDashing => AnimateDashing(isDashing))
+            .AddTo(this);
 
         playerCore.onJump
-            .Subscribe(jumpStatus => AnimateJump(jumpStatus.Item2));
+            .Subscribe(jumpStatus => AnimateJump(jumpStatus.Item2))
+            .AddTo(this);
 
         playerCore.jumpCount
-            .Subscribe(jumpCount => animator.SetInteger("jumpCount", jumpCount));
+            .Subscribe(jumpCount => animator.SetInteger("jumpCount", jumpCount))
+            .AddTo(this);
 
 
         // * スキル系
         playerCore.onSkill
             .Where(state => state.Item1 != AttackingStates.None)
-            .Subscribe(state => AnimateSkill(state.Item1));
+            .Subscribe(state => AnimateSkill(state.Item1))
+            .AddTo(this);
 
+
+        // TODO: コンボ中は0.1秒後にアニメーションを止める
         playerCore.isHurting
             .DistinctUntilChanged()
             .Where(isHurting => isHurting)
-            .Subscribe(_ => animator.SetTrigger("trigHurt1"));
-            // TODO: コンボ中は0.1秒後にアニメーションを止める
+            .Subscribe(_ => animator.SetTrigger("trigHurt1"))
+            .AddTo(this);
+
+        playerCore.comboState
+            .Subscribe(state => {
+                if (state == ComboStates.Trapped)
+                {
+                    animator.SetBool("isTrapped", true);
+                }
+                else
+                {
+                    animator.SetBool("isTrapped", false);
+                }
+            })
+            .AddTo(this);
+
+        playerCore.comboState
+            .Subscribe(state =>
+            {
+                if (state == ComboStates.Trapped)
+                {
+                    animator.speed = 0f;
+                }
+                else
+                {
+                    animator.speed = 1f;
+                }
+            }).AddTo(this);
     }
 
     // ! アニメーション制御

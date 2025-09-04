@@ -356,9 +356,9 @@ MonoBehaviour:
   playerId: 0
   fightingEP: {fileID: 0}
   maxHealth:
-    value: 9999
+    value: 4000
   currentHealth:
-    value: 9999
+    value: 400000
   isInvincible:
     value: 0
   comboState:
@@ -374,12 +374,17 @@ MonoBehaviour:
   isDashing:
     value: 0
   facingDirection:
-    value: {x: 1, y: 0}
+    value: {x: 0, y: 0}
   moveSpeedMult: 1
   jumpForceMult: 1
   fallSpeedTerm: 1
   gravityMult: 1
   recentJudgeResult: 0
+  comboGaugeValue:
+    value: 0
+  comboElapsedTime: 0
+  comboTrappedCount:
+    value: 0
 --- !u!114 &6203081677519027741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,8 +410,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f6e1991c70f48478884a71f6f53a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glbMoveSpeed: 10
+  glbJumpForce: 8
+  glbGravityScale: 13
   movementX: 0
   movementY: 0
+  storedImpulseX: 0
+  storedImpulseY: 0
 --- !u!114 &8841191457978838612
 MonoBehaviour:
   m_ObjectHideFlags: 0
