@@ -246,7 +246,7 @@ public class PlayerCore : MonoBehaviour
             comboTrappedCount.Value += 1;
         }
 
-        // * -1. ダメージ計算
+        // # ダメージ計算
         int finalDamage = damage;
 
         if (comboState.Value == ComboStates.Trapped)
@@ -353,7 +353,7 @@ public class PlayerCore : MonoBehaviour
     private void ChangeComboGaugeByTime()
     {
         comboElapsedTime += Time.deltaTime;
-        float delta = -Time.deltaTime * (5f + 5f * (float)Math.Sqrt(comboElapsedTime) / 2f);
+        float delta = -Time.deltaTime * (5f + 5f * (float)Math.Pow(comboElapsedTime,0.75) / 2f);
 
         ComboGaugeValue += delta;
     }
