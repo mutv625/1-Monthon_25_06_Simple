@@ -1,8 +1,8 @@
 using UnityEngine;
 using UniRx;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 
 public class FightingEntryPoint : MonoBehaviour
@@ -25,8 +25,22 @@ public class FightingEntryPoint : MonoBehaviour
 
     [SerializeField] private PlayerCore playerPrefab;
 
-    [SerializeField] AudioListener[] listeners;
+    [Header("リズムゲームシーン関連")]
+    [SerializeField] public AudioListener[] listeners;
+    [SerializeField] PlayerController[] playerLanes;
+    
+    [SerializeField] public RhythmGameManager rhythmGameManager;
 
+    // # 初期化処理
+
+    /// <summary>
+    /// 音ゲーパートのセットアップコルーチンが完了したときに発行されるイベント
+    /// </summary>
+    public Subject<Unit> onRhythmGameReady = new Subject<Unit>();
+    /// <summary>
+    /// 戦闘パートのセットアップが完了したときに発行されるイベント
+    /// </summary>
+    public Subject<Unit> onFightingReady = new Subject<Unit>();
 
     void Awake()
     {
@@ -36,10 +50,12 @@ public class FightingEntryPoint : MonoBehaviour
         initializer = GetComponent<Initializer>();
         initializer.fightingEntryPoint = this;
 
-        // TODO 1. 音ゲーパートのセットアップ
+
+        // * 1. 音ゲーパートのセットアップ
         if (isRhythmSceneEnabled)
         {
-            SceneManager.LoadScene("RhythmScene", LoadSceneMode.Additive);
+            Debug.Log("EP >> 音ゲーシーンをセットアップします。");
+            StartCoroutine(SetupRhythmGame());
         }
 
 
@@ -50,23 +66,10 @@ public class FightingEntryPoint : MonoBehaviour
         );
     }
 
-    // TODO 3. 戦闘パートの終了処理
-    // TODO 4. 音ゲーパートの終了処理
-    // TODO 5. リザルト画面のセットアップ
 
-
-    void Start()
+    void TestStartGame()
     {
-        // AudioListenerを一つ以外は無効化
-        listeners = FindObjectsByType<AudioListener>(FindObjectsSortMode.InstanceID);
-
-        if (listeners.Length > 1)
-        {
-            for (int i = 1; i < listeners.Length; i++)
-            {
-                listeners[i].enabled = false;
-            }
-        }        
+        // TODO: 音ゲーパートの曲開始
     }
 
 
@@ -78,17 +81,58 @@ public class FightingEntryPoint : MonoBehaviour
         {
             if (i >= keyConfigs.Count)
             {
-                Debug.LogError("キーコンフィグが足りません");
+                Debug.LogError("EP Fter >> KeyConfigs が足りません");
                 break;
             }
             if (fighterIDs[i] >= fighterPayloads.Count)
             {
-                Debug.LogError("ファイターペイロードの指定が範囲外です");
+                Debug.LogError("EP Fter >> fighterID の指定が範囲外です");
                 break;
             }
 
             players.Add(initializer.InitializePlayer(playerPrefab, i, keyConfigs[i], fighterPayloads[fighterIDs[i]]));
         }
+    }
+
+    private IEnumerator SetupRhythmGame()
+    {
+        Debug.Log("EP R >> 音ゲーシーンを非同期で読み込みます。");
+        var ao = SceneManager.LoadSceneAsync("RhythmScene", LoadSceneMode.Additive);
+
+        while (!ao.isDone)
+        {
+            yield return null;
+        }
+        Debug.Log($"EP R >> 音ゲーシーンの読み込みが完了しました。");
+
+        // AudioListenerを一つ以外は無効化
+        listeners = FindObjectsByType<AudioListener>(FindObjectsSortMode.InstanceID);
+        if (listeners.Length > 1)
+        {
+            for (int i = 1; i < listeners.Length; i++)
+            {
+                listeners[i].enabled = false;
+            }
+        }
+
+        var rhythmGameManagers = FindObjectsByType<RhythmGameManager>(FindObjectsSortMode.None);
+        if (rhythmGameManagers.Length == 0)
+        {
+            Debug.LogError("EP R >> RhythmGameManager が見つかりません。");
+            yield break;
+        }
+
+        rhythmGameManager = rhythmGameManagers[0];
+
+        // // 最初はレーンは非表示にしておく
+        // playerLanes = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+
+        // foreach (var lane in playerLanes)
+        // {
+        //     UIUtils.SetVisibleRecursively(lane.gameObject, false);
+        // }
+
+        onRhythmGameReady.OnNext(Unit.Default);
     }
 
 
@@ -122,4 +166,10 @@ public class FightingEntryPoint : MonoBehaviour
             }
         }
     }
+
+    // # 終了処理
+
+    // TODO: 戦闘パートの終了処理
+    // TODO: 音ゲーパートの終了処理
+    // TODO: リザルト画面のセットアップ
 }

@@ -15,6 +15,7 @@ public class Initializer : MonoBehaviour
         InitializeGroundChecker(player);
         InitializePlayerAnimator(player, fighterPayload.AnimatorController);
         InitializeSkillController(player, fighterPayload);
+        InitializeJudgeProvider(player);
         return player;
     }
 
@@ -57,5 +58,11 @@ public class Initializer : MonoBehaviour
         SkillController skillController = player.gameObject.GetComponent<SkillController>();
         skillController.SetPrefabsLists(fighterPayload);
         skillController.Activate();
+    }
+
+    public void InitializeJudgeProvider(PlayerCore player)
+    {
+        JudgeProvider judgeProvider = player.gameObject.GetComponent<JudgeProvider>();
+        judgeProvider.Activate(fightingEntryPoint);
     }
 }
