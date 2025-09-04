@@ -28,14 +28,39 @@ public class FightingEntryPoint : MonoBehaviour
 
     void Start()
     {
-        // * 0P 初期化
-        players.Add(initializer.InitializePlayer(playerPrefab, 0, keyConfigs[0], fighterPayloads[0]));
+        // TODO 1. 音ゲーパートのセットアップ
 
-        // * 1P 初期化
-        players.Add(initializer.InitializePlayer(playerPrefab, 1, keyConfigs[1], fighterPayloads[0]));
+        // * 2. 戦闘パートのセットアップ
+        SetupFighting(0, 0);
+    }
+
+    // TODO 3. 戦闘パートの終了処理
+    // TODO 4. 音ゲーパートの終了処理
+    // TODO 5. リザルト画面のセットアップ
+
+    // # ゲームシーン初期化系
+
+    private void SetupFighting(params int[] fighterIDs)
+    {
+        for (int i = 0; i < fighterIDs.Length; i++)
+        {
+            if (i >= keyConfigs.Count)
+            {
+                Debug.LogError("キーコンフィグが足りません");
+                break;
+            }
+            if (fighterIDs[i] >= fighterPayloads.Count)
+            {
+                Debug.LogError("ファイターペイロードの指定が範囲外です");
+                break;
+            }
+
+            players.Add(initializer.InitializePlayer(playerPrefab, i, keyConfigs[i], fighterPayloads[fighterIDs[i]]));
+        }
     }
 
 
+    // # 購読可能イベント
     public Subject<Unit> onFightingStart = new Subject<Unit>();
     public Subject<Unit> updateAlways = new Subject<Unit>();
     public Subject<Unit> updateInFighting = new Subject<Unit>();
