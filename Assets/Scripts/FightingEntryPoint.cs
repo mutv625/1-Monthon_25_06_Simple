@@ -2,9 +2,19 @@ using UnityEngine;
 using UniRx;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class FightingEntryPoint : MonoBehaviour
 {
+    [Header("突入時データ")]
+    [SerializeField] public SOSelectedFighters selectedFighters;
+
+    [Header("=== デバッグ用 ===")]
+    [SerializeField] private bool isRhythmSceneEnabled;
+
+
+    [Header("戦闘シーン設定項目")]
     [SerializeField] private bool isTimeFlowing = true;
 
     [SerializeField] private List<PlayerCore> players = new List<PlayerCore>();
@@ -15,6 +25,8 @@ public class FightingEntryPoint : MonoBehaviour
 
     [SerializeField] private PlayerCore playerPrefab;
 
+    [SerializeField] AudioListener[] listeners;
+
 
     void Awake()
     {
@@ -23,20 +35,40 @@ public class FightingEntryPoint : MonoBehaviour
 
         initializer = GetComponent<Initializer>();
         initializer.fightingEntryPoint = this;
-    }
 
-
-    void Start()
-    {
         // TODO 1. 音ゲーパートのセットアップ
+        if (isRhythmSceneEnabled)
+        {
+            SceneManager.LoadScene("RhythmScene", LoadSceneMode.Additive);
+        }
+
 
         // * 2. 戦闘パートのセットアップ
-        SetupFighting(0, 0);
+        SetupFighting(
+            selectedFighters.SelectedFighterIDs[0],
+            selectedFighters.SelectedFighterIDs[1]
+        );
     }
 
     // TODO 3. 戦闘パートの終了処理
     // TODO 4. 音ゲーパートの終了処理
     // TODO 5. リザルト画面のセットアップ
+
+
+    void Start()
+    {
+        // AudioListenerを一つ以外は無効化
+        listeners = FindObjectsByType<AudioListener>(FindObjectsSortMode.InstanceID);
+
+        if (listeners.Length > 1)
+        {
+            for (int i = 1; i < listeners.Length; i++)
+            {
+                listeners[i].enabled = false;
+            }
+        }        
+    }
+
 
     // # ゲームシーン初期化系
 
