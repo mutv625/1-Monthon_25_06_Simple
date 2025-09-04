@@ -26,6 +26,19 @@ public class FightingGameSimulator : MonoBehaviour
     [Tooltip("再生を開始したい時間（秒）")]
     public float testStartTime = 0f;
 
+    void Awake()
+    {
+        // オーディオのデコードを事前に実行（CompressedInMemory 等だと再生時にデコードされてスパイクする）
+        if (testIntroBgm != null)
+        {
+            testIntroBgm.LoadAudioData(); // 非同期読み込みは内部で行われるが、早めに呼ぶ
+        }
+        if (testLoopBgm != null)
+        {
+            testLoopBgm.LoadAudioData();
+        }
+    }
+
     void Update()
     {
         // "S"キーで、設定に基づいてリズムゲームを開始する

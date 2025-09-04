@@ -226,7 +226,7 @@ MonoBehaviour:
   testLoopBgm: {fileID: 8300000, guid: 4d8b5d66fe3d873419e44eafcc411284, type: 3}
   testLoopChart: {fileID: 4900000, guid: 1da8c2808fdb8ab4e90fbb74b149dbcf, type: 3}
   playerDifficulties: 0000000002000000
-  testWithIntro: 0
+  testWithIntro: 1
   testStartTime: 0
 --- !u!4 &977642455
 Transform:
