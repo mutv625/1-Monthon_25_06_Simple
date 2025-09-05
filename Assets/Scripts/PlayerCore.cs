@@ -191,6 +191,7 @@ public class PlayerCore : MonoBehaviour
 
         // TODO: 判定を取得
         JudgeResult jr = judgeProvider.Judge(playerId);
+        Debug.Log($"Player {playerId} SkillA JudgeResult: {jr}");
 
         if (jr == JudgeResult.Critical || jr == JudgeResult.Perfect)
         {
@@ -213,6 +214,7 @@ public class PlayerCore : MonoBehaviour
         }
         // TODO: 判定を取得
         JudgeResult jr = judgeProvider.Judge(playerId);
+        Debug.Log($"Player {playerId} SkillB JudgeResult: {jr}");
 
         if (attackingState.Value != AttackingStates.None || isHurting.Value)
         {

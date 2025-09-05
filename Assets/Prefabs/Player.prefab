@@ -356,6 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   fightingEP: {fileID: 0}
+  judgeProvider: {fileID: 0}
   maxHealth:
     value: 4000
   currentHealth:
@@ -380,7 +381,6 @@ MonoBehaviour:
   jumpForceMult: 1
   fallSpeedTerm: 1
   gravityMult: 1
-  recentJudgeResult: 0
   comboGaugeValue:
     value: 0
   comboElapsedTime: 0
@@ -459,6 +459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a4e28e9faeee64698a3066f3356823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rhythmGameManager: {fileID: 0}
+  debugJudgeResult: 2
 --- !u!212 &3505680503156565954
 SpriteRenderer:
   m_ObjectHideFlags: 0

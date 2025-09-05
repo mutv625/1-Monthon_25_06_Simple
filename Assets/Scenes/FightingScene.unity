@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedFighters: {fileID: 11400000, guid: d2a674b97feb73d4bb903a21ef4509af, type: 2}
-  isRhythmSceneEnabled: 1
+  isRhythmSceneEnabled: 0
   isTimeFlowing: 1
   players: []
   keyConfigs:
@@ -516,7 +516,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a3eda85802d258c448c3fea1286229c8, type: 2}
   playerPrefab: {fileID: 7554605460664670587, guid: fb4a49f76963f92489058f6c48552ecc, type: 3}
   listeners: []
+  rhythmGameManager: {fileID: 0}
   playerLanes: []
+  difficulties: 0000000000000000
+  introBgm: {fileID: 8300000, guid: 03d5beb8738455b4ca9b444f3729cb2a, type: 3}
+  introChart: {fileID: 0}
+  loopBgm: {fileID: 8300000, guid: 4d8b5d66fe3d873419e44eafcc411284, type: 3}
+  loopChart: {fileID: 4900000, guid: 1da8c2808fdb8ab4e90fbb74b149dbcf, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

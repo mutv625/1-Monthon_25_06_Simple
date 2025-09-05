@@ -11,7 +11,7 @@ public class FightingEntryPoint : MonoBehaviour
     [SerializeField] public SOSelectedFighters selectedFighters;
 
     [Header("=== デバッグ用 ===")]
-    [SerializeField] private bool isRhythmSceneEnabled;
+    [SerializeField] public bool isRhythmSceneEnabled;
 
 
     [Header("戦闘シーン設定項目")]
@@ -27,9 +27,18 @@ public class FightingEntryPoint : MonoBehaviour
 
     [Header("リズムゲームシーン関連")]
     [SerializeField] public AudioListener[] listeners;
-    [SerializeField] PlayerController[] playerLanes;
-    
     [SerializeField] public RhythmGameManager rhythmGameManager;
+
+    [SerializeField] PlayerController[] playerLanes;
+
+    [Header("リズムゲーム設定項目")]
+    [SerializeField] public Difficulty[] difficulties;
+
+    public AudioClip introBgm;
+    public TextAsset introChart;
+    public AudioClip loopBgm;
+    public TextAsset loopChart;
+
 
     // # 初期化処理
 
@@ -50,26 +59,40 @@ public class FightingEntryPoint : MonoBehaviour
         initializer = GetComponent<Initializer>();
         initializer.fightingEntryPoint = this;
 
-
-        // * 1. 音ゲーパートのセットアップ
         if (isRhythmSceneEnabled)
         {
+            // * 0. ゲーム開始イベントに登録
+            onRhythmGameReady
+                .Subscribe(_ =>
+                    {
+                        SetupFighting(
+                            selectedFighters.SelectedFighterIDs[0],
+                            selectedFighters.SelectedFighterIDs[1]
+                        );
+                        TestStartGame();
+                    }
+                ).AddTo(this);
+
+            // * 1. 音ゲーパートのセットアップ
+
             Debug.Log("EP >> 音ゲーシーンをセットアップします。");
             StartCoroutine(SetupRhythmGame());
         }
-
-
-        // * 2. 戦闘パートのセットアップ
-        SetupFighting(
-            selectedFighters.SelectedFighterIDs[0],
-            selectedFighters.SelectedFighterIDs[1]
-        );
+        else
+        {
+            // 音ゲーパートを使わない場合は、直接戦闘パートのセットアップへ
+            SetupFighting(
+                selectedFighters.SelectedFighterIDs[0],
+                selectedFighters.SelectedFighterIDs[1]
+            );
+        } 
     }
 
 
     void TestStartGame()
     {
-        // TODO: 音ゲーパートの曲開始
+        // 音ゲーパートの曲開始
+        StartRhythmGameWithIntro(difficulties);
     }
 
 
@@ -92,6 +115,8 @@ public class FightingEntryPoint : MonoBehaviour
 
             players.Add(initializer.InitializePlayer(playerPrefab, i, keyConfigs[i], fighterPayloads[fighterIDs[i]]));
         }
+
+        onFightingReady.OnNext(Unit.Default);
     }
 
     private IEnumerator SetupRhythmGame()
@@ -132,7 +157,26 @@ public class FightingEntryPoint : MonoBehaviour
         //     UIUtils.SetVisibleRecursively(lane.gameObject, false);
         // }
 
+        Debug.Log("EP R >> onRhythmGameReady を発行します。");
+
+        yield return new WaitForEndOfFrame();
         onRhythmGameReady.OnNext(Unit.Default);
+    }
+
+    public void StartRhythmGameWithIntro(Difficulty[] difficulties)
+    {
+        if (rhythmGameManager == null)
+        {
+            Debug.LogError("EP R >> RhythmGameManager がセットされていません。");
+            return;
+        }
+
+        rhythmGameManager.StartRhythmGameWithIntro(
+            introBgm, introChart,
+            loopBgm, loopChart,
+            0f,
+            difficulties
+        );
     }
 
 

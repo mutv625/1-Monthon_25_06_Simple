@@ -94,7 +94,7 @@ public class RhythmGameManager : MonoBehaviour
 
                 if (totalPlaybackTime > oldestNote.judgeTime + goodThreshold)
                 {
-                    Debug.Log($"Player {i + 1} Missed! (見逃し)");
+                    Debug.Log($"Player {i} Missed! (見逃し)");
                     
                     oldestNote.OnMiss();
                     playerControllers[i].activeNotes.RemoveAt(0);
