@@ -514,6 +514,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 275e426a52efc2c42bf42b0d33c9e4f8, type: 2}
   fighterPayloads:
   - {fileID: 11400000, guid: a3eda85802d258c448c3fea1286229c8, type: 2}
+  - {fileID: 11400000, guid: 6f548d9e88dc1b4428d8554a26746387, type: 2}
   playerPrefab: {fileID: 7554605460664670587, guid: fb4a49f76963f92489058f6c48552ecc, type: 3}
   listeners: []
   rhythmGameManager: {fileID: 0}

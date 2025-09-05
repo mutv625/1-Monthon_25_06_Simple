@@ -7,7 +7,9 @@ using UnityEngine;
 /// </summary>
 public class HitboxPrefab : MonoBehaviour
 {
+    [Tooltip("正:ダメージ, 0:演出のみ, 負:回復")]
     [SerializeField] private int baseDamage;
+    [Tooltip("生成されてから消えるまでの時間 (秒), アニメーター付きなら0にしておく")]
     [SerializeField] private float lifetime;
 
     /// <summary>
@@ -30,7 +32,7 @@ public class HitboxPrefab : MonoBehaviour
         collider.isTrigger = true;
 
         // A. 生成されてから一定時間で消える
-        Destroy(gameObject, lifetime);
+        if (lifetime > 0) Destroy(gameObject, lifetime);
     }
 
     public void SetStatus(PlayerCore owner, JudgeResult judgeResult)
@@ -49,6 +51,8 @@ public class HitboxPrefab : MonoBehaviour
             if (enemy == owner || alreadyHitEnemies.Contains(enemy)) return;
 
             if (enemy.isInvincible.Value) return;
+
+            if (baseDamage == 0) return;
 
             // 3. Hurtを呼び出す
             // 4. 自身に与えられたJudgeResultに応じてダメージを変化させる
@@ -83,5 +87,17 @@ public class HitboxPrefab : MonoBehaviour
     {
         Vector2 knockbackDirection = Quaternion.Euler(0, 0, degree) * Vector2.right;
         return knockbackDirection * magnitude;
+    }
+
+    // # アニメーションイベント用
+    public void DisableCollider()
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null) collider.enabled = false;
+    }
+
+    public void DestroyHitbox()
+    {
+        Destroy(gameObject);
     }
 }
