@@ -314,6 +314,7 @@ GameObject:
   - component: {fileID: 1429017117695252107}
   - component: {fileID: 8841191457978838612}
   - component: {fileID: -5819979499914552560}
+  - component: {fileID: 7190025465546236365}
   - component: {fileID: 3505680503156565954}
   - component: {fileID: 4173275202412738685}
   - component: {fileID: -7637574024575074902}
@@ -355,6 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   fightingEP: {fileID: 0}
+  judgeProvider: {fileID: 0}
   maxHealth:
     value: 4000
   currentHealth:
@@ -379,7 +381,6 @@ MonoBehaviour:
   jumpForceMult: 1
   fallSpeedTerm: 1
   gravityMult: 1
-  recentJudgeResult: 0
   comboGaugeValue:
     value: 0
   comboElapsedTime: 0
@@ -446,6 +447,20 @@ MonoBehaviour:
   hitboxPrefabs: []
   effectPrefabs: []
   currentJudgeResult: 0
+--- !u!114 &7190025465546236365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8743191278292100237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a4e28e9faeee64698a3066f3356823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rhythmGameManager: {fileID: 0}
+  debugJudgeResult: 2
 --- !u!212 &3505680503156565954
 SpriteRenderer:
   m_ObjectHideFlags: 0

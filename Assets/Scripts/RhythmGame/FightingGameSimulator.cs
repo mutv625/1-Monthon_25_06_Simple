@@ -21,13 +21,32 @@ public class FightingGameSimulator : MonoBehaviour
     public List<Difficulty> playerDifficulties = new List<Difficulty>();
 
     [Header("テスト設定")]
+    public bool enableSimulator = true; // シミュレーターを有効にするかどうか
     [Tooltip("イントロ付きで再生をテストする場合はtrueにする")]
     public bool testWithIntro = false;
     [Tooltip("再生を開始したい時間（秒）")]
     public float testStartTime = 0f;
 
+    void Awake()
+    {
+        // オーディオのデコードを事前に実行（CompressedInMemory 等だと再生時にデコードされてスパイクする）
+        if (testIntroBgm != null)
+        {
+            testIntroBgm.LoadAudioData(); // 非同期読み込みは内部で行われるが、早めに呼ぶ
+        }
+        if (testLoopBgm != null)
+        {
+            testLoopBgm.LoadAudioData();
+        }
+    }
+
     void Update()
     {
+        if (!enableSimulator || rhythmGameManager == null)
+        {
+            return; // シミュレーターが無効、または操作対象が設定されていない場合は何もしない
+        }
+        
         // "S"キーで、設定に基づいてリズムゲームを開始する
         if (Input.GetKeyDown(KeyCode.S))
         {

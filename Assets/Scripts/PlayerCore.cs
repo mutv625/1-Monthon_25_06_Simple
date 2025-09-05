@@ -11,6 +11,8 @@ public class PlayerCore : MonoBehaviour
 
     [SerializeField] private FightingEntryPoint fightingEP;
 
+    [SerializeField] private JudgeProvider judgeProvider;
+
     // TODO: FighterSO から読み込んでステータスの初期化
 
     public PlayerCore SetPlayerId(int id)
@@ -35,6 +37,8 @@ public class PlayerCore : MonoBehaviour
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
         fightingEP = fightingEntryPoint;
+
+        judgeProvider = GetComponent<JudgeProvider>();
 
         // * コンボ状態が変化したときの処理
         comboState.Pairwise()
@@ -166,9 +170,6 @@ public class PlayerCore : MonoBehaviour
     }
 
 
-    [Header("判定テスト用")]
-    [SerializeField] private JudgeResult recentJudgeResult = JudgeResult.None;
-
     // # スキル発動系
     public Subject<(AttackingStates, JudgeResult)> onSkill = new Subject<(AttackingStates, JudgeResult)>();
     // スキルキーが押されたときに呼び出される
@@ -189,7 +190,8 @@ public class PlayerCore : MonoBehaviour
         }
 
         // TODO: 判定を取得
-        JudgeResult jr = recentJudgeResult;
+        JudgeResult jr = judgeProvider.Judge(playerId);
+        Debug.Log($"Player {playerId} SkillA JudgeResult: {jr}");
 
         if (jr == JudgeResult.Critical || jr == JudgeResult.Perfect)
         {
@@ -211,7 +213,8 @@ public class PlayerCore : MonoBehaviour
             return;
         }
         // TODO: 判定を取得
-        JudgeResult jr = recentJudgeResult;
+        JudgeResult jr = judgeProvider.Judge(playerId);
+        Debug.Log($"Player {playerId} SkillB JudgeResult: {jr}");
 
         if (attackingState.Value != AttackingStates.None || isHurting.Value)
         {
