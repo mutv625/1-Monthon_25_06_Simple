@@ -13,13 +13,14 @@ public class Initializer : MonoBehaviour
         InitializeInputProvider(player, keyConfig);
         InitializePlayerMover(player);
         InitializeGroundChecker(player);
+        InitializeStatus(player, fighterPayload);
         InitializePlayerAnimator(player, fighterPayload.AnimatorController);
         InitializeSkillController(player, fighterPayload);
         InitializeJudgeProvider(player);
         return player;
     }
 
-    public PlayerCore InstantiatePlayer(PlayerCore playerPrefab, int playerId)
+    private PlayerCore InstantiatePlayer(PlayerCore playerPrefab, int playerId)
     {
         PlayerCore player = Instantiate(playerPrefab);
         player.SetPlayerId(playerId);
@@ -27,40 +28,45 @@ public class Initializer : MonoBehaviour
         return player;
     }
 
-    public void InitializeInputProvider(PlayerCore player, SOKeyConfig keyConfig)
+    private void InitializeInputProvider(PlayerCore player, SOKeyConfig keyConfig)
     {
         InputProvider inputProvider = player.gameObject.GetComponent<InputProvider>();
         inputProvider.SetKeyConfig(keyConfig);
         inputProvider.Activate(fightingEntryPoint);
     }
 
-    public void InitializePlayerMover(PlayerCore player)
+    private void InitializePlayerMover(PlayerCore player)
     {
         PlayerMover playerMover = player.gameObject.GetComponent<PlayerMover>();
         playerMover.Activate(fightingEntryPoint);
     }
 
-    public void InitializeGroundChecker(PlayerCore player)
+    private void InitializeGroundChecker(PlayerCore player)
     {
         GroundChecker groundChecker = player.gameObject.transform.Find("GroundCheckers").GetComponent<GroundChecker>();
         groundChecker.Activate(fightingEntryPoint, player);
     }
 
-    public void InitializePlayerAnimator(PlayerCore player, RuntimeAnimatorController animatorOverrideController)
+    private void InitializePlayerAnimator(PlayerCore player, RuntimeAnimatorController animatorOverrideController)
     {
         PlayerAnimator playerAnimator = player.gameObject.GetComponent<PlayerAnimator>();
         playerAnimator.SetAnimatorController(animatorOverrideController);
         playerAnimator.Activate(fightingEntryPoint);
     }
 
-    public void InitializeSkillController(PlayerCore player, SOFighterPayload fighterPayload)
+    private void InitializeStatus(PlayerCore player, SOFighterPayload fighterPayload)
+    {
+        player.SetFighterSO(fighterPayload);
+    }
+
+    private void InitializeSkillController(PlayerCore player, SOFighterPayload fighterPayload)
     {
         SkillController skillController = player.gameObject.GetComponent<SkillController>();
         skillController.SetPrefabsLists(fighterPayload);
         skillController.Activate();
     }
 
-    public void InitializeJudgeProvider(PlayerCore player)
+    private void InitializeJudgeProvider(PlayerCore player)
     {
         JudgeProvider judgeProvider = player.gameObject.GetComponent<JudgeProvider>();
         judgeProvider.Activate(fightingEntryPoint);

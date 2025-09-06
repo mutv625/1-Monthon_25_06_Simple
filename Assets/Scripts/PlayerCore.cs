@@ -34,6 +34,16 @@ public class PlayerCore : MonoBehaviour
         return this;
     }
 
+    public void SetFighterSO(SOFighterPayload so)
+    {
+        maxHealth.Value = so.MaxHealth;
+        currentHealth.Value = so.MaxHealth;
+
+        moveSpeedMult = so.MoveSpeed;
+        jumpForceMult = so.JumpForce;
+        gravityMult = so.Gravity;
+    }
+
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
         fightingEP = fightingEntryPoint;
@@ -48,7 +58,7 @@ public class PlayerCore : MonoBehaviour
                 OnStartCombo();
                 Debug.Log($"Player {playerId} started Combo!");
             }).AddTo(this);
-        
+
         comboState.Pairwise()
             .Where(pair => pair.Previous == ComboStates.None && pair.Current == ComboStates.Trapped)
             .Subscribe(_ =>
@@ -83,8 +93,8 @@ public class PlayerCore : MonoBehaviour
 
     // * 基本ステータス
     [Header("基本ステータス")]
-    [SerializeField] IntReactiveProperty maxHealth = new IntReactiveProperty(1000);
-    [SerializeField] IntReactiveProperty currentHealth = new IntReactiveProperty(1000);
+    [SerializeField] public IntReactiveProperty maxHealth = new IntReactiveProperty(1000);
+    [SerializeField] public IntReactiveProperty currentHealth = new IntReactiveProperty(1000);
 
     // * フラグ管理
     [Header("フラグ管理")]

@@ -17,7 +17,7 @@ public class FightingEntryPoint : MonoBehaviour
     [Header("戦闘シーン設定項目")]
     [SerializeField] private bool isTimeFlowing = true;
 
-    [SerializeField] private List<PlayerCore> players = new List<PlayerCore>();
+    [SerializeField] public List<PlayerCore> players = new List<PlayerCore>();
     [SerializeField] private List<SOKeyConfig> keyConfigs = new List<SOKeyConfig>();
     [SerializeField] private List<SOFighterPayload> fighterPayloads = new List<SOFighterPayload>();
 
@@ -49,7 +49,7 @@ public class FightingEntryPoint : MonoBehaviour
     /// <summary>
     /// 戦闘パートのセットアップが完了したときに発行されるイベント
     /// </summary>
-    public Subject<PlayerCore[]> onFightingReady = new Subject<PlayerCore[]>();
+    public Subject<Unit> onFightingReady = new();
 
     void Awake()
     {
@@ -116,7 +116,7 @@ public class FightingEntryPoint : MonoBehaviour
             players.Add(initializer.InitializePlayer(playerPrefab, i, keyConfigs[i], fighterPayloads[fighterIDs[i]]));
         }
 
-        onFightingReady.OnNext(players.ToArray());
+        onFightingReady.OnNext(Unit.Default);
     }
 
     private IEnumerator SetupRhythmGame()
