@@ -43,6 +43,8 @@ public class PlayerCore : MonoBehaviour
         jumpForceMult = so.JumpForce;
         gravityMult = so.Gravity;
     }
+    
+    private IDisposable comboDepletionTimer;
 
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
@@ -83,11 +85,50 @@ public class PlayerCore : MonoBehaviour
             .AddTo(this);
 
         comboGaugeValue
-            .Where(value => value <= 0f && comboState.Value == ComboStates.Combo)
+            .Select(v => v <= 0f)          // bool に変換
+            .DistinctUntilChanged()        // 状態変化のみ
+            .Subscribe(isZero =>
+            {
+                if (isZero && comboState.Value == ComboStates.Combo)
+                {
+                    // 既存のタイマーをキャンセル（再度ダメージが来た場合にリスタートする）
+                    comboDepletionTimer?.Dispose();
+                    comboDepletionTimer = Observable.Timer(TimeSpan.FromSeconds(0.1))
+                        .Subscribe(__ =>
+                        {
+                            // タイマー完了時に改めて条件を確認してから発火
+                            if (comboGaugeValue.Value <= 0f && comboState.Value == ComboStates.Combo)
+                            {
+                                Debug.Log($"Player {playerId} combo gauge depleted after 0.1s.");
+                                fightingEP.FinishComboForEveryone();
+                            }
+                            // 終了したので参照をクリア
+                            comboDepletionTimer?.Dispose();
+                            comboDepletionTimer = null;
+                        });
+                }
+                else
+                {
+                    // false（ゲージ回復）になったらタイマーをキャンセル
+                    comboDepletionTimer?.Dispose();
+                    comboDepletionTimer = null;
+                }
+            })
+            .AddTo(this);
+
+        // Endingの状態で1秒経過したらNoneにする
+        comboState.Pairwise()
+            .Where(pair => pair.Previous == ComboStates.Combo && pair.Current == ComboStates.Ending)
             .Subscribe(_ =>
             {
-                fightingEP.FinishComboForEveryone();
-                Debug.Log($"Player {playerId} combo gauge depleted, all combos finished.");
+                Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(__ =>
+                {
+                    if (comboState.Value == ComboStates.Ending)
+                    {
+                        comboState.Value = ComboStates.None;
+                        Debug.Log($"Player {playerId} combo ended after Ending state.");
+                    }
+                }).AddTo(this);
             }).AddTo(this);
     }
 
@@ -207,11 +248,13 @@ public class PlayerCore : MonoBehaviour
         {
             attackingState.Value = AttackingStates.SkillAx;
             onSkill.OnNext((attackingState.Value, jr));
+            Debug.Log($"Player {playerId} has {attackingState.Value} state.");
         }
         else
         {
             attackingState.Value = AttackingStates.SkillA;
             onSkill.OnNext((attackingState.Value, jr));
+            Debug.Log($"Player {playerId} has {attackingState.Value} state.");
         }
     }
 

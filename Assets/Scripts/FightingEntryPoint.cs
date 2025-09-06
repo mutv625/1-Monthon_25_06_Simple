@@ -203,7 +203,7 @@ public class FightingEntryPoint : MonoBehaviour
                 case ComboStates.None:
                     break;
                 case ComboStates.Combo:
-                    player.comboState.Value = ComboStates.None;
+                    player.comboState.Value = ComboStates.Ending;
                     break;
                 case ComboStates.Ending:
                     break;

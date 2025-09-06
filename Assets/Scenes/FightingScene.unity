@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 148505864}
   - component: {fileID: 148505863}
   m_Layer: 5
-  m_Name: DamageCountP1
+  m_Name: DamageCountP0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -870,7 +870,7 @@ GameObject:
   - component: {fileID: 647292436}
   - component: {fileID: 647292435}
   m_Layer: 5
-  m_Name: DamageCountP0
+  m_Name: DamageCountP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1302,6 +1302,8 @@ MonoBehaviour:
   HealthBarRedP1: {fileID: 860140816}
   HealthValueP0: {fileID: 1778758645}
   HealthValueP1: {fileID: 594050391}
+  ComboDisplayP0: {fileID: 1434392903}
+  ComboDisplayP1: {fileID: 2005000994}
 --- !u!4 &837118662
 Transform:
   m_ObjectHideFlags: 0
@@ -1659,7 +1661,7 @@ GameObject:
   - component: {fileID: 1101157374}
   - component: {fileID: 1101157373}
   m_Layer: 5
-  m_Name: ComboCountP1
+  m_Name: ComboCountP0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1681,8 +1683,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 139.58}
-  m_SizeDelta: {x: 200, y: 239.328}
+  m_AnchoredPosition: {x: -240.799, y: 139.58}
+  m_SizeDelta: {x: 281.597, y: 239.328}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1101157373
 MonoBehaviour:
@@ -1884,8 +1886,9 @@ GameObject:
   - component: {fileID: 1434392900}
   - component: {fileID: 1434392902}
   - component: {fileID: 1434392901}
+  - component: {fileID: 1434392903}
   m_Layer: 5
-  m_Name: ComboGaugeP1
+  m_Name: ComboGaugeP0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1952,6 +1955,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434392899}
   m_CullTransparentMesh: 1
+--- !u!114 &1434392903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434392899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c10f858f9ea3548acecab50070f842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCore: {fileID: 0}
+  comboCountText: {fileID: 1101157373}
+  comboDamageText: {fileID: 148505863}
 --- !u!1 &1487087783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,8 +2433,9 @@ GameObject:
   - component: {fileID: 2005000991}
   - component: {fileID: 2005000993}
   - component: {fileID: 2005000992}
+  - component: {fileID: 2005000994}
   m_Layer: 5
-  m_Name: ComboGaugeP0
+  m_Name: ComboGaugeP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2483,6 +2502,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005000990}
   m_CullTransparentMesh: 1
+--- !u!114 &2005000994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005000990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c10f858f9ea3548acecab50070f842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCore: {fileID: 0}
+  comboCountText: {fileID: 2040690619}
+  comboDamageText: {fileID: 647292435}
 --- !u!1 &2040690617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,7 +2529,7 @@ GameObject:
   - component: {fileID: 2040690620}
   - component: {fileID: 2040690619}
   m_Layer: 5
-  m_Name: ComboCountP0
+  m_Name: ComboCountP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2517,8 +2551,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 139.58}
-  m_SizeDelta: {x: 200, y: 239.328}
+  m_AnchoredPosition: {x: -229.7151, y: 139.58}
+  m_SizeDelta: {x: 259.43, y: 239.328}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2040690619
 MonoBehaviour:
