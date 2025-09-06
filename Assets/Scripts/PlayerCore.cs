@@ -127,6 +127,11 @@ public class PlayerCore : MonoBehaviour
                     }
                 }).AddTo(this);
             }).AddTo(this);
+        
+        currentHealth
+            .Where(hp => hp <= 0)
+            .Subscribe(_ => DIE())
+            .AddTo(this);
     }
 
     // * 基本ステータス
@@ -331,6 +336,8 @@ public class PlayerCore : MonoBehaviour
             comboTrappedCount.Value += 1;
             attacker.comboDamage.Value += finalDamage;
             attacker.comboCount.Value += 1;
+
+            fightingEP.RecordMaxCombo(attacker.playerId, attacker.comboCount.Value, attacker.comboDamage.Value);
         }
 
         // 0. 死亡判定
@@ -369,6 +376,7 @@ public class PlayerCore : MonoBehaviour
     {
         Debug.Log($"Player {playerId} died.");
         // TODO: 死亡処理
+        fightingEP.EndGame();
     }
 
     // # 与コンボ開始時の処理

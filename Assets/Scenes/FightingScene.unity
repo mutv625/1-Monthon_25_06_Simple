@@ -836,8 +836,8 @@ Transform:
   m_GameObject: {fileID: 513886551}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.98, y: 2.35, z: 0}
-  m_LocalScale: {x: 17.8444, y: 18.766685, z: 1}
+  m_LocalPosition: {x: 17.98, y: 24.3246, z: 0}
+  m_LocalScale: {x: 17.8444, y: 62.71639, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1917,8 +1917,8 @@ Transform:
   m_GameObject: {fileID: 1082374147}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.86, y: 2.35, z: 0}
-  m_LocalScale: {x: 17.8444, y: 18.766685, z: 1}
+  m_LocalPosition: {x: -17.86, y: 21.7348, z: 0}
+  m_LocalScale: {x: 17.8444, y: 57.53678, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2007,12 +2007,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 250
+  m_fontSize: 239.3
   m_fontSizeBase: 250
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 250
   m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
@@ -2160,6 +2160,7 @@ GameObject:
   - component: {fileID: 1434392900}
   - component: {fileID: 1434392902}
   - component: {fileID: 1434392904}
+  - component: {fileID: 1434392905}
   - component: {fileID: 1434392901}
   - component: {fileID: 1434392903}
   m_Layer: 5
@@ -2257,6 +2258,28 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &1434392905
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434392899}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0ea9477c3799cd48b816420ca9f5a25, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1487087783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,7 +2339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedFighters: {fileID: 11400000, guid: d2a674b97feb73d4bb903a21ef4509af, type: 2}
-  isRhythmSceneEnabled: 1
+  isRhythmSceneEnabled: 0
   isTimeFlowing: 1
   players: []
   keyConfigs:
@@ -2333,6 +2356,7 @@ MonoBehaviour:
   introChart: {fileID: 0}
   loopBgm: {fileID: 8300000, guid: 4d8b5d66fe3d873419e44eafcc411284, type: 3}
   loopChart: {fileID: 4900000, guid: 1da8c2808fdb8ab4e90fbb74b149dbcf, type: 3}
+  resultPayload: {fileID: 11400000, guid: 7ef840813f599fc41ba3c6172b3426c6, type: 2}
 --- !u!1 &1778758641
 GameObject:
   m_ObjectHideFlags: 0
@@ -2720,6 +2744,7 @@ GameObject:
   - component: {fileID: 2005000991}
   - component: {fileID: 2005000993}
   - component: {fileID: 2005000995}
+  - component: {fileID: 2005000996}
   - component: {fileID: 2005000992}
   - component: {fileID: 2005000994}
   m_Layer: 5
@@ -2749,7 +2774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 376.2, y: -52.46}
+  m_AnchoredPosition: {x: 399.42, y: -52.46}
   m_SizeDelta: {x: 600, y: 8.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2005000992
@@ -2817,6 +2842,28 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &2005000996
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005000990}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0ea9477c3799cd48b816420ca9f5a25, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2040690617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,12 +2948,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 250
+  m_fontSize: 239.3
   m_fontSizeBase: 250
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 250
   m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
