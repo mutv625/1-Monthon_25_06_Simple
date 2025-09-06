@@ -64,6 +64,12 @@ public class UIEntryPoint : MonoBehaviour
                 .Subscribe(_ => MovePlayerLanes(playerLanes))
                 .AddTo(this);
 
+            // * PlayerControllerのノーツ速度の設定
+            for (int i = 0; i < playerLanes.Length; i++)
+            {
+                    playerLanes[i].noteSpeed = fightingEntryPoint.selectedFighters.SelectedSpeeds[i];
+            }
+
         }).AddTo(this);
     }
 

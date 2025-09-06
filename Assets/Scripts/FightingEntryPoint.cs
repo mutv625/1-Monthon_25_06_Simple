@@ -32,7 +32,6 @@ public class FightingEntryPoint : MonoBehaviour
     [SerializeField] public PlayerController[] playerLanes;
 
     [Header("リズムゲーム設定項目")]
-    [SerializeField] public Difficulty[] difficulties;
 
     public AudioClip introBgm;
     public TextAsset introChart;
@@ -92,7 +91,7 @@ public class FightingEntryPoint : MonoBehaviour
     void TestStartGame()
     {
         // 音ゲーパートの曲開始
-        StartRhythmGameWithIntro(difficulties);
+        StartRhythmGameWithIntro(selectedFighters.SelectedDifficulties);
     }
 
 
