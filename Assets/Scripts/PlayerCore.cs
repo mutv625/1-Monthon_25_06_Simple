@@ -378,11 +378,11 @@ public class PlayerCore : MonoBehaviour
     }
 
     // # 与コンボ開始時の処理
-    [SerializeField] FloatReactiveProperty comboGaugeValue = new FloatReactiveProperty(0f);
-    private float ComboGaugeValue
+    [SerializeField] public FloatReactiveProperty comboGaugeValue = new FloatReactiveProperty(0f);
+    public float ComboGaugeValue
     {
         get => comboGaugeValue.Value;
-        set => comboGaugeValue.Value = Mathf.Clamp(value, 0f, 100f);
+        private set => comboGaugeValue.Value = Mathf.Clamp(value, 0f, 100f);
     }
 
     [SerializeField] float comboElapsedTime = 0f;

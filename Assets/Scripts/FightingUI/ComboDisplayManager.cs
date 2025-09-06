@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using System;
 
 public class ComboDisplayManager : MonoBehaviour
 {
@@ -11,10 +12,16 @@ public class ComboDisplayManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI comboCountText;
     [SerializeField] private TMPro.TextMeshProUGUI comboDamageText;
 
+    // ゲージ表示用
+    private Image comboGaugeImage;
+
     public void Initialize(PlayerCore playerCore)
     {
         this.playerCore = playerCore;
+        comboGaugeImage = GetComponent<Image>();
 
+
+        // # コンボの数値表示
         // * 0. 初期表示
         UpdateComboDisplay(0, 0);
 
@@ -34,6 +41,12 @@ public class ComboDisplayManager : MonoBehaviour
             {
                 Display(false);
             }).AddTo(this);
+
+        // # コンボゲージ表示
+        playerCore.comboGaugeValue
+            .DistinctUntilChanged()
+            .Subscribe(value => UpdateComboGauge(value))
+            .AddTo(this);
     }
 
     private void UpdateComboDisplay(int comboCount, int comboDamage)
@@ -42,6 +55,14 @@ public class ComboDisplayManager : MonoBehaviour
         comboDamageText.text = comboDamage.ToString();
 
         // 必要に応じてアニメーションやエフェクトを追加
+    }
+
+    private void UpdateComboGauge(float comboGaugeValue)
+    {
+        if (playerCore == null) return;
+        float gaugeRatio = Mathf.Clamp01(comboGaugeValue / 100);
+
+        comboGaugeImage.fillAmount = gaugeRatio;
     }
     
     private void Display(bool show)
