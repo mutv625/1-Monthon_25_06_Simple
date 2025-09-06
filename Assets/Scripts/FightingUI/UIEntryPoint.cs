@@ -1,16 +1,15 @@
 using UnityEngine;
+using UniRx;
 
 public class UIEntryPoint : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private FightingEntryPoint fightingEntryPoint;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        fightingEntryPoint.onFightingReady.Subscribe(players =>
+        {
+            // TODO: UIの初期化処理
+        });
     }
 }

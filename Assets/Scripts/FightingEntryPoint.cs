@@ -49,7 +49,7 @@ public class FightingEntryPoint : MonoBehaviour
     /// <summary>
     /// 戦闘パートのセットアップが完了したときに発行されるイベント
     /// </summary>
-    public Subject<Unit> onFightingReady = new Subject<Unit>();
+    public Subject<PlayerCore[]> onFightingReady = new Subject<PlayerCore[]>();
 
     void Awake()
     {
@@ -116,7 +116,7 @@ public class FightingEntryPoint : MonoBehaviour
             players.Add(initializer.InitializePlayer(playerPrefab, i, keyConfigs[i], fighterPayloads[fighterIDs[i]]));
         }
 
-        onFightingReady.OnNext(Unit.Default);
+        onFightingReady.OnNext(players.ToArray());
     }
 
     private IEnumerator SetupRhythmGame()
