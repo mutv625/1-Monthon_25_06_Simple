@@ -60,7 +60,6 @@ public class PlayerMover : MonoBehaviour
                 {
                     // 拘束中は物理演算オフ
                     rb.bodyType = RigidbodyType2D.Static;
-                    // TODO: その間のMove入力は無視、Inpulseは蓄積する
                 }
                 else
                 {
