@@ -72,7 +72,7 @@ public class UIEntryPoint : MonoBehaviour
             if (lane != null && players[i] != null)
             {
                 // 位置と回転をPlayerControllerに合わせる
-                lane.SetPose(players[i].transform.position, - players[i].transform.eulerAngles.z);
+                lane.SetPose(players[i].transform.position, players[i].PlayerId % 2 == 0 ? 90f : -90f);
             }
         }
         
