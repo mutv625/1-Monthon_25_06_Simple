@@ -436,7 +436,7 @@ public class PlayerCore : MonoBehaviour
         comboElapsedTime = 0f;
         comboTrappedCount.Value = 0;
 
-        comboCount.Value = 0;
         comboDamage.Value = 0;
+        comboCount.Value = 0;
     }
 }
