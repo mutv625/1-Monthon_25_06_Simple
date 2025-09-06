@@ -14,11 +14,13 @@ public class ComboDisplayManager : MonoBehaviour
 
     // ゲージ表示用
     private Image comboGaugeImage;
+    private CanvasGroup canvasGroup;
 
     public void Initialize(PlayerCore playerCore)
     {
         this.playerCore = playerCore;
         comboGaugeImage = GetComponent<Image>();
+        canvasGroup = GetComponent<CanvasGroup>();
 
 
         // # コンボの数値表示
@@ -30,17 +32,18 @@ public class ComboDisplayManager : MonoBehaviour
             .DistinctUntilChanged()
             .Subscribe(newComboCount =>
             {
+                Display(newComboCount > 0);
                 UpdateComboDisplay(newComboCount, playerCore.comboDamage.Value);
             }).AddTo(this);
 
-        // * 2. 0にリセットされたら非表示
-        playerCore.comboCount
-            .DistinctUntilChanged()
-            .Where(count => count == 0)
-            .Subscribe(_ =>
-            {
-                Display(false);
-            }).AddTo(this);
+        // // * 2. 0にリセットされたら非表示
+        // playerCore.comboCount
+        //     .DistinctUntilChanged()
+        //     .Where(count => count == 0)
+        //     .Subscribe(_ =>
+        //     {   
+        //         Display(false);
+        //     }).AddTo(this);
 
         // # コンボゲージ表示
         playerCore.comboGaugeValue
@@ -67,6 +70,11 @@ public class ComboDisplayManager : MonoBehaviour
     
     private void Display(bool show)
     {
-        // 表示アニメーション
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = show ? 1f : 0f;
+            canvasGroup.interactable = show;
+            canvasGroup.blocksRaycasts = show;
+        }
     }
 }
