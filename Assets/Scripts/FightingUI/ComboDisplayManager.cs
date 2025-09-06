@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using System;
+using UnityEditor.Animations;
 
 public class ComboDisplayManager : MonoBehaviour
 {
@@ -15,12 +16,14 @@ public class ComboDisplayManager : MonoBehaviour
     // ゲージ表示用
     private Image comboGaugeImage;
     private CanvasGroup canvasGroup;
+    private Animator animator;
 
     public void Initialize(PlayerCore playerCore)
     {
         this.playerCore = playerCore;
         comboGaugeImage = GetComponent<Image>();
         canvasGroup = GetComponent<CanvasGroup>();
+        animator = GetComponent<Animator>();
 
 
         // # コンボの数値表示
@@ -33,17 +36,14 @@ public class ComboDisplayManager : MonoBehaviour
             .Subscribe(newComboCount =>
             {
                 Display(newComboCount > 0);
-                UpdateComboDisplay(newComboCount, playerCore.comboDamage.Value);
+                if (newComboCount > 0) UpdateComboDisplay(newComboCount, playerCore.comboDamage.Value);
             }).AddTo(this);
 
-        // // * 2. 0にリセットされたら非表示
-        // playerCore.comboCount
-        //     .DistinctUntilChanged()
-        //     .Where(count => count == 0)
-        //     .Subscribe(_ =>
-        //     {   
-        //         Display(false);
-        //     }).AddTo(this);
+        // * 2. 0にリセットされたら非表示
+        playerCore.comboState
+            .Where(state => state == ComboStates.None || state == ComboStates.Ending)
+            .Subscribe(_ => Display(false))
+            .AddTo(this);
 
         // # コンボゲージ表示
         playerCore.comboGaugeValue
@@ -67,14 +67,18 @@ public class ComboDisplayManager : MonoBehaviour
 
         comboGaugeImage.fillAmount = gaugeRatio;
     }
-    
+
     private void Display(bool show)
     {
-        if (canvasGroup != null)
+        if (show)
         {
-            canvasGroup.alpha = show ? 1f : 0f;
-            canvasGroup.interactable = show;
-            canvasGroup.blocksRaycasts = show;
+            animator.SetTrigger("trigPopUp");
+            animator.SetBool("isShown", true);
         }
+        else
+        {
+            animator.SetBool("isShown", false);
+        }
+
     }
 }
