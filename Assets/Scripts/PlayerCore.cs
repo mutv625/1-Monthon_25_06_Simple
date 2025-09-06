@@ -34,6 +34,18 @@ public class PlayerCore : MonoBehaviour
         return this;
     }
 
+    public void SetFighterSO(SOFighterPayload so)
+    {
+        maxHealth.Value = so.MaxHealth;
+        currentHealth.Value = so.MaxHealth;
+
+        moveSpeedMult = so.MoveSpeed;
+        jumpForceMult = so.JumpForce;
+        gravityMult = so.Gravity;
+    }
+    
+    private IDisposable comboDepletionTimer;
+
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
         fightingEP = fightingEntryPoint;
@@ -48,7 +60,7 @@ public class PlayerCore : MonoBehaviour
                 OnStartCombo();
                 Debug.Log($"Player {playerId} started Combo!");
             }).AddTo(this);
-        
+
         comboState.Pairwise()
             .Where(pair => pair.Previous == ComboStates.None && pair.Current == ComboStates.Trapped)
             .Subscribe(_ =>
@@ -73,18 +85,57 @@ public class PlayerCore : MonoBehaviour
             .AddTo(this);
 
         comboGaugeValue
-            .Where(value => value <= 0f && comboState.Value == ComboStates.Combo)
+            .Select(v => v <= 0f)          // bool に変換
+            .DistinctUntilChanged()        // 状態変化のみ
+            .Subscribe(isZero =>
+            {
+                if (isZero && comboState.Value == ComboStates.Combo)
+                {
+                    // 既存のタイマーをキャンセル（再度ダメージが来た場合にリスタートする）
+                    comboDepletionTimer?.Dispose();
+                    comboDepletionTimer = Observable.Timer(TimeSpan.FromSeconds(0.1))
+                        .Subscribe(__ =>
+                        {
+                            // タイマー完了時に改めて条件を確認してから発火
+                            if (comboGaugeValue.Value <= 0f && comboState.Value == ComboStates.Combo)
+                            {
+                                Debug.Log($"Player {playerId} combo gauge depleted after 0.1s.");
+                                fightingEP.FinishComboForEveryone();
+                            }
+                            // 終了したので参照をクリア
+                            comboDepletionTimer?.Dispose();
+                            comboDepletionTimer = null;
+                        });
+                }
+                else
+                {
+                    // false（ゲージ回復）になったらタイマーをキャンセル
+                    comboDepletionTimer?.Dispose();
+                    comboDepletionTimer = null;
+                }
+            })
+            .AddTo(this);
+
+        // Endingの状態で1秒経過したらNoneにする
+        comboState.Pairwise()
+            .Where(pair => pair.Previous == ComboStates.Combo && pair.Current == ComboStates.Ending)
             .Subscribe(_ =>
             {
-                fightingEP.FinishComboForEveryone();
-                Debug.Log($"Player {playerId} combo gauge depleted, all combos finished.");
+                Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(__ =>
+                {
+                    if (comboState.Value == ComboStates.Ending)
+                    {
+                        comboState.Value = ComboStates.None;
+                        Debug.Log($"Player {playerId} combo ended after Ending state.");
+                    }
+                }).AddTo(this);
             }).AddTo(this);
     }
 
     // * 基本ステータス
     [Header("基本ステータス")]
-    [SerializeField] IntReactiveProperty maxHealth = new IntReactiveProperty(1000);
-    [SerializeField] IntReactiveProperty currentHealth = new IntReactiveProperty(1000);
+    [SerializeField] public IntReactiveProperty maxHealth = new IntReactiveProperty(1000);
+    [SerializeField] public IntReactiveProperty currentHealth = new IntReactiveProperty(1000);
 
     // * フラグ管理
     [Header("フラグ管理")]
@@ -189,7 +240,7 @@ public class PlayerCore : MonoBehaviour
             }
         }
 
-        // TODO: 判定を取得
+        // 判定を取得
         JudgeResult jr = judgeProvider.Judge(playerId);
         Debug.Log($"Player {playerId} SkillA JudgeResult: {jr}");
 
@@ -197,25 +248,20 @@ public class PlayerCore : MonoBehaviour
         {
             attackingState.Value = AttackingStates.SkillAx;
             onSkill.OnNext((attackingState.Value, jr));
+            Debug.Log($"Player {playerId} has {attackingState.Value} state.");
         }
         else
         {
             attackingState.Value = AttackingStates.SkillA;
             onSkill.OnNext((attackingState.Value, jr));
+            Debug.Log($"Player {playerId} has {attackingState.Value} state.");
         }
     }
 
     public void SkillB()
     {
         // ! スキル、ダメージ中、被コンボ中はロック
-        if (attackingState.Value != AttackingStates.None || isHurting.Value)
-        {
-            return;
-        }
-        // TODO: 判定を取得
-        JudgeResult jr = judgeProvider.Judge(playerId);
-        Debug.Log($"Player {playerId} SkillB JudgeResult: {jr}");
-
+        // ! ただし、コンボ中はスキルを発動できる
         if (attackingState.Value != AttackingStates.None || isHurting.Value)
         {
             if (comboState.Value == ComboStates.Combo)
@@ -226,6 +272,21 @@ public class PlayerCore : MonoBehaviour
             {
                 return;
             }
+        }
+
+        // 判定を取得
+        JudgeResult jr = judgeProvider.Judge(playerId);
+        Debug.Log($"Player {playerId} SkillB JudgeResult: {jr}");
+
+        if (jr == JudgeResult.Critical || jr == JudgeResult.Perfect)
+        {
+            attackingState.Value = AttackingStates.SkillBx;
+            onSkill.OnNext((attackingState.Value, jr));
+        }
+        else
+        {
+            attackingState.Value = AttackingStates.SkillB;
+            onSkill.OnNext((attackingState.Value, jr));
         }
     }
 
@@ -244,13 +305,8 @@ public class PlayerCore : MonoBehaviour
         // -2. ダメージ受け始めの処理 (ダメージモーション開始など)
         isHurting.Value = true;
 
-        if (comboState.Value == ComboStates.Trapped)
-        {
-            comboTrappedCount.Value += 1;
-        }
-
         // # ダメージ計算
-        int finalDamage = damage;
+        int finalDamage;
 
         if (comboState.Value == ComboStates.Trapped)
         {
@@ -261,36 +317,45 @@ public class PlayerCore : MonoBehaviour
             finalDamage = damage;
         }
 
-        // 0. 死亡判定
-            if (currentHealth.Value - finalDamage <= 0)
+
+
+        // * 以下 not死亡時の処理
+        // 1. コンボ系の処理
+        // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
+        if (doStartCombo)
+        {
+            if (attacker.comboState.Value == ComboStates.None && comboState.Value == ComboStates.None)
             {
-                Debug.Log($"Player {playerId} will die.");
-                currentHealth.Value = 0;
-                return;
+                attacker.comboState.Value = ComboStates.Combo;
+                comboState.Value = ComboStates.Trapped;
             }
 
-            // * 以下 not死亡時の処理
-            // 1. コンボ系の処理
-            // 両者の ComboState を参照し、物理演算をここで有効無効を切り替える
-            if (doStartCombo)
-            {
-                if (attacker.comboState.Value == ComboStates.None && comboState.Value == ComboStates.None)
-                {
-                    attacker.comboState.Value = ComboStates.Combo;
-                    comboState.Value = ComboStates.Trapped;
-                }
-
-            }
-
-            // 2. ダメージの適用
-            Debug.Log($"P{attacker.playerId} >> P{playerId} ( {finalDamage}dmg ).");
-            currentHealth.Value -= finalDamage;
-
-            // 3. Knockbackの適用
-            // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
-            // その結果、KBは蓄積され、物理演算再開で超ふっとぶ
-            onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
         }
+
+        if (attacker.comboState.Value == ComboStates.Combo)
+        {
+            comboTrappedCount.Value += 1;
+            attacker.comboDamage.Value += finalDamage;
+            attacker.comboCount.Value += 1;
+        }
+
+        // 0. 死亡判定
+        if (currentHealth.Value - finalDamage <= 0)
+        {
+            Debug.Log($"Player {playerId} will die.");
+            currentHealth.Value = 0;
+            return;
+        }
+
+        // 2. ダメージの適用
+        Debug.Log($"P{attacker.playerId} >> P{playerId} ( {finalDamage}dmg ).");
+        currentHealth.Value -= finalDamage;
+
+        // 3. Knockbackの適用
+        // PlayerMover側で、コンボ中は物理演算を停止し、ノックバックを1/3にする
+        // その結果、KBは蓄積され、物理演算再開で超ふっとぶ
+        onHurtAndKB.OnNext(new Vector2(kbVec.x * transform.localScale.x, kbVec.y));
+    }
 
     // ! 技アニメ、被ダメージアニメ終了時に呼び出すこと
     // ステータスのロックを解除する
@@ -321,6 +386,10 @@ public class PlayerCore : MonoBehaviour
     }
 
     [SerializeField] float comboElapsedTime = 0f;
+
+    [SerializeField] public IntReactiveProperty comboCount = new IntReactiveProperty(0);
+    [SerializeField] public IntReactiveProperty comboDamage = new IntReactiveProperty(0);
+
     [SerializeField] IntReactiveProperty comboTrappedCount = new IntReactiveProperty(0);
 
 
@@ -366,5 +435,8 @@ public class PlayerCore : MonoBehaviour
     {
         comboElapsedTime = 0f;
         comboTrappedCount.Value = 0;
+
+        comboDamage.Value = 0;
+        comboCount.Value = 0;
     }
 }

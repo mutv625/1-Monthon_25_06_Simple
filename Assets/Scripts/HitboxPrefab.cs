@@ -45,10 +45,14 @@ public class HitboxPrefab : MonoBehaviour
         // 1. 敵のPlayerCoreを取得
         if (collision.TryGetComponent(out PlayerCore enemy))
         {
+
+            Debug.Log($"Hitbox OnTriggerEnter2D with Player {enemy.PlayerId}");
             // 2. 自身、既にヒットした敵かどうかを判定
             if (enemy == owner || alreadyHitEnemies.Contains(enemy)) return;
 
             if (enemy.isInvincible.Value) return;
+
+            Debug.Log($"Hitbox hit Player {enemy.PlayerId} by Player {owner.PlayerId} with JudgeResult {judgeResult}");
 
             // 3. Hurtを呼び出す
             // 4. 自身に与えられたJudgeResultに応じてダメージを変化させる
