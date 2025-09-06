@@ -6,14 +6,19 @@ public class UIEntryPoint : MonoBehaviour
 {
     [SerializeField] private FightingEntryPoint fightingEntryPoint;
 
-    [Header("UI References")]
+    [Header("体力バー")]
     [SerializeField] private HealthBarRenderer HealthBarP0;
     [SerializeField] private HealthBarRenderer HealthBarRedP0;
     [SerializeField] private HealthBarRenderer HealthBarP1;
     [SerializeField] private HealthBarRenderer HealthBarRedP1;
 
+    [Header("体力数値")]
     [SerializeField] private HealthValueRenderer HealthValueP0;
     [SerializeField] private HealthValueRenderer HealthValueP1;
+
+    [Header("コンボ表示")]
+    [SerializeField] private ComboDisplayManager ComboDisplayP0;
+    [SerializeField] private ComboDisplayManager ComboDisplayP1;
 
     void Awake()
     {
@@ -34,6 +39,10 @@ public class UIEntryPoint : MonoBehaviour
             // * HealthValueの初期化
             HealthValueP0.Initialize(fightingEntryPoint.players[0]);
             HealthValueP1.Initialize(fightingEntryPoint.players[1]);
+
+            // * ComboDisplayの初期化
+            ComboDisplayP0.Initialize(fightingEntryPoint.players[0]);
+            ComboDisplayP1.Initialize(fightingEntryPoint.players[1]);
 
             // UI表示を順番に
 
