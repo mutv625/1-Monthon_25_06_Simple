@@ -218,10 +218,14 @@ public class FightingEntryPoint : MonoBehaviour
 
     // # 終了処理
 
-    public void EndGame()
+    public void EndGame(int playerId)
     {
+        // 2人プレイ専用
+        resultPayload.winnerPlayerID = 1 - playerId;
         StartCoroutine(EndGameCoroutine());
     }
+
+    public Subject<Unit> onFightingEnd = new();
 
     private IEnumerator EndGameCoroutine()
     {
@@ -229,6 +233,8 @@ public class FightingEntryPoint : MonoBehaviour
 
         // * 戦闘パートの終了処理
         isTimeFlowing = false;
+
+        onFightingEnd.OnNext(Unit.Default);
 
         yield return new WaitForSeconds(4f);
 

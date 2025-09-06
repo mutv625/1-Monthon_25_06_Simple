@@ -376,7 +376,7 @@ public class PlayerCore : MonoBehaviour
     {
         Debug.Log($"Player {playerId} died.");
         // TODO: 死亡処理
-        fightingEP.EndGame();
+        fightingEP.EndGame(playerId);
     }
 
     // # 与コンボ開始時の処理
