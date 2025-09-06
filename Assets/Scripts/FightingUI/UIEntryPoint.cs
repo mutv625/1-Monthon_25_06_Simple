@@ -24,6 +24,9 @@ public class UIEntryPoint : MonoBehaviour
     [SerializeField] private PlayerCore[] players;
     [SerializeField] private PlayerController[] playerLanes = new PlayerController[2];
 
+    [SerializeField] private float laneOffsetX = 1.5f;
+    [SerializeField] private float internalRatio = 0.5f;
+
     void Awake()
     {
         fightingEntryPoint.onFightingReady.Subscribe(_ =>
@@ -71,10 +74,28 @@ public class UIEntryPoint : MonoBehaviour
             var lane = playerControllers[i];
             if (lane != null && players[i] != null)
             {
-                // 位置と回転をPlayerControllerに合わせる
-                lane.SetPose(players[i].transform.position, players[i].PlayerId % 2 == 0 ? 90f : -90f);
+                // 位置と回転をPlayerControllerに追従させる
+                Vector2 targetPos;
+
+                // -> x+    0P / 1P
+                if (players[i].PlayerId % 2 == 0)
+                {
+                    targetPos = new Vector2(players[i].transform.position.x - 1.5f, players[i].transform.position.y);
+                }
+                else
+                {
+                    targetPos = new Vector2(players[i].transform.position.x + 1.5f, players[i].transform.position.y);
+                }
+
+                Vector2 toMove = targetPos - (Vector2)lane.transform.position;
+
+                Vector2 goalPos = (Vector2)lane.transform.position + toMove * internalRatio * Time.deltaTime / 0.2f;
+
+
+                lane.SetPose(goalPos, players[i].PlayerId % 2 == 0 ? 90f : -90f);
+
+
             }
         }
-        
     }
 }
