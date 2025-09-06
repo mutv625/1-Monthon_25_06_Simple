@@ -17,7 +17,7 @@ public class FightingEntryPoint : MonoBehaviour
     [Header("戦闘シーン設定項目")]
     [SerializeField] private bool isTimeFlowing = true;
 
-    [SerializeField] private List<PlayerCore> players = new List<PlayerCore>();
+    [SerializeField] public List<PlayerCore> players = new List<PlayerCore>();
     [SerializeField] private List<SOKeyConfig> keyConfigs = new List<SOKeyConfig>();
     [SerializeField] private List<SOFighterPayload> fighterPayloads = new List<SOFighterPayload>();
 
@@ -29,7 +29,7 @@ public class FightingEntryPoint : MonoBehaviour
     [SerializeField] public AudioListener[] listeners;
     [SerializeField] public RhythmGameManager rhythmGameManager;
 
-    [SerializeField] PlayerController[] playerLanes;
+    [SerializeField] public PlayerController[] playerLanes;
 
     [Header("リズムゲーム設定項目")]
     [SerializeField] public Difficulty[] difficulties;
@@ -49,7 +49,7 @@ public class FightingEntryPoint : MonoBehaviour
     /// <summary>
     /// 戦闘パートのセットアップが完了したときに発行されるイベント
     /// </summary>
-    public Subject<Unit> onFightingReady = new Subject<Unit>();
+    public Subject<Unit> onFightingReady = new();
 
     void Awake()
     {
@@ -149,8 +149,7 @@ public class FightingEntryPoint : MonoBehaviour
 
         rhythmGameManager = rhythmGameManagers[0];
 
-        // // 最初はレーンは非表示にしておく
-        // playerLanes = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+        playerLanes = FindObjectsByType<PlayerController>(FindObjectsSortMode.InstanceID);
 
         // foreach (var lane in playerLanes)
         // {
@@ -160,6 +159,7 @@ public class FightingEntryPoint : MonoBehaviour
         Debug.Log("EP R >> onRhythmGameReady を発行します。");
 
         yield return new WaitForEndOfFrame();
+
         onRhythmGameReady.OnNext(Unit.Default);
     }
 
