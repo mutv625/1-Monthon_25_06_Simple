@@ -29,7 +29,7 @@ public class FightingEntryPoint : MonoBehaviour
     [SerializeField] public AudioListener[] listeners;
     [SerializeField] public RhythmGameManager rhythmGameManager;
 
-    [SerializeField] PlayerController[] playerLanes;
+    [SerializeField] public PlayerController[] playerLanes;
 
     [Header("リズムゲーム設定項目")]
     [SerializeField] public Difficulty[] difficulties;
@@ -149,8 +149,7 @@ public class FightingEntryPoint : MonoBehaviour
 
         rhythmGameManager = rhythmGameManagers[0];
 
-        // // 最初はレーンは非表示にしておく
-        // playerLanes = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+        playerLanes = FindObjectsByType<PlayerController>(FindObjectsSortMode.InstanceID);
 
         // foreach (var lane in playerLanes)
         // {
@@ -160,6 +159,7 @@ public class FightingEntryPoint : MonoBehaviour
         Debug.Log("EP R >> onRhythmGameReady を発行します。");
 
         yield return new WaitForEndOfFrame();
+
         onRhythmGameReady.OnNext(Unit.Default);
     }
 

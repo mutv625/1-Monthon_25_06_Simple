@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -429.16, y: 8.22}
+  m_AnchoredPosition: {x: -429.16, y: 8.220001}
   m_SizeDelta: {x: 705, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &136019958
@@ -1304,6 +1304,10 @@ MonoBehaviour:
   HealthValueP1: {fileID: 594050391}
   ComboDisplayP0: {fileID: 1434392903}
   ComboDisplayP1: {fileID: 2005000994}
+  players: []
+  playerLanes:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &837118662
 Transform:
   m_ObjectHideFlags: 0
@@ -1354,7 +1358,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 429.16, y: 8.22}
+  m_AnchoredPosition: {x: 429.16, y: 8.220001}
   m_SizeDelta: {x: 705, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860140814
@@ -1504,8 +1508,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2146498980}
-  - {fileID: 2005000991}
   - {fileID: 1434392900}
+  - {fileID: 2005000991}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1547,7 +1551,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 6.216}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -680.676, y: -80.934}
+  m_AnchoredPosition: {x: -680.676, y: -80.93399}
   m_SizeDelta: {x: 280.88, y: 60.183}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026804818
@@ -1820,7 +1824,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 429.16, y: 8.22}
+  m_AnchoredPosition: {x: 429.16, y: 8.220001}
   m_SizeDelta: {x: 705, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1356566067
@@ -2029,7 +2033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedFighters: {fileID: 11400000, guid: d2a674b97feb73d4bb903a21ef4509af, type: 2}
-  isRhythmSceneEnabled: 0
+  isRhythmSceneEnabled: 1
   isTimeFlowing: 1
   players: []
   keyConfigs:
@@ -2231,7 +2235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -429.16, y: 8.22}
+  m_AnchoredPosition: {x: -429.16, y: 8.220001}
   m_SizeDelta: {x: 705, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1951455728
@@ -2687,7 +2691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -6.216}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 680.676, y: -80.934}
+  m_AnchoredPosition: {x: 680.676, y: -80.93399}
   m_SizeDelta: {x: 280.88, y: 60.183}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2107445175

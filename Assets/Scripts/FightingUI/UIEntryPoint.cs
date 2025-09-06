@@ -20,6 +20,10 @@ public class UIEntryPoint : MonoBehaviour
     [SerializeField] private ComboDisplayManager ComboDisplayP0;
     [SerializeField] private ComboDisplayManager ComboDisplayP1;
 
+    [Header("リズムパートUI")]
+    [SerializeField] private PlayerCore[] players;
+    [SerializeField] private PlayerController[] playerLanes = new PlayerController[2];
+
     void Awake()
     {
         fightingEntryPoint.onFightingReady.Subscribe(_ =>
@@ -44,9 +48,33 @@ public class UIEntryPoint : MonoBehaviour
             ComboDisplayP0.Initialize(fightingEntryPoint.players[0]);
             ComboDisplayP1.Initialize(fightingEntryPoint.players[1]);
 
-            // UI表示を順番に
+            // * PlayerCoreの参照を保存
+            players = fightingEntryPoint.players.ToArray();
 
-            // TODO: 全部終わったらFightingEntryPointにゲーム開始を通知
-        });
+        }).AddTo(this);
+
+        fightingEntryPoint.onRhythmGameReady.Subscribe(_ =>
+        {
+            // * リズムパートのPlayerControllerの位置を反映するための初期化
+            playerLanes = fightingEntryPoint.playerLanes;
+            fightingEntryPoint.updateInFighting
+                .Subscribe(_ => MovePlayerLanes(playerLanes))
+                .AddTo(this);
+
+        }).AddTo(this);
+    }
+
+    void MovePlayerLanes(params PlayerController[] playerControllers)
+    {
+        for (int i = 0; i < playerControllers.Length; i++)
+        {
+            var lane = playerControllers[i];
+            if (lane != null && players[i] != null)
+            {
+                // 位置と回転をPlayerControllerに合わせる
+                lane.SetPose(players[i].transform.position, - players[i].transform.eulerAngles.z);
+            }
+        }
+        
     }
 }
