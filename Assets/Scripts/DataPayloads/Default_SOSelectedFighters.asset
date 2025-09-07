@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a2ba3a48e47004ab77beeb3b19cdbc, type: 3}
   m_Name: Default_SOSelectedFighters
   m_EditorClassIdentifier: 
-  SelectedFighterIDs: 0200000000000000
+  SelectedFighterIDs: 0400000001000000
   SelectedDifficulties: 0000000000000000
   SelectedSpeeds:
   - 5
