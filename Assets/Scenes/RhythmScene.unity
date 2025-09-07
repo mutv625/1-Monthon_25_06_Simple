@@ -602,7 +602,7 @@ MonoBehaviour:
   - {fileID: 1264792205}
   - {fileID: 46720486}
   hitEffectPrefab: {fileID: 3228284652440142087, guid: 60ee19dc2f3501047a60ca3f09cb3e00, type: 3}
-  timingOffset: 0
+  timingOffset: 0.3
   perfectThreshold: 0.08
   goodThreshold: 0.16
   isDebugMode: 0

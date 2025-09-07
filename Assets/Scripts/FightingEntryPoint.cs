@@ -156,6 +156,10 @@ public class FightingEntryPoint : MonoBehaviour
 
         playerLanes = FindObjectsByType<PlayerController>(FindObjectsSortMode.InstanceID);
 
+        var temp = playerLanes[0];
+        playerLanes[0] = playerLanes[1];
+        playerLanes[1] = temp;
+
         // foreach (var lane in playerLanes)
         // {
         //     UIUtils.SetVisibleRecursively(lane.gameObject, false);
