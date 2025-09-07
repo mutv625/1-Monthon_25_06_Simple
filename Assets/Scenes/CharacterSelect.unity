@@ -3933,7 +3933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 0.6
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -4002,6 +4002,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f9dccac938ec92438f97df28db44f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyConfigs: []
+  selectedFighters: {fileID: 11400000, guid: d2a674b97feb73d4bb903a21ef4509af, type: 2}
   player1Buttons:
   - {fileID: 1202455865}
   - {fileID: 840876025}

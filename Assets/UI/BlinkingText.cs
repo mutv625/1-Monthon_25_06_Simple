@@ -3,7 +3,7 @@ using TMPro;
 
 public class BlinkingText : MonoBehaviour
 {
-    public float blinkSpeed = 1.0f; // “_–Å‘¬“x
+    public float blinkSpeed = 5.0f; // ï¿½_ï¿½Å‘ï¿½ï¿½x
     private TextMeshProUGUI text;
 
     void Start()

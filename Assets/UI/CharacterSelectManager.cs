@@ -7,6 +7,11 @@ public class CharacterSelectManager : MonoBehaviour
 {
     private int selectedIndex1P = 0;
     private int selectedIndex2P = 0;
+
+    [SerializeField] private SOKeyConfig[] keyConfigs;
+    [SerializeField] private SOSelectedFighters selectedFighters;
+
+
     void Update()
     {
         // 決定ボタン（FightButton）は1PはJキー、2PはNum1キーで押せるように
@@ -18,29 +23,36 @@ public class CharacterSelectManager : MonoBehaviour
                 confirmButton.onClick.Invoke();
         }
 
-            // 1P操作
-            if (!player1Selection.HasValue) {
-                if (Input.GetKeyDown(KeyCode.W)) // 上
-                    MoveSelection(1, -1);
-                if (Input.GetKeyDown(KeyCode.S)) // 下
-                    MoveSelection(1, 1);
-                if (Input.GetKeyDown(KeyCode.J)) // 決定
-                    SelectCharacter(1, selectedIndex1P);
-            }
-            if (player1Selection.HasValue && Input.GetKeyDown(KeyCode.K)) // キャンセル
-                CancelSelection(1, player1Selection.Value);
+        // 1P操作
+        if (!player1Selection.HasValue)
+        {
+            if (Input.GetKeyDown(KeyCode.W)) // 上
+                MoveSelection(1, -1);
+            if (Input.GetKeyDown(KeyCode.S)) // 下
+                MoveSelection(1, 1);
+            if (Input.GetKeyDown(KeyCode.E)) // 決定
+                SelectCharacter(1, selectedIndex1P);
+        }
+        if (player1Selection.HasValue && Input.GetKeyDown(KeyCode.Q)) // キャンセル
+            CancelSelection(1, player1Selection.Value);
 
-            // 2P操作
-            if (!player2Selection.HasValue) {
-                if (Input.GetKeyDown(KeyCode.UpArrow)) // 上
-                    MoveSelection(2, -1);
-                if (Input.GetKeyDown(KeyCode.DownArrow)) // 下
-                    MoveSelection(2, 1);
-                if (Input.GetKeyDown(KeyCode.Keypad1)) // 決定
-                    SelectCharacter(2, selectedIndex2P);
-            }
-            if (player2Selection.HasValue && Input.GetKeyDown(KeyCode.Keypad2)) // キャンセル
-                CancelSelection(2, player2Selection.Value);
+        // 2P操作
+        if (!player2Selection.HasValue)
+        {
+            if (Input.GetKeyDown(KeyCode.I)) // 上
+                MoveSelection(2, -1);
+            if (Input.GetKeyDown(KeyCode.K)) // 下
+                MoveSelection(2, 1);
+            if (Input.GetKeyDown(KeyCode.P)) // 決定
+                SelectCharacter(2, selectedIndex2P);
+        }
+        if (player2Selection.HasValue && Input.GetKeyDown(KeyCode.I)) // キャンセル
+            CancelSelection(2, player2Selection.Value);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnConfirm();
+        }
     }
 
     void MoveSelection(int player, int delta)
@@ -175,6 +187,8 @@ public class CharacterSelectManager : MonoBehaviour
     void OnConfirm()
     {
         GameManager.Instance.SetSelections(player1Selection.Value, player2Selection.Value);
+        selectedFighters.SelectedFighterIDs[0] = player1Selection.Value;
+        selectedFighters.SelectedFighterIDs[1] = player2Selection.Value;
         SceneManager.LoadScene("BattleScene"); 
     }
 }
