@@ -3,7 +3,7 @@ using UniRx;
 
 public class InputProvider : MonoBehaviour
 {
-    private SOKeyConfig keyConfig;
+    [SerializeField] private SOKeyConfig keyConfig;
 
     private PlayerCore playerCore;
 
@@ -18,7 +18,8 @@ public class InputProvider : MonoBehaviour
     public void Activate(FightingEntryPoint fightingEntryPoint)
     {
         fightingEntryPoint.updateInFighting
-            .Subscribe(_ => UpdateKeyInput());
+            .Subscribe(_ => UpdateKeyInput())
+            .AddTo(this);
     }
 
     public void UpdateKeyInput()

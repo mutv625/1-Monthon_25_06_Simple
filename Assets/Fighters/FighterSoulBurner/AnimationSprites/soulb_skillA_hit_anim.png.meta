@@ -1,0 +1,426 @@
+fileFormatVersion: 2
+guid: 67f2c626a744d2248846bf86694c75bc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2841430705849138987
+    second: soulb_skillA_hit_anim_0
+  - first:
+      213: -3645751244976431882
+    second: soulb_skillA_hit_anim_1
+  - first:
+      213: -6026215040886227066
+    second: soulb_skillA_hit_anim_2
+  - first:
+      213: 2605668596258953354
+    second: soulb_skillA_hit_anim_3
+  - first:
+      213: -4122622967883805923
+    second: soulb_skillA_hit_anim_4
+  - first:
+      213: -4905246250107068548
+    second: soulb_skillA_hit_anim_5
+  - first:
+      213: -4485724909733544537
+    second: soulb_skillA_hit_anim_6
+  - first:
+      213: 8094639971759469675
+    second: soulb_skillA_hit_anim_7
+  - first:
+      213: 4745102302392164712
+    second: soulb_skillA_hit_anim_8
+  - first:
+      213: 1420233765087632299
+    second: soulb_skillA_hit_anim_9
+  - first:
+      213: 5112914866397193456
+    second: soulb_skillA_hit_anim_10
+  - first:
+      213: -3383490244117122092
+    second: soulb_skillA_hit_anim_11
+  - first:
+      213: 4490539386416082975
+    second: soulb_skillA_hit_anim_12
+  - first:
+      213: 3528894933890248938
+    second: soulb_skillA_hit_anim_13
+  - first:
+      213: 6845841436622029987
+    second: soulb_skillA_hit_anim_14
+  - first:
+      213: 1520991006374225115
+    second: soulb_skillA_hit_anim_15
+  - first:
+      213: 6823906658720915736
+    second: soulb_skillA_hit_anim_16
+  - first:
+      213: 2168353985108835789
+    second: soulb_skillA_hit_anim_17
+  - first:
+      213: 2550675703168329644
+    second: soulb_skillA_hit_anim_18
+  - first:
+      213: 3092715668342710971
+    second: soulb_skillA_hit_anim_19
+  - first:
+      213: 6314028958749741705
+    second: soulb_skillA_hit_anim_20
+  - first:
+      213: 6010145805351248562
+    second: soulb_skillA_hit_anim_21
+  - first:
+      213: 2441360135777929645
+    second: soulb_skillA_hit_anim_22
+  - first:
+      213: -7333831553216975352
+    second: soulb_skillA_hit_anim_23
+  - first:
+      213: -6409739178967830316
+    second: soulb_skillA_hit_anim_24
+  - first:
+      213: 1635720861584696754
+    second: soulb_skillA_hit_anim_25
+  - first:
+      213: 511238617086885303
+    second: soulb_skillA_hit_anim_26
+  - first:
+      213: 7237621403407628962
+    second: soulb_skillA_hit_anim_27
+  - first:
+      213: -4890320980135543559
+    second: soulb_skillA_hit_anim_28
+  - first:
+      213: -8102828093667076297
+    second: soulb_skillA_hit_anim_29
+  - first:
+      213: 3643026397122083496
+    second: soulb_skillA_hit_anim_30
+  - first:
+      213: -7807864596150735395
+    second: soulb_skillA_hit_anim_31
+  - first:
+      213: 3891949549043930452
+    second: soulb_skillA_hit_anim_32
+  - first:
+      213: -8470228185092231287
+    second: soulb_skillA_hit_anim_33
+  - first:
+      213: 6032442834655992685
+    second: soulb_skillA_hit_anim_34
+  - first:
+      213: -4155507484780086378
+    second: soulb_skillA_hit_anim_35
+  - first:
+      213: 6063037156617541717
+    second: soulb_skillA_hit_anim_36
+  - first:
+      213: 552493051326236652
+    second: soulb_skillA_hit_anim_37
+  - first:
+      213: 5512819337193434724
+    second: soulb_skillA_hit_anim_38
+  - first:
+      213: 836421334027746340
+    second: soulb_skillA_hit_anim_39
+  - first:
+      213: 1236495602369168211
+    second: soulb_skillA_hit_anim_40
+  - first:
+      213: 8553690747701495418
+    second: soulb_skillA_hit_anim_41
+  - first:
+      213: 8953739534215257399
+    second: soulb_skillA_hit_anim_42
+  - first:
+      213: 2976880272684308764
+    second: soulb_skillA_hit_anim_43
+  - first:
+      213: 3693280349869039404
+    second: soulb_skillA_hit_anim_44
+  - first:
+      213: 6135362660775041811
+    second: soulb_skillA_hit_anim_45
+  - first:
+      213: 9167165349803146538
+    second: soulb_skillA_hit_anim_46
+  - first:
+      213: -6531522649240517822
+    second: soulb_skillA_hit_anim_47
+  - first:
+      213: 992322298960356156
+    second: soulb_skillA_hit_anim_48
+  - first:
+      213: 3416425004857101661
+    second: soulb_skillA_hit_anim_49
+  - first:
+      213: -1250143477940355847
+    second: soulb_skillA_hit_anim_50
+  - first:
+      213: 4025905994545423851
+    second: soulb_skillA_hit_anim_51
+  - first:
+      213: -2005739758416310344
+    second: soulb_skillA_hit_anim_52
+  - first:
+      213: -7660218010453137912
+    second: soulb_skillA_hit_anim_53
+  - first:
+      213: -4194933806051910262
+    second: soulb_skillA_hit_anim_54
+  - first:
+      213: 8892663112159510370
+    second: soulb_skillA_hit_anim_55
+  - first:
+      213: 8871886810339992740
+    second: soulb_skillA_hit_anim_56
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: soulb_skillA_hit_anim_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d089fbd3d53198d0800000000000000
+      internalID: -2841430705849138987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_hit_anim_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fcddb70f80b76dc0800000000000000
+      internalID: -3645751244976431882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_hit_anim_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68f3cdb39559e5ca0800000000000000
+      internalID: -6026215040886227066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_hit_anim_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a88d76a68c1392420800000000000000
+      internalID: 2605668596258953354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_hit_anim_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1b4b68d04089c6c0800000000000000
+      internalID: -4122622967883805923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_hit_anim_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7f1d8e46801debb0800000000000000
+      internalID: -4905246250107068548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e54f6fbd2c5fd6e4c985d3e1564e4bdb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      soulb_skillA_hit_anim_0: -2841430705849138987
+      soulb_skillA_hit_anim_1: -3645751244976431882
+      soulb_skillA_hit_anim_2: -6026215040886227066
+      soulb_skillA_hit_anim_3: 2605668596258953354
+      soulb_skillA_hit_anim_4: -4122622967883805923
+      soulb_skillA_hit_anim_5: -4905246250107068548
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

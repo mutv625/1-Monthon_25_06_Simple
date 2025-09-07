@@ -1,0 +1,365 @@
+fileFormatVersion: 2
+guid: 33a3e79b290a3a647928776086a0c079
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -519795632768493075
+    second: soulb_skillA_anim_0
+  - first:
+      213: -5001447884878096737
+    second: soulb_skillA_anim_1
+  - first:
+      213: 8912934607936303753
+    second: soulb_skillA_anim_2
+  - first:
+      213: 8803445846967401958
+    second: soulb_skillA_anim_3
+  - first:
+      213: 1086073335835211201
+    second: soulb_skillA_anim_4
+  - first:
+      213: -1764962517888227227
+    second: soulb_skillA_anim_5
+  - first:
+      213: -2027905333599834702
+    second: soulb_skillA_anim_6
+  - first:
+      213: -1842747380305606554
+    second: soulb_skillA_anim_7
+  - first:
+      213: -8764524539893814395
+    second: soulb_skillA_anim_8
+  - first:
+      213: 1723540640616196409
+    second: soulb_skillA_anim_9
+  - first:
+      213: 3111671997619300257
+    second: soulb_skillA_anim_10
+  - first:
+      213: 1975241327354201194
+    second: soulb_skillA_anim_11
+  - first:
+      213: -3625780713665116625
+    second: soulb_skillA_anim_12
+  - first:
+      213: -2052241151824335282
+    second: soulb_skillA_anim_13
+  - first:
+      213: 3442786947437155502
+    second: soulb_skillA_anim_14
+  - first:
+      213: -2033069464776889338
+    second: soulb_skillA_anim_15
+  - first:
+      213: -1437285639443273336
+    second: soulb_skillA_anim_16
+  - first:
+      213: -5216399126095733790
+    second: soulb_skillA_anim_17
+  - first:
+      213: 1823977711738806972
+    second: soulb_skillA_anim_18
+  - first:
+      213: -5945919490889148217
+    second: soulb_skillA_anim_19
+  - first:
+      213: -4146999034488897230
+    second: soulb_skillA_anim_20
+  - first:
+      213: 6272958449674990900
+    second: soulb_skillA_anim_21
+  - first:
+      213: -5997445661582219032
+    second: soulb_skillA_anim_22
+  - first:
+      213: -4389332339997461068
+    second: soulb_skillA_anim_23
+  - first:
+      213: 5344360248345310661
+    second: soulb_skillA_anim_24
+  - first:
+      213: -2124385451411779730
+    second: soulb_skillA_anim_25
+  - first:
+      213: 2695874312752396729
+    second: soulb_skillA_anim_26
+  - first:
+      213: 7840261378568245490
+    second: soulb_skillA_anim_27
+  - first:
+      213: 33039201588425421
+    second: soulb_skillA_anim_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: soulb_skillA_anim_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9d80140a059c8f0800000000000000
+      internalID: -519795632768493075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_anim_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f965633c5a9479ab0800000000000000
+      internalID: -5001447884878096737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_anim_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 982345c9dca11bb70800000000000000
+      internalID: 8912934607936303753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_anim_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ed31ebea5f1c2a70800000000000000
+      internalID: 8803445846967401958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_anim_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c53b76d1f1821f00800000000000000
+      internalID: 1086073335835211201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_anim_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 568a46fe0f79187e0800000000000000
+      internalID: -1764962517888227227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillA_anim_6
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bd69a8e7de6bd3e0800000000000000
+      internalID: -2027905333599834702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5ad833296263c4b4cba8faac132d7151
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      soulb_skillA_anim_0: -519795632768493075
+      soulb_skillA_anim_1: -5001447884878096737
+      soulb_skillA_anim_2: 8912934607936303753
+      soulb_skillA_anim_3: 8803445846967401958
+      soulb_skillA_anim_4: 1086073335835211201
+      soulb_skillA_anim_5: -1764962517888227227
+      soulb_skillA_anim_6: -2027905333599834702
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
