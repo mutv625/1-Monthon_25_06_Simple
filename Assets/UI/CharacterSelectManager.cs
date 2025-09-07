@@ -189,6 +189,6 @@ public class CharacterSelectManager : MonoBehaviour
         GameManager.Instance.SetSelections(player1Selection.Value, player2Selection.Value);
         selectedFighters.SelectedFighterIDs[0] = player1Selection.Value;
         selectedFighters.SelectedFighterIDs[1] = player2Selection.Value;
-        SceneManager.LoadScene("BattleScene"); 
+        SceneManager.LoadScene("TrueFightungScene"); 
     }
 }

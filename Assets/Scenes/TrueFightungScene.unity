@@ -1712,7 +1712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FighterName
+  m_text: Player 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0771d1f6a236e24886581f8e9d26280, type: 2}
   m_sharedMaterial: {fileID: -2764110693512553348, guid: f0771d1f6a236e24886581f8e9d26280, type: 2}
@@ -2683,8 +2683,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3f8d044e590bc2e43ad59cbe616b6260, type: 2}
   - {fileID: 11400000, guid: 275e426a52efc2c42bf42b0d33c9e4f8, type: 2}
   fighterPayloads:
-  - {fileID: 11400000, guid: a3eda85802d258c448c3fea1286229c8, type: 2}
   - {fileID: 11400000, guid: 6f548d9e88dc1b4428d8554a26746387, type: 2}
+  - {fileID: 11400000, guid: ba856d034813cd145a524c4bba24d6fc, type: 2}
+  - {fileID: 11400000, guid: 348c5bd9ea4d56642b7d4ec1ea92304e, type: 2}
   playerPrefab: {fileID: 7554605460664670587, guid: fb4a49f76963f92489058f6c48552ecc, type: 3}
   listeners: []
   rhythmGameManager: {fileID: 0}
@@ -3394,7 +3395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FighterName
+  m_text: Player 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0771d1f6a236e24886581f8e9d26280, type: 2}
   m_sharedMaterial: {fileID: -2764110693512553348, guid: f0771d1f6a236e24886581f8e9d26280, type: 2}
