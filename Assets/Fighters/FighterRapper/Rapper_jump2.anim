@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rapper_hurt1
+  m_Name: Rapper_jump2
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -8974058147016775331, guid: 9dfe05bde5dba483788fcf1e61aa5002, type: 3}
+      value: {fileID: 1793087815597600252, guid: c15f2993a17ac4c42a63c7f905e07fb5, type: 3}
     - time: 0.083333336
-      value: {fileID: 748131442696958706, guid: 9dfe05bde5dba483788fcf1e61aa5002, type: 3}
+      value: {fileID: 2440460123756129134, guid: c15f2993a17ac4c42a63c7f905e07fb5, type: 3}
     - time: 0.16666667
-      value: {fileID: -8872370690579060800, guid: 9dfe05bde5dba483788fcf1e61aa5002, type: 3}
-    - time: 0.6666667
-      value: {fileID: -8872370690579060800, guid: 9dfe05bde5dba483788fcf1e61aa5002, type: 3}
+      value: {fileID: -7947455250872323817, guid: c15f2993a17ac4c42a63c7f905e07fb5, type: 3}
+    - time: 0.25
+      value: {fileID: -2198739104542523131, guid: c15f2993a17ac4c42a63c7f905e07fb5, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,16 +50,16 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -8974058147016775331, guid: 9dfe05bde5dba483788fcf1e61aa5002, type: 3}
-    - {fileID: 748131442696958706, guid: 9dfe05bde5dba483788fcf1e61aa5002, type: 3}
-    - {fileID: -8872370690579060800, guid: 9dfe05bde5dba483788fcf1e61aa5002, type: 3}
-    - {fileID: -8872370690579060800, guid: 9dfe05bde5dba483788fcf1e61aa5002, type: 3}
+    - {fileID: 1793087815597600252, guid: c15f2993a17ac4c42a63c7f905e07fb5, type: 3}
+    - {fileID: 2440460123756129134, guid: c15f2993a17ac4c42a63c7f905e07fb5, type: 3}
+    - {fileID: -7947455250872323817, guid: c15f2993a17ac4c42a63c7f905e07fb5, type: 3}
+    - {fileID: -2198739104542523131, guid: c15f2993a17ac4c42a63c7f905e07fb5, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.75
+    m_StopTime: 0.33333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -78,4 +78,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.25
+    functionName: ResetLockingStatus
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

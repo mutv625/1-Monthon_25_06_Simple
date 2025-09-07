@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66425bba05952284f9c319e8ca33410a, type: 3}
-  m_Name: FighterSoulBurner
+  m_Name: FighterGuitar
   m_EditorClassIdentifier: 
   maxHealth: 8000
   moveSpeed: 1
   jumpForce: 1
   gravity: 1
-  animatorOverrideController: {fileID: 22100000, guid: ddd6231b5382b794a84a0ba4c7edd807, type: 2}
+  animatorOverrideController: {fileID: 9100000, guid: 9cd33bb578489a34ebe70593a15b1420, type: 2}
   hitboxPrefabs:
-  - {fileID: 8476471903901875254, guid: bc8ad0e6e24d9f948b99fca9194464f1, type: 3}
-  - {fileID: 8476471903901875254, guid: bc8ad0e6e24d9f948b99fca9194464f1, type: 3}
-  - {fileID: 7800459155586680431, guid: 6f13923a246db43e693e16e39a0757e4, type: 3}
-  - {fileID: 7800459155586680431, guid: 6f13923a246db43e693e16e39a0757e4, type: 3}
+  - {fileID: 7800459155586680431, guid: 6f1fc8a1073974ba981a3e946743d122, type: 3}
+  - {fileID: 7800459155586680431, guid: 6f1fc8a1073974ba981a3e946743d122, type: 3}
+  - {fileID: 7800459155586680431, guid: 6f1fc8a1073974ba981a3e946743d122, type: 3}
+  - {fileID: 7800459155586680431, guid: 6f1fc8a1073974ba981a3e946743d122, type: 3}
   effectPrefabs: []
