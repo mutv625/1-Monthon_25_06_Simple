@@ -1,0 +1,321 @@
+fileFormatVersion: 2
+guid: e67376b58fd704b838ec9e57b9b3c4a5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3877590928765112679
+    second: soulb_fall2_anim_0
+  - first:
+      213: -6135879598405872819
+    second: soulb_fall2_anim_1
+  - first:
+      213: 6755654598588333241
+    second: soulb_fall2_anim_2
+  - first:
+      213: -3698123154454729227
+    second: soulb_fall2_anim_3
+  - first:
+      213: -5699485829974478787
+    second: soulb_fall2_anim_4
+  - first:
+      213: -2342573604433020393
+    second: soulb_fall2_anim_5
+  - first:
+      213: 3648496945678672382
+    second: soulb_fall2_anim_6
+  - first:
+      213: -8106022815298876899
+    second: soulb_fall2_anim_7
+  - first:
+      213: 833921334430730336
+    second: soulb_fall2_anim_8
+  - first:
+      213: 2754690522231282255
+    second: soulb_fall2_anim_9
+  - first:
+      213: -1978465288590046617
+    second: soulb_fall2_anim_10
+  - first:
+      213: -2304920796045060125
+    second: soulb_fall2_anim_11
+  - first:
+      213: -898112141236988380
+    second: soulb_fall2_anim_12
+  - first:
+      213: -3207637146180290123
+    second: soulb_fall2_anim_13
+  - first:
+      213: -1808832704048236207
+    second: soulb_fall2_anim_14
+  - first:
+      213: 982904035017956667
+    second: soulb_fall2_anim_15
+  - first:
+      213: 6439487821504403499
+    second: soulb_fall2_anim_16
+  - first:
+      213: 7549378910331587489
+    second: soulb_fall2_anim_17
+  - first:
+      213: 799211646651434441
+    second: soulb_fall2_anim_18
+  - first:
+      213: 8880005645042389863
+    second: soulb_fall2_anim_19
+  - first:
+      213: 3273699052756299593
+    second: soulb_fall2_anim_20
+  - first:
+      213: 6554845706133753652
+    second: soulb_fall2_anim_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: soulb_fall2_anim_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7615255c768ffc530800000000000000
+      internalID: 3877590928765112679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_fall2_anim_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d439378b30af8daa0800000000000000
+      internalID: -6135879598405872819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_fall2_anim_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bc771e7018e0cd50800000000000000
+      internalID: 6755654598588333241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_fall2_anim_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fd2413a590adacc0800000000000000
+      internalID: -3698123154454729227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_fall2_anim_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d30bff5b5db57e0b0800000000000000
+      internalID: -5699485829974478787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_fall2_anim_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a309fd7b18d7fd0800000000000000
+      internalID: -2342573604433020393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c6bc8a0c8bd5d4579acd43ddb8886254
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      soulb_fall2_anim_0: 3877590928765112679
+      soulb_fall2_anim_1: -6135879598405872819
+      soulb_fall2_anim_2: 6755654598588333241
+      soulb_fall2_anim_3: -3698123154454729227
+      soulb_fall2_anim_4: -5699485829974478787
+      soulb_fall2_anim_5: -2342573604433020393
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

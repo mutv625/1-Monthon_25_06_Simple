@@ -1,0 +1,483 @@
+fileFormatVersion: 2
+guid: fee941e6fb91e4b998e47cd301f7d9fd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7417776687701658439
+    second: soulb_skillB_effect_anim_0
+  - first:
+      213: 5427654482572346995
+    second: soulb_skillB_effect_anim_1
+  - first:
+      213: -7142918454117736404
+    second: soulb_skillB_effect_anim_2
+  - first:
+      213: 6018088488411131936
+    second: soulb_skillB_effect_anim_3
+  - first:
+      213: 232667993424474739
+    second: soulb_skillB_effect_anim_4
+  - first:
+      213: 5682467045030103837
+    second: soulb_skillB_effect_anim_5
+  - first:
+      213: -1136089537251956514
+    second: soulb_skillB_effect_anim_6
+  - first:
+      213: 2776697403268709896
+    second: soulb_skillB_effect_anim_7
+  - first:
+      213: -3142664421067176508
+    second: soulb_skillB_effect_anim_8
+  - first:
+      213: 308264381496008989
+    second: soulb_skillB_effect_anim_9
+  - first:
+      213: 2665318064675352932
+    second: soulb_skillB_effect_anim_10
+  - first:
+      213: -5386401591490010553
+    second: soulb_skillB_effect_anim_11
+  - first:
+      213: 2962680636179072360
+    second: soulb_skillB_effect_anim_12
+  - first:
+      213: -3824636175703288156
+    second: soulb_skillB_effect_anim_13
+  - first:
+      213: 5158105393478309606
+    second: soulb_skillB_effect_anim_14
+  - first:
+      213: 882228738736325265
+    second: soulb_skillB_effect_anim_15
+  - first:
+      213: 8131714185670566981
+    second: soulb_skillB_effect_anim_16
+  - first:
+      213: -4847504978328039194
+    second: soulb_skillB_effect_anim_17
+  - first:
+      213: -4000874211107311183
+    second: soulb_skillB_effect_anim_18
+  - first:
+      213: 5884314922031540552
+    second: soulb_skillB_effect_anim_19
+  - first:
+      213: -448004994968134218
+    second: soulb_skillB_effect_anim_20
+  - first:
+      213: -366266240858579585
+    second: soulb_skillB_effect_anim_21
+  - first:
+      213: 5488174491412727960
+    second: soulb_skillB_effect_anim_22
+  - first:
+      213: -5618726868176132265
+    second: soulb_skillB_effect_anim_23
+  - first:
+      213: 7847844975718811117
+    second: soulb_skillB_effect_anim_24
+  - first:
+      213: -2752575245925346154
+    second: soulb_skillB_effect_anim_25
+  - first:
+      213: -8429412158349013561
+    second: soulb_skillB_effect_anim_26
+  - first:
+      213: -8973675702208747385
+    second: soulb_skillB_effect_anim_27
+  - first:
+      213: -736044749004649910
+    second: soulb_skillB_effect_anim_28
+  - first:
+      213: 6346030433822897292
+    second: soulb_skillB_effect_anim_29
+  - first:
+      213: -4230941223002604375
+    second: soulb_skillB_effect_anim_30
+  - first:
+      213: 963349744042169466
+    second: soulb_skillB_effect_anim_31
+  - first:
+      213: -1876324963934544109
+    second: soulb_skillB_effect_anim_32
+  - first:
+      213: 7705950771974778734
+    second: soulb_skillB_effect_anim_33
+  - first:
+      213: 644848662517758614
+    second: soulb_skillB_effect_anim_34
+  - first:
+      213: 7267319342864160774
+    second: soulb_skillB_effect_anim_35
+  - first:
+      213: 1717877058895418995
+    second: soulb_skillB_effect_anim_36
+  - first:
+      213: -168531726484743293
+    second: soulb_skillB_effect_anim_37
+  - first:
+      213: -3888589792392394851
+    second: soulb_skillB_effect_anim_38
+  - first:
+      213: -1206932115447553104
+    second: soulb_skillB_effect_anim_39
+  - first:
+      213: -1022997195568732718
+    second: soulb_skillB_effect_anim_40
+  - first:
+      213: 2077115469056447221
+    second: soulb_skillB_effect_anim_41
+  - first:
+      213: -1877010975386903810
+    second: soulb_skillB_effect_anim_42
+  - first:
+      213: 8042974192843600179
+    second: soulb_skillB_effect_anim_43
+  - first:
+      213: -2572480100602472919
+    second: soulb_skillB_effect_anim_44
+  - first:
+      213: 3268933199302348676
+    second: soulb_skillB_effect_anim_45
+  - first:
+      213: 7772764499134931875
+    second: soulb_skillB_effect_anim_46
+  - first:
+      213: 8200491870266041031
+    second: soulb_skillB_effect_anim_47
+  - first:
+      213: 2545785574544906367
+    second: soulb_skillB_effect_anim_48
+  - first:
+      213: -1004454212875947202
+    second: soulb_skillB_effect_anim_49
+  - first:
+      213: 1630068585418689294
+    second: soulb_skillB_effect_anim_50
+  - first:
+      213: -4620161850433592762
+    second: soulb_skillB_effect_anim_51
+  - first:
+      213: -1267284087766461523
+    second: soulb_skillB_effect_anim_52
+  - first:
+      213: 2238228260637099014
+    second: soulb_skillB_effect_anim_53
+  - first:
+      213: -6629304916287487551
+    second: soulb_skillB_effect_anim_54
+  - first:
+      213: 8339306407082320007
+    second: soulb_skillB_effect_anim_55
+  - first:
+      213: 2885050157932875459
+    second: soulb_skillB_effect_anim_56
+  - first:
+      213: -9101988867419308144
+    second: soulb_skillB_effect_anim_57
+  - first:
+      213: -782894945969554149
+    second: soulb_skillB_effect_anim_58
+  - first:
+      213: 3698958402935536740
+    second: soulb_skillB_effect_anim_59
+  - first:
+      213: -8368550569825285896
+    second: soulb_skillB_effect_anim_60
+  - first:
+      213: 8775536095893525585
+    second: soulb_skillB_effect_anim_61
+  - first:
+      213: -2643141747070464409
+    second: soulb_skillB_effect_anim_62
+  - first:
+      213: 4245554586279287003
+    second: soulb_skillB_effect_anim_63
+  - first:
+      213: -6191298058747286894
+    second: soulb_skillB_effect_anim_64
+  - first:
+      213: 6141835369651840823
+    second: soulb_skillB_effect_anim_65
+  - first:
+      213: 8684659911266129296
+    second: soulb_skillB_effect_anim_66
+  - first:
+      213: -2680291494858361760
+    second: soulb_skillB_effect_anim_67
+  - first:
+      213: -1757117743787036835
+    second: soulb_skillB_effect_anim_68
+  - first:
+      213: 7714351950503157456
+    second: soulb_skillB_effect_anim_69
+  - first:
+      213: 6385804250656324972
+    second: soulb_skillB_effect_anim_70
+  - first:
+      213: -5565967127980473503
+    second: soulb_skillB_effect_anim_71
+  - first:
+      213: -8049291230539548729
+    second: soulb_skillB_effect_anim_72
+  - first:
+      213: -3628513679129633214
+    second: soulb_skillB_effect_anim_73
+  - first:
+      213: 3967653592800472646
+    second: soulb_skillB_effect_anim_74
+  - first:
+      213: -7002493562901143163
+    second: soulb_skillB_effect_anim_75
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: soulb_skillB_effect_anim_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b47e525763ce0990800000000000000
+      internalID: -7417776687701658439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillB_effect_anim_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3760845bef6e25b40800000000000000
+      internalID: 5427654482572346995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillB_effect_anim_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c20eab2c2814fdc90800000000000000
+      internalID: -7142918454117736404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillB_effect_anim_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 020fc92589b848350800000000000000
+      internalID: 6018088488411131936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillB_effect_anim_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3723baaae4a9a3300800000000000000
+      internalID: 232667993424474739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soulb_skillB_effect_anim_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1b02e2abad2cde40800000000000000
+      internalID: 5682467045030103837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b6224715e1be24dafa20d0f4c804bbf0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      soulb_skillB_effect_anim_0: -7417776687701658439
+      soulb_skillB_effect_anim_1: 5427654482572346995
+      soulb_skillB_effect_anim_2: -7142918454117736404
+      soulb_skillB_effect_anim_3: 6018088488411131936
+      soulb_skillB_effect_anim_4: 232667993424474739
+      soulb_skillB_effect_anim_5: 5682467045030103837
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
