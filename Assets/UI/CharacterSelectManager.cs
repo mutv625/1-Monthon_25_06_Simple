@@ -43,10 +43,10 @@ public class CharacterSelectManager : MonoBehaviour
                 MoveSelection(2, -1);
             if (Input.GetKeyDown(KeyCode.K)) // 下
                 MoveSelection(2, 1);
-            if (Input.GetKeyDown(KeyCode.P)) // 決定
+            if (Input.GetKeyDown(KeyCode.U)) // 決定
                 SelectCharacter(2, selectedIndex2P);
         }
-        if (player2Selection.HasValue && Input.GetKeyDown(KeyCode.I)) // キャンセル
+        if (player2Selection.HasValue && Input.GetKeyDown(KeyCode.O)) // キャンセル
             CancelSelection(2, player2Selection.Value);
 
         if (Input.GetKeyDown(KeyCode.Space))
