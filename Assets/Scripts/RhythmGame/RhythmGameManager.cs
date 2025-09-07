@@ -14,6 +14,9 @@ public class RhythmGameManager : MonoBehaviour
     public GameObject largeNotePrefab;  // 大ノーツとして生成されるプレハブ
     public PlayerController[] playerControllers;    // 各プレイヤーのコントローラー（PlayerControllerを持つGameObject）をここに設定
 
+    [Tooltip("判定成功時に表示するエフェクトのプレハブ")]
+    public GameObject hitEffectPrefab;
+
     [Header("タイミング設定")]
     [Tooltip("全体のノーツタイミングを調整します。プラスの値で遅く、マイナスの値で早くなります。")]
     public float timingOffset = 0f;
@@ -202,6 +205,13 @@ public class RhythmGameManager : MonoBehaviour
         if (timeDifference > goodThreshold)
         {
             return JudgeResult.None;
+        }
+
+        // 判定ラインの位置にエフェクトを生成する
+        Transform judgementLine = targetPlayer.transform.Find("JudgementLine");
+        if (hitEffectPrefab != null && judgementLine != null)
+        {
+            Instantiate(hitEffectPrefab, judgementLine.position, Quaternion.identity);
         }
 
         // 判定後、リストから削除し、ノーツ自身に破壊を命令

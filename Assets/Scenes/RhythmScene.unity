@@ -232,7 +232,7 @@ MonoBehaviour:
   testIntroBgm: {fileID: 8300000, guid: 03d5beb8738455b4ca9b444f3729cb2a, type: 3}
   testIntroChart: {fileID: 0}
   testLoopBgm: {fileID: 8300000, guid: 4d8b5d66fe3d873419e44eafcc411284, type: 3}
-  testLoopChart: {fileID: 4900000, guid: 1da8c2808fdb8ab4e90fbb74b149dbcf, type: 3}
+  testLoopChart: {fileID: 4900000, guid: 1e43e6154aaa4ef4498f6c43eb62dcb5, type: 3}
   playerDifficulties: 0000000002000000
   enableSimulator: 1
   testWithIntro: 1
@@ -601,6 +601,7 @@ MonoBehaviour:
   playerControllers:
   - {fileID: 1264792205}
   - {fileID: 46720486}
+  hitEffectPrefab: {fileID: 3228284652440142087, guid: 60ee19dc2f3501047a60ca3f09cb3e00, type: 3}
   timingOffset: 0
   perfectThreshold: 0.05
   goodThreshold: 0.1
