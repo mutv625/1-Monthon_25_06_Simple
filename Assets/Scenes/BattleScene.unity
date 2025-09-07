@@ -2676,7 +2676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedFighters: {fileID: 11400000, guid: d2a674b97feb73d4bb903a21ef4509af, type: 2}
-  isRhythmSceneEnabled: 0
+  isRhythmSceneEnabled: 1
   isTimeFlowing: 1
   players: []
   keyConfigs:
