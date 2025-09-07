@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: Default_SOSelectedFighters
   m_EditorClassIdentifier: 
   SelectedFighterIDs: 0000000001000000
+  SelectedDifficulties: 0000000000000000
+  SelectedSpeeds:
+  - 4
+  - 6
+  soundOffset: 0

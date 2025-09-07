@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using System;
+using UnityEditor.Animations;
 
 public class ComboDisplayManager : MonoBehaviour
 {
@@ -11,10 +13,20 @@ public class ComboDisplayManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI comboCountText;
     [SerializeField] private TMPro.TextMeshProUGUI comboDamageText;
 
+    // ゲージ表示用
+    private Image comboGaugeImage;
+    private CanvasGroup canvasGroup;
+    private Animator animator;
+
     public void Initialize(PlayerCore playerCore)
     {
         this.playerCore = playerCore;
+        comboGaugeImage = GetComponent<Image>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        animator = GetComponent<Animator>();
 
+
+        // # コンボの数値表示
         // * 0. 初期表示
         UpdateComboDisplay(0, 0);
 
@@ -23,17 +35,21 @@ public class ComboDisplayManager : MonoBehaviour
             .DistinctUntilChanged()
             .Subscribe(newComboCount =>
             {
-                UpdateComboDisplay(newComboCount, playerCore.comboDamage.Value);
+                Display(newComboCount > 0);
+                if (newComboCount > 0) UpdateComboDisplay(newComboCount, playerCore.comboDamage.Value);
             }).AddTo(this);
 
         // * 2. 0にリセットされたら非表示
-        playerCore.comboCount
+        playerCore.comboState
+            .Where(state => state == ComboStates.None || state == ComboStates.Ending)
+            .Subscribe(_ => Display(false))
+            .AddTo(this);
+
+        // # コンボゲージ表示
+        playerCore.comboGaugeValue
             .DistinctUntilChanged()
-            .Where(count => count == 0)
-            .Subscribe(_ =>
-            {
-                Display(false);
-            }).AddTo(this);
+            .Subscribe(value => UpdateComboGauge(value))
+            .AddTo(this);
     }
 
     private void UpdateComboDisplay(int comboCount, int comboDamage)
@@ -43,9 +59,26 @@ public class ComboDisplayManager : MonoBehaviour
 
         // 必要に応じてアニメーションやエフェクトを追加
     }
-    
+
+    private void UpdateComboGauge(float comboGaugeValue)
+    {
+        if (playerCore == null) return;
+        float gaugeRatio = Mathf.Clamp01(comboGaugeValue / 100);
+
+        comboGaugeImage.fillAmount = gaugeRatio;
+    }
+
     private void Display(bool show)
     {
-        // 表示アニメーション
+        if (show)
+        {
+            animator.SetTrigger("trigPopUp");
+            animator.SetBool("isShown", true);
+        }
+        else
+        {
+            animator.SetBool("isShown", false);
+        }
+
     }
 }

@@ -13,13 +13,10 @@ public class PlayerCore : MonoBehaviour
 
     [SerializeField] private JudgeProvider judgeProvider;
 
-    // TODO: FighterSO から読み込んでステータスの初期化
-
     public PlayerCore SetPlayerId(int id)
     {
         playerId = id;
 
-        // TODO: IDが奇数なら向きを左にする
         if (playerId % 2 == 1)
         {
             transform.localScale = new Vector3(-1, 1, 1);
@@ -130,6 +127,11 @@ public class PlayerCore : MonoBehaviour
                     }
                 }).AddTo(this);
             }).AddTo(this);
+        
+        currentHealth
+            .Where(hp => hp <= 0)
+            .Subscribe(_ => DIE())
+            .AddTo(this);
     }
 
     // * 基本ステータス
@@ -148,9 +150,6 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] BoolReactiveProperty isAppearing = new BoolReactiveProperty(false);
     [SerializeField] public BoolReactiveProperty isDashing = new BoolReactiveProperty(false);
 
-
-    // TODO: 常にこれを基準にプレイヤーの反転(ScaleX)や向き、アニメーションの向きを決定する
-    // ! スキル中は変化しない
     [SerializeField] ReactiveProperty<Vector2> facingDirection = new ReactiveProperty<Vector2>(Vector2.right);
     // * 移動系ステータス
     [Header("移動系ステータス")]
@@ -337,6 +336,8 @@ public class PlayerCore : MonoBehaviour
             comboTrappedCount.Value += 1;
             attacker.comboDamage.Value += finalDamage;
             attacker.comboCount.Value += 1;
+
+            fightingEP.RecordMaxCombo(attacker.playerId, attacker.comboCount.Value, attacker.comboDamage.Value);
         }
 
         // 0. 死亡判定
@@ -363,7 +364,7 @@ public class PlayerCore : MonoBehaviour
     {
         attackingState.Value = AttackingStates.None;
         isHurting.Value = false;
-        // TODO: Ending 状態の扱いを真面目に考える
+
         if (comboState.Value == ComboStates.Ending)
         {
             comboState.Value = ComboStates.None;
@@ -375,14 +376,15 @@ public class PlayerCore : MonoBehaviour
     {
         Debug.Log($"Player {playerId} died.");
         // TODO: 死亡処理
+        fightingEP.EndGame(playerId);
     }
 
     // # 与コンボ開始時の処理
-    [SerializeField] FloatReactiveProperty comboGaugeValue = new FloatReactiveProperty(0f);
-    private float ComboGaugeValue
+    [SerializeField] public FloatReactiveProperty comboGaugeValue = new FloatReactiveProperty(0f);
+    public float ComboGaugeValue
     {
         get => comboGaugeValue.Value;
-        set => comboGaugeValue.Value = Mathf.Clamp(value, 0f, 100f);
+        private set => comboGaugeValue.Value = Mathf.Clamp(value, 0f, 100f);
     }
 
     [SerializeField] float comboElapsedTime = 0f;

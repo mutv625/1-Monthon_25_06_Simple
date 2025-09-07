@@ -32,12 +32,15 @@ public class FightingEntryPoint : MonoBehaviour
     [SerializeField] public PlayerController[] playerLanes;
 
     [Header("リズムゲーム設定項目")]
-    [SerializeField] public Difficulty[] difficulties;
 
     public AudioClip introBgm;
     public TextAsset introChart;
     public AudioClip loopBgm;
     public TextAsset loopChart;
+
+
+    // リザルト用
+    public SOResult resultPayload;
 
 
     // # 初期化処理
@@ -85,14 +88,14 @@ public class FightingEntryPoint : MonoBehaviour
                 selectedFighters.SelectedFighterIDs[0],
                 selectedFighters.SelectedFighterIDs[1]
             );
-        } 
+        }
     }
 
 
     void TestStartGame()
     {
         // 音ゲーパートの曲開始
-        StartRhythmGameWithIntro(difficulties);
+        StartRhythmGameWithIntro(selectedFighters.SelectedDifficulties);
     }
 
 
@@ -115,6 +118,8 @@ public class FightingEntryPoint : MonoBehaviour
 
             players.Add(initializer.InitializePlayer(playerPrefab, i, keyConfigs[i], fighterPayloads[fighterIDs[i]]));
         }
+
+        resultPayload.Reset();
 
         onFightingReady.OnNext(Unit.Default);
     }
@@ -213,7 +218,68 @@ public class FightingEntryPoint : MonoBehaviour
 
     // # 終了処理
 
-    // TODO: 戦闘パートの終了処理
-    // TODO: 音ゲーパートの終了処理
-    // TODO: リザルト画面のセットアップ
+    public void EndGame(int playerId)
+    {
+        // 2人プレイ専用
+        resultPayload.winnerPlayerID = 1 - playerId;
+        StartCoroutine(EndGameCoroutine());
+    }
+
+    public Subject<Unit> onFightingEnd = new();
+
+    private IEnumerator EndGameCoroutine()
+    {
+        Debug.Log("EP >> ゲーム終了処理を開始します。");
+
+        // * 戦闘パートの終了処理
+        isTimeFlowing = false;
+
+        onFightingEnd.OnNext(Unit.Default);
+
+        yield return new WaitForSeconds(4f);
+
+        if (isRhythmSceneEnabled)
+        {
+            // * 音ゲーパートの終了処理
+            if (rhythmGameManager != null)
+            {
+                rhythmGameManager.StopRhythmGame();
+            }
+
+            yield return new WaitForEndOfFrame();
+
+            // * 音ゲーシーンのアンロード
+            var ao = SceneManager.UnloadSceneAsync("RhythmScene");
+            while (!ao.isDone)
+            {
+                yield return null;
+            }
+            Debug.Log("EP >> 音ゲーシーンのアンロードが完了しました。");
+        }
+
+        // * リザルト画面のセットアップ
+        Debug.Log("EP >> リザルト画面へ遷移します。");
+        SceneManager.LoadScene("ResultScene");
+
+        yield break;
+    }
+
+    
+    public void RecordMaxCombo(int playerID, int comboCount, int comboDamage)
+    {
+        if (playerID < 0 || playerID >= resultPayload.maxComboCounts.Length)
+        {
+            Debug.LogError("EP >> playerID の指定が範囲外です。");
+            return;
+        }
+
+        if (comboCount > resultPayload.maxComboCounts[playerID])
+        {
+            resultPayload.maxComboCounts[playerID] = comboCount;
+        }
+        if (comboDamage > resultPayload.maxComboDamages[playerID])
+        {
+            resultPayload.maxComboDamages[playerID] = comboDamage;
+        }
+    }
 }

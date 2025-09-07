@@ -60,7 +60,6 @@ public class PlayerMover : MonoBehaviour
                 {
                     // 拘束中は物理演算オフ
                     rb.bodyType = RigidbodyType2D.Static;
-                    // TODO: その間のMove入力は無視、Inpulseは蓄積する
                 }
                 else
                 {
@@ -167,8 +166,18 @@ public class PlayerMover : MonoBehaviour
     {
         if(rb.bodyType == RigidbodyType2D.Static) return;
 
-        // TODO
-        rb.linearVelocityX = rb.linearVelocityX + (movementX - rb.linearVelocityX) * 0.2f * Time.deltaTime * 60;
-        rb.linearVelocityY = rb.linearVelocityY - glbGravityScale * Time.deltaTime;
+        if (playerCore.jumpCount.Value >= 1)
+        {
+            // 空中にいるときはY速度を更新
+            rb.linearVelocityX = rb.linearVelocityX + (movementX - rb.linearVelocityX) * 0.03f * Time.deltaTime * 60;
+            rb.linearVelocityY = rb.linearVelocityY - glbGravityScale * Time.deltaTime;
+        }
+        else
+        {
+            // 地上にいるとき
+            rb.linearVelocityX = rb.linearVelocityX + (movementX - rb.linearVelocityX) * 0.2f * Time.deltaTime * 60;
+            rb.linearVelocityY = rb.linearVelocityY - glbGravityScale * Time.deltaTime;
+        }
+        
     }
 }
