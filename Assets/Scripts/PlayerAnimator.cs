@@ -68,7 +68,6 @@ public class PlayerAnimator : MonoBehaviour
             .AddTo(this);
 
 
-        // TODO: コンボ中は0.1秒後にアニメーションを止める
         playerCore.isHurting
             .DistinctUntilChanged()
             .Where(isHurting => isHurting)
