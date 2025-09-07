@@ -16,10 +16,10 @@ MonoBehaviour:
   moveSpeed: 1
   jumpForce: 1
   gravity: 1
-  animatorOverrideController: {fileID: 9100000, guid: 9cd33bb578489a34ebe70593a15b1420, type: 2}
+  animatorOverrideController: {fileID: 22100000, guid: 13a50b7fe549f40e7ac80a995ef4ff08, type: 2}
   hitboxPrefabs:
   - {fileID: 7800459155586680431, guid: 6f1fc8a1073974ba981a3e946743d122, type: 3}
   - {fileID: 7800459155586680431, guid: 6f1fc8a1073974ba981a3e946743d122, type: 3}
-  - {fileID: 7800459155586680431, guid: 6f1fc8a1073974ba981a3e946743d122, type: 3}
-  - {fileID: 7800459155586680431, guid: 6f1fc8a1073974ba981a3e946743d122, type: 3}
+  - {fileID: 7800459155586680431, guid: 5f4dc0e9740503847a19131a3bcd5cc9, type: 3}
+  - {fileID: 7800459155586680431, guid: 5f4dc0e9740503847a19131a3bcd5cc9, type: 3}
   effectPrefabs: []
