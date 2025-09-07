@@ -47,25 +47,25 @@ public class FightingGameSimulator : MonoBehaviour
             return; // シミュレーターが無効、または操作対象が設定されていない場合は何もしない
         }
         
-        // "S"キーで、設定に基づいてリズムゲームを開始する
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            if (rhythmGameManager != null && testLoopBgm != null && testLoopChart != null)
-            {
-                if (testWithIntro)
-                {
-                    // イントロ付きで開始
-                    Debug.Log($"【シミュレーター】: イントロ付きで、{testStartTime}秒からゲームを開始します。");
-                    rhythmGameManager.StartRhythmGameWithIntro(testIntroBgm, testIntroChart, testLoopBgm, testLoopChart, testStartTime, playerDifficulties.ToArray());
-                }
-                else
-                {
-                    // 通常の開始
-                    Debug.Log($"【シミュレーター】: {testStartTime}秒からゲームを開始します。");
-                    rhythmGameManager.StartRhythmGame(testLoopBgm, testLoopChart, testStartTime, playerDifficulties.ToArray());
-                }
-            }
-        }
+        // // "S"キーで、設定に基づいてリズムゲームを開始する
+        // if (Input.GetKeyDown(KeyCode.S))
+        // {
+        //     if (rhythmGameManager != null && testLoopBgm != null && testLoopChart != null)
+        //     {
+        //         if (testWithIntro)
+        //         {
+        //             // イントロ付きで開始
+        //             Debug.Log($"【シミュレーター】: イントロ付きで、{testStartTime}秒からゲームを開始します。");
+        //             rhythmGameManager.StartRhythmGameWithIntro(testIntroBgm, testIntroChart, testLoopBgm, testLoopChart, testStartTime, playerDifficulties.ToArray());
+        //         }
+        //         else
+        //         {
+        //             // 通常の開始
+        //             Debug.Log($"【シミュレーター】: {testStartTime}秒からゲームを開始します。");
+        //             rhythmGameManager.StartRhythmGame(testLoopBgm, testLoopChart, testStartTime, playerDifficulties.ToArray());
+        //         }
+        //     }
+        // }
 
         // "X"キーでゲームを停止
         if (Input.GetKeyDown(KeyCode.X))

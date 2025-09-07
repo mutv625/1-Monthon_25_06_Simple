@@ -2780,7 +2780,7 @@ MonoBehaviour:
   introBgm: {fileID: 8300000, guid: 03d5beb8738455b4ca9b444f3729cb2a, type: 3}
   introChart: {fileID: 0}
   loopBgm: {fileID: 8300000, guid: 4d8b5d66fe3d873419e44eafcc411284, type: 3}
-  loopChart: {fileID: 4900000, guid: 1da8c2808fdb8ab4e90fbb74b149dbcf, type: 3}
+  loopChart: {fileID: 4900000, guid: 1e43e6154aaa4ef4498f6c43eb62dcb5, type: 3}
   resultPayload: {fileID: 11400000, guid: 7ef840813f599fc41ba3c6172b3426c6, type: 2}
 --- !u!1 &1778758641
 GameObject:
