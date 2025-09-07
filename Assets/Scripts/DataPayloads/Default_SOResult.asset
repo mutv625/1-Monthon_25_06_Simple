@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f576e8da1a0bf18458e57c0355604c1c, type: 3}
   m_Name: Default_SOResult
   m_EditorClassIdentifier: 
-  winnerPlayerID: -1
-  maxComboCounts: 0000000000000000
-  maxComboDamages: 0000000000000000
+  winnerPlayerID: 0
+  maxComboCounts: 0000000049000000
+  maxComboDamages: 00000000570f0000
